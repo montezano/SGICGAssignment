@@ -18,13 +18,20 @@ class MainWindow
 public:
 	static void initialize(int argc, char *argv[]);
 	static void display();
+	static void input_box();
 
 private:
 	void configure_main_window();
 	void on_main_window_destroy();
+	//void input_box();
+
 
     static GtkBuilder      *_builder;
     static GtkWidget       *_main_window;
+    static GtkButton 	   *_button_line;
+	static GtkButton 	   *_button_point;
+    static GtkButton 	   *_button_polygon;
+
 };
 
 
