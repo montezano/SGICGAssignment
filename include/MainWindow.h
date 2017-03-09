@@ -26,11 +26,10 @@ private:
 	//void input_box();
 
 
-    static GtkBuilder      *_builder;
-    static GtkWidget       *_main_window;
-    static GtkButton 	   *_button_line;
-	static GtkButton 	   *_button_point;
-    static GtkButton 	   *_button_polygon;
+    static GtkBuilder *_builder;
+    static GtkWidget *_main_window;
+		static GtkWidget *_window_box_input;
+
 
 };
 
