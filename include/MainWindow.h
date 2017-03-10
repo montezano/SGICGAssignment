@@ -18,7 +18,10 @@ class MainWindow
 public:
 	static void initialize(int argc, char *argv[]);
 	static void display();
-	static void input_box();
+	static void input_box_point();
+	static void input_box_line();
+	static void input_box_polygon();
+
 
 private:
 	void configure_main_window();
@@ -28,7 +31,10 @@ private:
 
     static GtkBuilder *_builder;
     static GtkWidget *_main_window;
-		static GtkWidget *_window_box_input;
+	static GtkWidget *_window_box_input_point;
+	static GtkWidget *_window_box_input_line;
+	static GtkWidget *_window_box_input_polygon;
+
 
 
 };
