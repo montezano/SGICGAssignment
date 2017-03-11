@@ -18,16 +18,24 @@ public:
 
 	struct Linha
 	{
-		gchar *nome;
-		gchar *tipo;
-		gint x;
-		gint y;
+		const gchar *nome;
+		const gchar *tipo;
+		gdouble inicial_x;
+		gdouble inicial_y;
+		gdouble final_x;
+		gdouble final_y;
 	};
 
 	WindowLinha(GtkWidget *window);
 	void initialize();
 
 	Linha add_linha();
+
+	GtkEntry *_entry_nome;
+	GtkSpinButton *_spinbutton_inicial_x;
+	GtkSpinButton *_spinbutton_inicial_y;
+	GtkSpinButton *_spinbutton_final_x;
+	GtkSpinButton *_spinbutton_final_y;
 
 };
 
