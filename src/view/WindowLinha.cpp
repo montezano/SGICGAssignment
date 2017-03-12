@@ -24,15 +24,14 @@ void WindowLinha::initialize()
 {
 }
 
-Line* WindowLinha::add_linha()
+WindowLinha::Line WindowLinha::add_linha()
 {
 	
 	const char* nome = gtk_entry_get_text(_entry_nome);
-	const char * tipo = "linha";
 	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
 	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
 	gdouble final_x = gtk_spin_button_get_value(_spinbutton_final_x);
 	gdouble final_y = gtk_spin_button_get_value(_spinbutton_final_y);
 	gtk_widget_hide(_window);
-	return new Line(nome,tipo,inicial_x,inicial_y,final_x,final_y);
+	return Line(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
 }

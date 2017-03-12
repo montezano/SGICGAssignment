@@ -14,9 +14,9 @@
 class Point : public Drawable {
 
 public:
-	Point(const gchar *nome, const gchar *tipo, gdouble inicial_x, gdouble inicial_y);
+	Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y);
 	virtual ~Point();
-	void draw(cairo_t* cr);
+	virtual void draw(cairo_t* cr);
 };
 
 #endif /* SRC_MODEL_POINT_H_ */

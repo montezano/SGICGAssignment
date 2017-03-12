@@ -7,23 +7,27 @@
 
 #ifndef SRC_MODEL_DRAWABLE_H_
 #define SRC_MODEL_DRAWABLE_H_
+
 #include <gtk/gtk.h>
+
+#include "util/Vector.h"
 
 class Drawable {
 
 public:
-	Drawable(const gchar *nome, const gchar *tipo, gdouble inicial_x, gdouble inicial_y);
+
+	Drawable(const gchar *nome, double inicial_x, double inicial_y);
+	Drawable(const gchar *nome, double inicial_x, double inicial_y);
+	Drawable(const gchar *nome, Vector vector);
 	virtual ~Drawable();
 
-    virtual void draw(cairo_t* cr) = 0;
-    gdouble getX();
-    gdouble getY();
+	virtual void draw(cairo_t* cr) = 0;
+	Vector getPosition();
 
-private:
-	const gchar *nome;
-	const gchar *tipo;
-	gdouble inicial_x;
-	gdouble inicial_y;
+protected:
+	const gchar *_nome;
+	const gchar *_tipo;
+	Vector _position;
 
 };
 

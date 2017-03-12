@@ -23,7 +23,7 @@ public:
 	~ControllerMainWindow();
 	
 	void display();
-	void addItemListView(WindowLinha::Linha linha);
+	//void addItemListView(WindowLinha::Linha linha);
 private:
 
 	static void input_ponto_cb();

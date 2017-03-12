@@ -11,6 +11,7 @@ class Controller;
 #include "view/Window.h"
 #include "view/WindowLinha.h"
 #include "controller/Controller.h"
+#include "model/Line.h"
 
 using namespace std;
 

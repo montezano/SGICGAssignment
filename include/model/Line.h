@@ -7,17 +7,20 @@
 
 #ifndef SRC_MODEL_LINE_H_
 #define SRC_MODEL_LINE_H_
+
 #include "model/Drawable.h"
+
 
 class Line : public Drawable {
 public:
-	Line(const gchar *nome, const gchar *tipo, gdouble inicial_x, gdouble inicial_y, gdouble final_x, gdouble final_y);
+	Line(const gchar *nome, gdouble inicial_x, gdouble inicial_y, gdouble final_x, gdouble final_y);
+	Line(const gchar *nome, double inicial_x, double inicial_y, double final_x, double final_y);
+	Line(const gchar *nome, Vector init_position, Vector final_position);
 	virtual ~Line();
-	void draw(cairo_t* cr);
+	virtual void draw(cairo_t* cr);
 
 private:
-	gdouble final_x;
-	gdouble final_y;
+	Vector _final_position;
 };
 
 #endif /* SRC_MODEL_LINE_H_ */

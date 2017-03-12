@@ -7,10 +7,10 @@
 /// HEADERS
 /////////////////////////////////
 #include <gtk/gtk.h>
-#include "model/Line.h"
 #include <assert.h>
 
 #include "view/Window.h"
+#include "util/Vector.h"
 
 class WindowLinha : public Window
 {
@@ -20,7 +20,18 @@ public:
 	WindowLinha(GtkWidget *window);
 	void initialize();
 
-	Line* add_linha();
+	struct Line
+	{
+		const gchar *nome;
+		Vector v_inicial;
+		Vector v_final;
+		Line(const gchar *nome, Vector inicial, Vector final) :
+			nome(nome),
+			v_inicial(inicial),
+			v_final(final) {}
+		
+	};
+	Line add_linha();
 
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;
