@@ -11,7 +11,6 @@ class Controller;
 
 #include "view/Window.h"
 #include "view/MainWindow.h"
-
 #include "controller/Controller.h"
 
 using namespace std;
