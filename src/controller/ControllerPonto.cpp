@@ -2,7 +2,7 @@
 
 ControllerPonto::ControllerPonto(GtkBuilder * builder)
 {
-	_window = new WindowPonto(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")));
+	_window = new WindowPonto(GTK_WIDGET(gtk_builder_get_object(builder, "window_ponto")));
 	_controller = Controller::getInstance();
 
 	GtkButton* button;
@@ -32,8 +32,8 @@ void ControllerPonto::add_ponto_cb(GtkWidget *window)
 {
 	WindowPonto::Ponto ponto;
 	ponto = _window->add_ponto();
-	//LUIZ, aqui você pega os valores do struct linha para fazer o que quiser. Estão como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport fará parte do modelo, e acredito que será chamado a partir do controle.
+	//LUIZ, aqui vocï¿½ pega os valores do struct linha para fazer o que quiser. Estï¿½o como tipos primitivos do gtk (gchar, gchar, gint, gint)
+	//O viewport farï¿½ parte do modelo, e acredito que serï¿½ chamado a partir do controle.
 }
 
 WindowPonto *ControllerPonto::_window;

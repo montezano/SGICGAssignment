@@ -15,6 +15,7 @@ ControllerLinha::ControllerLinha(GtkBuilder * builder)
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_linha_cb), _window->getWindow());
 
 	g_signal_connect(_window->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+
 }
 
 ControllerLinha::~ControllerLinha()
@@ -32,8 +33,11 @@ void ControllerLinha::add_linha_cb(GtkWidget * window)
 	linha = _window->add_linha();
 	g_print(linha.nome);
 	g_print(linha.tipo);
-	//LUIZ, aqui você pega os valores do struct linha para fazer o que quiser. Estão como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport fará parte do modelo, e acredito que será chamado a partir do controle.
+	ControllerMainWindow * c;
+	c->addItemListView(linha);
+
+	//LUIZ, aqui vocï¿½ pega os valores do struct linha para fazer o que quiser. Estï¿½o como tipos primitivos do gtk (gchar, gchar, gint, gint)
+	//O viewport farï¿½ parte do modelo, e acredito que serï¿½ chamado a partir do controle.
 }
 
 WindowLinha *ControllerLinha::_window;

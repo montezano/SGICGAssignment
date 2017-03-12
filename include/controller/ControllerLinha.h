@@ -17,6 +17,7 @@ using namespace std;
 class ControllerLinha
 {
 public:
+
 	ControllerLinha(GtkBuilder *builder);
 	virtual ~ControllerLinha();
 
@@ -25,9 +26,7 @@ public:
 private:
 
 	static void add_linha_cb(GtkWidget *window);
-
 	static WindowLinha *_window;
-
 	static Controller *_controller;
 
 };

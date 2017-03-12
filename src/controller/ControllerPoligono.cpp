@@ -3,15 +3,15 @@
 ControllerPoligono::ControllerPoligono(GtkBuilder * builder)
 
 {
-	_window = new WindowPoligono(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")));
+	_window = new WindowPoligono(GTK_WIDGET(gtk_builder_get_object(builder, "window_poligono")));
 
 	GtkButton* button;
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_ponto"));
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_poligono"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window->getWindow());
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_ponto"));
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_poligono"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_poligono_cb), _window->getWindow());
 
@@ -31,8 +31,8 @@ void ControllerPoligono::display()
 void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
 	WindowPoligono::Poligono poligono = _window->add_poligono();
-	//LUIZ, aqui você pega os valores do struct linha para fazer o que quiser. Estão como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport fará parte do modelo, e acredito que será chamado a partir do controle.
+	//LUIZ, aqui vocï¿½ pega os valores do struct linha para fazer o que quiser. Estï¿½o como tipos primitivos do gtk (gchar, gchar, gint, gint)
+	//O viewport farï¿½ parte do modelo, e acredito que serï¿½ chamado a partir do controle.
 }
 
 WindowPoligono *ControllerPoligono::_window;
