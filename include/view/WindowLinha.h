@@ -7,29 +7,32 @@
 /// HEADERS
 /////////////////////////////////
 #include <gtk/gtk.h>
-
 #include <assert.h>
 
 #include "view/Window.h"
+#include "util/Vector.h"
+#include "util/Event.h"
 
 class WindowLinha : public Window
 {
 public:
 
-	struct Linha
-	{
-		const gchar *nome;
-		const gchar *tipo;
-		gdouble inicial_x;
-		gdouble inicial_y;
-		gdouble final_x;
-		gdouble final_y;
-	};
 
 	WindowLinha(GtkWidget *window);
 	void initialize();
 
-	Linha add_linha();
+	struct WinLinha
+	{
+		const gchar *nome;
+		Vector v_inicial;
+		Vector v_final;
+		WinLinha(const gchar *nome, Vector inicial, Vector final) :
+			nome(nome),
+			v_inicial(inicial),
+			v_final(final) {}
+		
+	};
+	WinLinha add_linha();
 
 	virtual void onNotify(Events event);
 

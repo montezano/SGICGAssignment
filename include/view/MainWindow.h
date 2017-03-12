@@ -24,6 +24,7 @@ public:
 
 private:
 	GtkTreeView* _tree_view;
+	GtkDrawingArea* _drawing_area;
 
 
 };

@@ -62,7 +62,9 @@ void ControllerMainWindow::input_poligono_cb()
 	_controller->_window_poligono_controller->display();
 }
 
-//void ControllerMainWindow::addItemListView(WindowLinha::Linha linha) {
+
+//void ControllerMainWindow::addItemListView(WindowLinha::Linha linha)
+//{
 //
 //
 //}

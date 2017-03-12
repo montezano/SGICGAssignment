@@ -24,19 +24,16 @@ void WindowLinha::initialize()
 {
 }
 
-WindowLinha::Linha WindowLinha::add_linha()
+WindowLinha::WinLinha WindowLinha::add_linha()
 {
 	
-	WindowLinha::Linha linha;
-	linha.nome = gtk_entry_get_text(_entry_nome);
-	linha.tipo = "linha";
-	linha.inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
-	linha.inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
-	linha.final_x = gtk_spin_button_get_value(_spinbutton_final_x);
-	linha.final_y = gtk_spin_button_get_value(_spinbutton_final_y);
-
+	const char* nome = gtk_entry_get_text(_entry_nome);
+	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
+	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
+	gdouble final_x = gtk_spin_button_get_value(_spinbutton_final_x);
+	gdouble final_y = gtk_spin_button_get_value(_spinbutton_final_y);
 	gtk_widget_hide(_window);
-	return linha;
+	return WinLinha(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
 }
 
 void WindowLinha::onNotify(Events event)

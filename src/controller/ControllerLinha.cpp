@@ -29,11 +29,11 @@ void ControllerLinha::display()
 
 void ControllerLinha::add_linha_cb(GtkWidget * window)
 {
-	WindowLinha::Linha linha;
-	linha = _window->add_linha();
-	g_print(linha.nome);
-	g_print(linha.tipo);
-	ControllerMainWindow * c;
+	WindowLinha::WinLinha w_line = _window->add_linha();
+	g_print(w_line.nome);
+	Line line = Line(w_line.nome, w_line.v_inicial, w_line.v_final);
+	//g_print(linha.tipo);
+	//ControllerMainWindow * c;
 	//c->addItemListView(linha);
 
 }
