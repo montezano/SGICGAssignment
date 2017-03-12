@@ -34,10 +34,8 @@ void ControllerLinha::add_linha_cb(GtkWidget * window)
 	g_print(linha.nome);
 	g_print(linha.tipo);
 	ControllerMainWindow * c;
-	c->addItemListView(linha);
+	//c->addItemListView(linha);
 
-	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
 }
 
 WindowLinha *ControllerLinha::_window;

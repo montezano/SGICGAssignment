@@ -19,5 +19,8 @@ public:
 	void initialize();
 
 	Poligono add_poligono();
+
+	virtual void onNotify(Events event);
+
 };
 #endif // !__WINDOWPOLIGONO_H__

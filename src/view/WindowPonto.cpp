@@ -22,3 +22,7 @@ WindowPonto::Ponto WindowPonto::add_ponto()
 	gtk_widget_hide(_window);
 	return ponto;
 }
+
+void WindowPonto::onNotify(Events event)
+{
+}

@@ -29,6 +29,8 @@ public:
 
 	Ponto add_ponto();
 
+	virtual void onNotify(Events event);
+
 };
 
 

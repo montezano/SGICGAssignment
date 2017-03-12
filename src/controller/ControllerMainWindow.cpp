@@ -20,7 +20,6 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 	assert(button);
 	g_signal_connect(button, "clicked", G_CALLBACK(input_poligono_cb), NULL);
 
-	treeView = GTK_TREE_VIEW(gtk_builder_get_object(builder, "object_list_treeview"));
 
 //	GtkTreeIter    iter;
 //	GtkTreeModel *model;
@@ -63,10 +62,10 @@ void ControllerMainWindow::input_poligono_cb()
 	_controller->_window_poligono_controller->display();
 }
 
-void ControllerMainWindow::addItemListView(WindowLinha::Linha linha) {
-
-
-}
+//void ControllerMainWindow::addItemListView(WindowLinha::Linha linha) {
+//
+//
+//}
 
 void ControllerMainWindow::input_linha_cb()
 {

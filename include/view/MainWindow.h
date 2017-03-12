@@ -20,6 +20,12 @@ public:
 	virtual ~MainWindow();
 	void initialize();
 
+	virtual void onNotify(Events event);
+
+private:
+	GtkTreeView* _tree_view;
+
+
 };
 
 

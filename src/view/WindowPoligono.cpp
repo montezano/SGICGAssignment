@@ -22,3 +22,7 @@ WindowPoligono::Poligono WindowPoligono::add_poligono()
 	gtk_widget_hide(_window);
 	return poligono;
 }
+
+void WindowPoligono::onNotify(Events event)
+{
+}

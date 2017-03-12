@@ -38,3 +38,8 @@ WindowLinha::Linha WindowLinha::add_linha()
 	gtk_widget_hide(_window);
 	return linha;
 }
+
+void WindowLinha::onNotify(Events event)
+{
+
+}

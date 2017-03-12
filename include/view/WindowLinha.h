@@ -31,6 +31,9 @@ public:
 
 	Linha add_linha();
 
+	virtual void onNotify(Events event);
+
+private:
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;
 	GtkSpinButton *_spinbutton_inicial_y;
