@@ -2,7 +2,7 @@
 
 Controller::Controller(int argc, char *argv[])
 {
-
+	_canvas = new Canvas();
 
 	g_print("Controller build sucessufuly\n");
 }
@@ -61,3 +61,4 @@ ControllerPoligono	*Controller::_window_poligono_controller = NULL;
 
 bool Controller::_initialized = false;
 Controller *Controller::_instance = NULL;
+Canvas *ControllerMainWindow::_canvas = NULL;

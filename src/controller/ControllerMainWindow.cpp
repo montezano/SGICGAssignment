@@ -29,6 +29,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
+	_canvas = new Canvas();
 
 //	GtkTreeIter    iter;
 //	GtkTreeModel *model;
@@ -107,5 +108,6 @@ gboolean ControllerMainWindow::configure_event_cb(GtkWidget * widget, GdkEventCo
 	return _window->configure_event(widget, event, data);
 }
 
-MainWindow *ControllerMainWindow::_window;
-Controller *ControllerMainWindow::_controller;
+MainWindow *ControllerMainWindow::_window = NULL;
+Controller *ControllerMainWindow::_controller = NULL;
+Canvas *ControllerMainWindow::_canvas = NULL;

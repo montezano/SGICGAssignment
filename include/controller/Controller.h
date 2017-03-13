@@ -22,6 +22,7 @@ class ControllerPonto;
 #include "controller/ControllerLinha.h"
 #include "controller/ControllerPonto.h"
 #include "controller/ControllerPoligono.h"
+#include "model/Canvas.h"
 
 
 using namespace std;
@@ -52,6 +53,8 @@ private:
 	static ControllerLinha		*_window_linha_controller;
 	static ControllerPonto		*_window_ponto_controller;
 	static ControllerPoligono	*_window_poligono_controller;
+
+	static Canvas *_canvas;
 
 	static bool _initialized;
 	static Controller *_instance;

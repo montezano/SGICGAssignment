@@ -22,7 +22,7 @@ public:
 	ControllerMainWindow(GtkBuilder *builder);
 
 	~ControllerMainWindow();
-	
+
 	void display();
 
 	void draw_drawable(Drawable *drawable);
@@ -38,8 +38,8 @@ private:
 	static MainWindow *_window;
 	//GtkTreeView* treeView;
 	static Controller *_controller;
+	static Canvas *_canvas;
 
-	
 
 };
 
