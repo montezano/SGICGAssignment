@@ -22,9 +22,10 @@ Line::~Line()
 	// TODO Auto-generated destructor stub
 }
 
-void Line::draw(cairo_t* cr)
+void Line::draw(cairo_surface_t *surface)
 {
-	//TODO fazer transformação de viewport antes
-	cairo_move_to(cr, _position.x, _position.y);
-	cairo_line_to(cr, _final_position.x, _final_position.y);
+	cairo_create(surface);
+	cairo_move_to(_cr, _position.x, _position.y);
+	cairo_line_to(_cr, _final_position.x, _final_position.y);
+	cairo_stroke(_cr);
 }

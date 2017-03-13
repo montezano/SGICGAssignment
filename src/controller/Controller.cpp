@@ -24,6 +24,7 @@ Controller::~Controller()
 
 Controller * Controller::getInstance()
 {
+	assert(_instance);
 	return _instance;
 }
 

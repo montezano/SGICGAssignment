@@ -29,7 +29,7 @@ using namespace std;
 class Controller
 {
 	friend class ControllerMainWindow;
-	//friend class ControllerLinha;
+	friend class ControllerLinha;
 	//friend class ControllerPonto;
 	//friend class ControllerPoligono;
 public:

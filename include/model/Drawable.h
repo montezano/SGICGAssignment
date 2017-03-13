@@ -20,13 +20,15 @@ public:
 	Drawable(const gchar *nome, Vector vector);
 	virtual ~Drawable();
 
-	virtual void draw(cairo_t* cr) = 0;
+	virtual void draw(cairo_surface_t *surface) = 0;
 	Vector getPosition();
 
 protected:
 	const gchar *_nome;
 	const gchar *_tipo;
 	Vector _position;
+	cairo_t *_cr;
+
 
 };
 

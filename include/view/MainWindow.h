@@ -20,11 +20,23 @@ public:
 	virtual ~MainWindow();
 	void initialize();
 
+	GtkDrawingArea* getDrawingArea();
+	cairo_surface_t *getSurface();
+
+	gboolean draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data);
+	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
+
 	virtual void onNotify(Events event);
 
 private:
+
+
+	void clear_surface();
+
+
 	GtkTreeView* _tree_view;
 	GtkDrawingArea* _drawing_area;
+	cairo_surface_t *_surface;
 
 
 };

@@ -30,7 +30,8 @@ GtkWidget * Window::getWindow()
 
 GtkWidget *Window::find_child(GtkWidget* parent, const gchar* name)
 {
-
+	g_print(name);
+	g_print("\n");
 	if (strcmp(g_utf8_casefold(gtk_widget_get_name((GtkWidget*)parent), -1), (gchar*)name) == 0) {
 		return parent;
 	}
