@@ -6,8 +6,8 @@ MainWindow::MainWindow(GtkWidget *window) :
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
 	//_tree_view = GTK_TREE_VIEW(find_child(_window, "treeview_main_object_list"));
-
-	
+	_surface = NULL;
+	g_print("MainWindow build\n");
 }
 
 MainWindow::~MainWindow()
@@ -42,9 +42,13 @@ gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   da
 	return FALSE;
 }
 
-gboolean MainWindow::configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data) {
+gboolean MainWindow::configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
+{
 	if (_surface)
+	{
 		cairo_surface_destroy(_surface);
+	}
+
 
 	_surface = gdk_window_create_similar_surface(gtk_widget_get_window(widget),
 		CAIRO_CONTENT_COLOR,

@@ -30,9 +30,7 @@ public:
 
 private:
 
-
 	void clear_surface();
-
 
 	GtkTreeView* _tree_view;
 	GtkDrawingArea* _drawing_area;

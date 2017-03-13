@@ -7,6 +7,8 @@
 
 #include "model/Line.h"
 
+#include <assert.h>
+
  Line::Line(const gchar * nome, double inicial_x, double inicial_y, double final_x, double final_y) : Drawable(nome, inicial_x, inicial_y)
  {
 	 this->_final_position = Vector(final_x, final_y);
@@ -24,7 +26,8 @@ Line::~Line()
 
 void Line::draw(cairo_surface_t *surface)
 {
-	cairo_create(surface);
+  assert(surface);
+	_cr = cairo_create(surface);
 	cairo_move_to(_cr, _position.x, _position.y);
 	cairo_line_to(_cr, _final_position.x, _final_position.y);
 	cairo_stroke(_cr);

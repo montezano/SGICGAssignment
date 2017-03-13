@@ -9,7 +9,7 @@ Window::Window(GtkWidget * window)
 
 Window::~Window()
 {
-	gtk_widget_destroy(_window);
+	// gtk_widget_destroy(_window);
 }
 
 void Window::display()
@@ -30,8 +30,8 @@ GtkWidget * Window::getWindow()
 
 GtkWidget *Window::find_child(GtkWidget* parent, const gchar* name)
 {
-	g_print(name);
-	g_print("\n");
+	// g_print(name);
+	// g_print("\n");
 	if (strcmp(g_utf8_casefold(gtk_widget_get_name((GtkWidget*)parent), -1), (gchar*)name) == 0) {
 		return parent;
 	}
@@ -53,10 +53,10 @@ GtkWidget *Window::find_child(GtkWidget* parent, const gchar* name)
 				}
 			} while ((children = g_list_next(children)) != NULL);
 		}
-			
-		
-		 
+
+
+
 	}
-	g_print("haven't found something\n");
+	// g_print("haven't found something\n");
 	return NULL;
 }

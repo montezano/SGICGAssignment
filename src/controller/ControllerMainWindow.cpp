@@ -61,6 +61,7 @@ void ControllerMainWindow::display()
 
 void ControllerMainWindow::draw_drawable(Drawable * drawable)
 {
+	assert(drawable);
 	drawable->draw(_window->getSurface());
 }
 

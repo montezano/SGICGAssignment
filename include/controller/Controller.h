@@ -36,7 +36,7 @@ public:
 
 	void operator=(Controller const&) = delete;
 	~Controller();
-	
+
 	static Controller *getInstance();
 	static Controller *initialize(int argc, char *argv[]);
 	static void start();
@@ -46,7 +46,7 @@ private:
 	Controller(int argc, char *argv[]);
 
 
-	GtkBuilder *_builder;
+	static GtkBuilder *_builder;
 
 	static ControllerMainWindow *_main_window_controller;
 	static ControllerLinha		*_window_linha_controller;
