@@ -1,6 +1,7 @@
 #ifndef __CANVAS_H__
 #define __CANVAS_H__
 
+#include <gtk/gtk.h>
 #include <vector>
 
 #include "util/Vector.h"
@@ -9,14 +10,15 @@
 class Canvas
 {
 public:
-  Canvas();
-  virtual ~Canvas();
-  void addLine(char *nome, Vector v_inicial, Vector v_final);
+	Canvas(cairo_surface_t *surface);
+	virtual ~Canvas();
+	void addLine(const char *nome, Vector v_inicial, Vector v_final);
 
-  void drawCanvas();
+	void drawCanvas();
 
 private:
-  std::vector<Drawable*> _canvas;
+	std::vector<Drawable*> _canvas;
+	cairo_surface_t *_surface;
 
 };
 

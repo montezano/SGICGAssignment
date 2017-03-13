@@ -38,6 +38,8 @@ gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   da
 	assert(cr);
 	cairo_set_source_surface(cr, _surface, 0, 0);
 	cairo_paint(cr);
+	gtk_widget_queue_draw(_window);
+
 
 	return FALSE;
 }

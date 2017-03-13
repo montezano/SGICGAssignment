@@ -1,7 +1,11 @@
 #include "model/Canvas.h"
 
-Canvas::Canvas()
+#include <assert.h>
+
+Canvas::Canvas(cairo_surface_t *surface)
 {
+	assert(_surface);
+	_surface = surface;
 }
 
 Canvas::~Canvas()
@@ -9,15 +13,18 @@ Canvas::~Canvas()
 
 }
 
-void Canvas::addLine(char *nome, Vector v_inicial, Vector v_final)
+void Canvas::addLine(const char *nome, Vector v_inicial, Vector v_final)
 {
-  _canvas.push_back(static_cast<Drawable*>(new Line(nome, v_inicial, v_final)));
+	_canvas.push_back(static_cast<Drawable*>(new Line(nome, v_inicial, v_final)));
 }
 
 void Canvas::drawCanvas()
 {
-  for(auto drawable: _canvas.begin())
-  {
-    
-  }
+	g_print("era prater desenhado!!\n");
+	assert(_surface);
+	for(auto drawable: _canvas)
+	{
+		g_print("no for\n");
+		drawable->draw(_surface);
+	}
 }

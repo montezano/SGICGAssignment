@@ -29,7 +29,6 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
-	_canvas = new Canvas();
 
 //	GtkTreeIter    iter;
 //	GtkTreeModel *model;
@@ -63,7 +62,17 @@ void ControllerMainWindow::display()
 void ControllerMainWindow::draw_drawable(Drawable * drawable)
 {
 	assert(drawable);
-	drawable->draw(_window->getSurface());
+	//drawable->draw(_window->getSurface());
+	_canvas->drawCanvas();
+}
+
+void ControllerMainWindow::initialize()
+{
+}
+
+Canvas * ControllerMainWindow::getCanvas()
+{
+	return _canvas;
 }
 
 
@@ -100,12 +109,16 @@ void ControllerMainWindow::input_linha_cb()
 
 gboolean ControllerMainWindow::draw_cb(GtkWidget * widget, cairo_t * cr, gpointer data)
 {
+	_canvas->drawCanvas();
 	return _window->draw_window(widget, cr, data);
 }
 
 gboolean ControllerMainWindow::configure_event_cb(GtkWidget * widget, GdkEventConfigure * event, gpointer data)
 {
-	return _window->configure_event(widget, event, data);
+	gboolean ret = _window->configure_event(widget, event, data);
+	_canvas = new Canvas(_window->getSurface());
+
+	return ret;
 }
 
 MainWindow *ControllerMainWindow::_window = NULL;

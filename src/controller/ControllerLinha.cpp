@@ -32,10 +32,9 @@ void ControllerLinha::display()
 void ControllerLinha::add_linha_cb(GtkWidget * window)
 {
 	WindowLinha::WinLinha w_line = _window->add_linha();
-	g_print(w_line.nome);
-	g_print("\n");
-	_controller->_canvas->addLine(w_line.nome, w_line.v_inicial, w_line.v_final);
-	// _controller->_main_window_controller->draw_drawable((Drawable*)line);
+	//Line *line = new Line(w_line.nome, w_line.v_inicial, w_line.v_final);
+	_controller->_main_window_controller->getCanvas()->addLine(w_line.nome, w_line.v_inicial, w_line.v_final);
+	 //_controller->_main_window_controller->draw_drawable((Drawable*)line);
 
 	//g_print(linha.tipo);
 	//ControllerMainWindow * c;

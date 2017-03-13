@@ -13,6 +13,7 @@ class Controller;
 #include "view/MainWindow.h"
 #include "controller/Controller.h"
 #include "model/Drawable.h"
+#include "model/Canvas.h"
 
 using namespace std;
 
@@ -27,6 +28,9 @@ public:
 
 	void draw_drawable(Drawable *drawable);
 	//void addItemListView(WindowLinha::Linha linha);
+	void initialize();
+
+	Canvas *getCanvas();
 private:
 
 	static void input_ponto_cb();

@@ -54,8 +54,6 @@ private:
 	static ControllerPonto		*_window_ponto_controller;
 	static ControllerPoligono	*_window_poligono_controller;
 
-	static Canvas *_canvas;
-
 	static bool _initialized;
 	static Controller *_instance;
 };
