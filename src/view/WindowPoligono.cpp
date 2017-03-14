@@ -49,7 +49,12 @@ WindowPoligono::WinPoligono WindowPoligono::add_poligono()
 {
 	const char* nome = gtk_entry_get_text(_entry_nome);
 	gtk_widget_hide(_window);
-	return WinPoligono(nome,_v);
+	WinPoligono pol = WinPoligono(nome,_v);
+	gtk_entry_set_text(_entry_nome,"" );
+	gtk_spin_button_set_value (_spinbutton_inicial_x, 0.0);
+	gtk_spin_button_set_value (_spinbutton_inicial_y, 0.0);
+	gtk_list_store_clear(GTK_LIST_STORE(_model));
+	return pol;
 }
 
 void WindowPoligono::onNotify(Events event)

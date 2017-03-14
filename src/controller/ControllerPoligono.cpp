@@ -47,7 +47,7 @@ void ControllerPoligono::add_coords_cb(GtkWidget *window)
 void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
 	WindowPoligono::WinPoligono w_pol = _window->add_poligono();
-	Drawable* pol = new Polygon(w_pol.nome, _coords[0], _coords);
+	Drawable* pol = new Polygon(w_pol.nome.c_str(), _coords[0], _coords);
 	pol->setTipo("poligono");
 	_controller->_main_window_controller->addItemListView(pol);
 	_controller->_main_window_controller->getCanvas()->addDrawable(pol);

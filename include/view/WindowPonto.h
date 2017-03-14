@@ -19,7 +19,7 @@ public:
 
 	struct WinPonto
 	{
-		const gchar *nome;
+		std::string nome;
 		Vector v_inicial;
 		WinPonto(const gchar *nome, Vector inicial) :
 			nome(nome),

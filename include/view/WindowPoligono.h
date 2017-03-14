@@ -11,7 +11,7 @@ public:
 
 	struct WinPoligono
 	{
-		const gchar *nome;
+		std::string nome;
 		std::vector<Vector> coords;
 		WinPoligono(const gchar *nome, std::vector<Vector> aux_coords) :
 			nome(nome),
