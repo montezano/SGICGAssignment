@@ -8,16 +8,16 @@
 #include "model/Polygon.h"
 
 #include <assert.h>
+#include <stdlib.h>
 
- Polygon::Polygon(const gchar * nome, double inicial_x, double inicial_y, std::vector<Vector> coords) : Drawable(nome, inicial_x, inicial_y)
+ Polygon::Polygon(const gchar * nome, double inicial_x, double inicial_y, std::vector<Vector> coords) : Drawable(nome, inicial_x, inicial_y),
+	 _coords(coords)
  {
-	 this->_coords = coords;
  }
 
- Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords) : Drawable(nome, init_position)
+ Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords) : Drawable(nome, init_position),
+	 _coords(coords)
  {
-   this->_nome = nome;
-	 this->_coords = coords;
  }
 
 Polygon::~Polygon()
@@ -27,5 +27,17 @@ Polygon::~Polygon()
 
 void Polygon::draw(cairo_surface_t *surface)
 {
+	assert(surface);
+	_cr = cairo_create(surface);
+	cairo_move_to(_cr, _position.x, _position.y);
 
+	for (int i = 1; i < _coords.size(); i++)
+	{
+		cairo_line_to(_cr, _coords[i].x, _coords[i].y);
+		cairo_stroke(_cr);
+		cairo_move_to(_cr, _coords[i].x, _coords[i].y);
+
+	}
+	cairo_line_to(_cr, _position.x, _position.y);
+	cairo_stroke(_cr);
 }

@@ -32,8 +32,9 @@ WindowLinha::WinLinha WindowLinha::add_linha()
 	gdouble final_x = gtk_spin_button_get_value(_spinbutton_final_x);
 	gdouble final_y = gtk_spin_button_get_value(_spinbutton_final_y);
 	gtk_widget_hide(_window);
-	// gtk_entry_set_text(_entry_nome,"" );
-	return WinLinha(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
+	WinLinha linha = WinLinha(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
+	gtk_entry_set_text(_entry_nome,"" );
+	return linha;
 }
 
 void WindowLinha::onNotify(Events event)

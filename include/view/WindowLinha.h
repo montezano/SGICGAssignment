@@ -23,7 +23,7 @@ public:
 
 	struct WinLinha
 	{
-		const gchar *nome;
+		std::string nome;
 		Vector v_inicial;
 		Vector v_final;
 		WinLinha(const gchar *nome, Vector inicial, Vector final) :
@@ -37,6 +37,7 @@ public:
 	virtual void onNotify(Events event);
 
 private:
+
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;
 	GtkSpinButton *_spinbutton_inicial_y;

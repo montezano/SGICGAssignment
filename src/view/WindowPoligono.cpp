@@ -7,14 +7,17 @@ WindowPoligono::WindowPoligono(GtkWidget * window) :
 	_entry_nome = GTK_ENTRY(find_child(window, "entry_poligono_nome"));
 	assert(_entry_nome);
 
-	_spinbutton_inicial_x = GTK_SPIN_BUTTON(find_child(window, "spinbutton_poligono_x"));
+	_spinbutton_inicial_x = GTK_SPIN_BUTTON(find_child(_window, "spinbutton_poligono_x"));
 	assert(_spinbutton_inicial_x);
 
-	_spinbutton_inicial_y = GTK_SPIN_BUTTON(find_child(window, "spinbutton_poligono_y"));
+	_spinbutton_inicial_y = GTK_SPIN_BUTTON(find_child(_window, "spinbutton_poligono_y"));
 	assert(_spinbutton_inicial_y);
 
-	_treeView = GTK_TREE_VIEW(find_child(window, "treeview_poligono"));
+	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_poligono"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
+
+	_v = std::vector<Vector>();
+
 
 }
 
@@ -22,12 +25,13 @@ void WindowPoligono::initialize()
 {
 }
 
-std::vector<Vector> WindowPoligono::add_coords()
+Vector WindowPoligono::add_coords()
 {
 	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
 	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
-	Vector vector(inicial_x,inicial_y);
-	this->v.push_back(vector);
+	g_print("x: %f, y: %f\n", inicial_x, inicial_y);
+
+	//_v.push_back(Vector(inicial_x, inicial_y));
 	gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
 	gtk_list_store_set(GTK_LIST_STORE(_model),
 												&_iter,
@@ -37,15 +41,15 @@ std::vector<Vector> WindowPoligono::add_coords()
 												inicial_y,
 												-1);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
-														 _model);
-	return this->v;
+											 _model);
+	return Vector(inicial_x, inicial_y);
 }
 
-WindowPoligono::WinPoligono WindowPoligono::add_poligono(std::vector<Vector> v)
+WindowPoligono::WinPoligono WindowPoligono::add_poligono()
 {
 	const char* nome = gtk_entry_get_text(_entry_nome);
 	gtk_widget_hide(_window);
-	return WinPoligono(nome,v);
+	return WinPoligono(nome,_v);
 }
 
 void WindowPoligono::onNotify(Events event)

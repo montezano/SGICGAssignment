@@ -1242,8 +1242,8 @@
                         <child>
                           <object class="GtkCellRendererText" id="cellrendererspinner4"/>
                           <attributes>
-                            <attribute name="visible">0</attribute>
-                            <attribute name="text">0</attribute>
+                            <attribute name="visible">1</attribute>
+                            <attribute name="text">1</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -1345,6 +1345,7 @@
                         <property name="adjustment">adj_spin_li_in_x</property>
                         <property name="climb_rate">0.5</property>
                         <property name="digits">2</property>
+                        <property name="numeric">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1384,6 +1385,7 @@
                         <property name="adjustment">adj_spin_li_in_y</property>
                         <property name="climb_rate">0.5</property>
                         <property name="digits">2</property>
+                        <property name="numeric">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1396,6 +1398,22 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_add_coordinates">
+                    <property name="label" translatable="yes">ADD</property>
+                    <property name="name">button_add_coordinates</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -1418,9 +1436,9 @@
                 <property name="spacing">91</property>
                 <property name="layout_style">start</property>
                 <child>
-                  <object class="GtkButton" id="button_ok_coordinates">
+                  <object class="GtkButton" id="button_ok_poligono">
                     <property name="label" translatable="yes">OK</property>
-                    <property name="name">button_ok_coordinates</property>
+                    <property name="name">button_ok_poligono</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1432,9 +1450,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="button_poligono_cancel">
+                  <object class="GtkButton" id="button_cancel_poligono">
                     <property name="label" translatable="yes">Cancelar</property>
-                    <property name="name">button_poligono_cancel</property>
+                    <property name="name">button_cancel_poligono</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1457,35 +1475,6 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButtonBox" id="buttonbox5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="orientation">vertical</property>
-            <property name="layout_style">start</property>
-            <child>
-              <object class="GtkButton" id="button_ok_poligono">
-                <property name="label" translatable="yes">Confirmar</property>
-                <property name="name">button_ok_poligono</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
           </packing>
         </child>
       </object>

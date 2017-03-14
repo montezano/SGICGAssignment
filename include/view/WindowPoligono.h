@@ -13,17 +13,17 @@ public:
 	{
 		const gchar *nome;
 		std::vector<Vector> coords;
-		WinPoligono(const gchar *nome, std::vector<Vector> coords) :
+		WinPoligono(const gchar *nome, std::vector<Vector> aux_coords) :
 			nome(nome),
-			coords(coords) {}
+			coords(aux_coords) {}
 
 	};
 
 	WindowPoligono(GtkWidget *window);
 	void initialize();
 
-	std::vector<Vector> add_coords();
-	WinPoligono add_poligono(std::vector<Vector> v);
+	Vector add_coords();
+	WinPoligono add_poligono();
 
 	virtual void onNotify(Events event);
 
@@ -31,7 +31,7 @@ private:
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;
 	GtkSpinButton *_spinbutton_inicial_y;
-	std::vector<Vector> v;
+	std::vector<Vector> _v;
 	GtkTreeView* _treeView;
 	GtkTreeIter    _iter;
 	GtkTreeModel *_model;
