@@ -7,7 +7,7 @@ ControllerPoligono::ControllerPoligono(GtkBuilder * builder)
 
 	GtkButton* button;
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_poligono"));
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_poligono_cancel"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window->getWindow());
 

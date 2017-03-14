@@ -7,10 +7,10 @@ WindowPoligono::WindowPoligono(GtkWidget * window) :
 	_entry_nome = GTK_ENTRY(find_child(window, "entry_poligono_nome"));
 	assert(_entry_nome);
 
-	_spinbutton_inicial_x = GTK_SPIN_BUTTON(find_child(window, "spin_button_poligono_x"));
+	_spinbutton_inicial_x = GTK_SPIN_BUTTON(find_child(window, "spinbutton_poligono_x"));
 	assert(_spinbutton_inicial_x);
 
-	_spinbutton_inicial_y = GTK_SPIN_BUTTON(find_child(window, "spin_button_poligono_y"));
+	_spinbutton_inicial_y = GTK_SPIN_BUTTON(find_child(window, "spinbutton_poligono_y"));
 	assert(_spinbutton_inicial_y);
 
 	_treeView = GTK_TREE_VIEW(find_child(window, "treeview_poligono"));
