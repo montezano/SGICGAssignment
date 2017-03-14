@@ -32,7 +32,8 @@ public:
 
 	WinPonto add_ponto();
 
-	virtual void onNotify(Events event);
+	virtual void onNotify(void *data, Events event);
+
 private:
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;

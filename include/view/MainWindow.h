@@ -11,6 +11,7 @@
 #include <assert.h>
 
 #include "view/Window.h"
+#include "model/Drawable.h"
 
 class MainWindow : public Window
 {
@@ -26,7 +27,7 @@ public:
 	gboolean draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
-	virtual void onNotify(Events event);
+	virtual void onNotify(void *data, Events event);
 
 private:
 
@@ -35,6 +36,10 @@ private:
 	GtkTreeView* _tree_view;
 	GtkDrawingArea* _drawing_area;
 	cairo_surface_t *_surface;
+
+	GtkTreeView* _treeView;
+	GtkTreeIter    _iter;
+	GtkTreeModel *_model;
 
 
 };

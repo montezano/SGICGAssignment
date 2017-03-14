@@ -5,9 +5,10 @@
 #include <vector>
 
 #include "util/Vector.h"
+#include "util/Subject.h"
 #include "model/Line.h"
 
-class Canvas
+class Canvas : public Subject
 {
 public:
 	Canvas(cairo_surface_t *surface);

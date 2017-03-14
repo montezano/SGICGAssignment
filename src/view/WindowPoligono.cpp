@@ -52,6 +52,6 @@ WindowPoligono::WinPoligono WindowPoligono::add_poligono()
 	return WinPoligono(nome,_v);
 }
 
-void WindowPoligono::onNotify(Events event)
+void WindowPoligono::onNotify(void * data, Events event)
 {
 }

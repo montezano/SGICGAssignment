@@ -3,9 +3,7 @@
 
 enum Events
 {
-	ADD_PONTO,
-	ADD_LINHA,
-	ADD_POLIGONO
+	ADD_DRAWABLE
 };
 
 #endif // !__EVENT_H__

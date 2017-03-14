@@ -27,6 +27,6 @@ WindowPonto::WinPonto WindowPonto::add_ponto()
 	return WinPonto(nome, Vector(inicial_x, inicial_y));
 }
 
-void WindowPonto::onNotify(Events event)
+void WindowPonto::onNotify(void * data, Events event)
 {
 }

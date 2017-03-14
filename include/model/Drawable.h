@@ -9,10 +9,12 @@
 #define SRC_MODEL_DRAWABLE_H_
 
 #include <gtk/gtk.h>
+#include <string>
 
 #include "util/Vector.h"
 
-class Drawable {
+class Drawable
+{
 
 public:
 
@@ -27,7 +29,7 @@ public:
 	const gchar* getNome();
 
 protected:
-	const gchar *_nome;
+	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;
 	cairo_t *_cr;

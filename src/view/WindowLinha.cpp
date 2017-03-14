@@ -37,7 +37,6 @@ WindowLinha::WinLinha WindowLinha::add_linha()
 	return linha;
 }
 
-void WindowLinha::onNotify(Events event)
+void WindowLinha::onNotify(void * data, Events event)
 {
-
 }

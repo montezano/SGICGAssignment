@@ -5,6 +5,10 @@ MainWindow::MainWindow(GtkWidget *window) :
 {
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
+
+	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_object_list"));
+	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
+
 	//_tree_view = GTK_TREE_VIEW(find_child(_window, "treeview_main_object_list"));
 	_surface = NULL;
 	g_print("MainWindow build\n");
@@ -29,8 +33,22 @@ cairo_surface_t * MainWindow::getSurface()
 	return _surface;
 }
 
-void MainWindow::onNotify(Events event)
+void MainWindow::onNotify(void *data, Events event)
 {
+	switch (event)
+	{
+	case Events::ADD_DRAWABLE:
+		gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
+		gtk_list_store_set(GTK_LIST_STORE(_model),
+			&_iter,
+			0,
+			static_cast<Drawable*>(data)->getNome(),
+			1,
+			static_cast<Drawable*>(data)->getTipo(),
+			-1);
+		gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
+			_model);
+	}
 }
 
 gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data)

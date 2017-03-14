@@ -81,16 +81,7 @@ void ControllerMainWindow::input_poligono_cb()
 
 void ControllerMainWindow::addItemListView(Drawable *drawable)
 {
-	gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
-	gtk_list_store_set(GTK_LIST_STORE(_model),
-												&_iter,
-												0,
-												drawable->getNome(),
-												1,
-												drawable->getTipo(),
-												-1);
-	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
-														 _model);
+
 
 }
 
@@ -110,6 +101,8 @@ gboolean ControllerMainWindow::configure_event_cb(GtkWidget * widget, GdkEventCo
 {
 	gboolean ret = _window->configure_event(widget, event, data);
 	_canvas = new Canvas(_window->getSurface());
+	_canvas->addObserver(static_cast<Observer*>(_window));
+
 
 	return ret;
 }

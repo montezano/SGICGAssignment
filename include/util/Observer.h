@@ -7,7 +7,7 @@ class Observer
 {
 public:
 	virtual ~Observer() {};
-	virtual void onNotify(Events event) = 0;
+	virtual void onNotify(void *data, Events event) = 0;
 
 };
 

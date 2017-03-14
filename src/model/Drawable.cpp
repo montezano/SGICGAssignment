@@ -7,15 +7,15 @@
 
 #include "model/Drawable.h"
 
- Drawable::Drawable(const gchar * nome, double inicial_x, double inicial_y)
+ Drawable::Drawable(const gchar * nome, double inicial_x, double inicial_y) :
+	 _nome(nome)
  {
-	 this->_nome = nome;
 	 this->_position = Vector(inicial_x, inicial_y);
  }
 
- Drawable::Drawable(const gchar * nome, Vector vector)
+ Drawable::Drawable(const gchar * nome, Vector vector) :
+	 _nome(nome)
  {
-   this->_nome = nome;
 	 this->_position = vector;
  }
 
@@ -29,8 +29,8 @@
  }
 
  const gchar* Drawable::getNome(){
-   g_print(_nome);
-   return _nome;
+   g_print(_nome.c_str());
+   return _nome.c_str();
  }
  const gchar* Drawable::getTipo(){
    return _tipo;
