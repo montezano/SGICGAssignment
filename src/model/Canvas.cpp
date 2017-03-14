@@ -13,18 +13,18 @@ Canvas::~Canvas()
 
 }
 
-void Canvas::addLine(const char *nome, Vector v_inicial, Vector v_final)
+void Canvas::addDrawable(Drawable* d)
 {
-	_canvas.push_back(static_cast<Drawable*>(new Line(nome, v_inicial, v_final)));
+	_canvas.push_back(static_cast<Drawable*>(d));
 }
 
 void Canvas::drawCanvas()
 {
-	g_print("era prater desenhado!!\n");
+	// g_print("era prater desenhado!!\n");
 	assert(_surface);
 	for(auto drawable: _canvas)
 	{
-		g_print("no for\n");
+		// g_print("no for\n");
 		drawable->draw(_surface);
 	}
 }

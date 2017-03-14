@@ -27,7 +27,7 @@ public:
 	void display();
 
 	void draw_drawable(Drawable *drawable);
-	//void addItemListView(WindowLinha::Linha linha);
+	void addItemListView(Drawable * drawable);
 	void initialize();
 
 	Canvas *getCanvas();
@@ -40,7 +40,9 @@ private:
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
 	static MainWindow *_window;
-	//GtkTreeView* treeView;
+	GtkTreeView* _treeView;
+	GtkTreeIter    _iter;
+	GtkTreeModel *_model;
 	static Controller *_controller;
 	static Canvas *_canvas;
 

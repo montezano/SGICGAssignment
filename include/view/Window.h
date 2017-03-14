@@ -7,13 +7,16 @@
 
 #include <gtk/gtk.h>
 #include <assert.h>
-#include <string.h>
+#include <string>
+#include <cstring>
+
+
 
 class Window : public Observer
 {
 public:
 	Window(GtkWidget *window);
-	virtual ~Window();	
+	virtual ~Window();
 	virtual void initialize() = 0;
 
 	virtual void display();
@@ -22,7 +25,7 @@ public:
 	GtkWidget *getWindow();
 
 	virtual void onNotify(Events event) = 0;
-	
+
 protected:
 
 	GtkWidget *find_child(GtkWidget* parent, const gchar* name);

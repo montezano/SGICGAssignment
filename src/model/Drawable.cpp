@@ -15,14 +15,27 @@
 
  Drawable::Drawable(const gchar * nome, Vector vector)
  {
-	 _position = vector;
+   this->_nome = nome;
+	 this->_position = vector;
  }
 
- Drawable::~Drawable() 
+ Drawable::~Drawable()
 {
 }
 
  Vector Drawable::getPosition()
  {
 	 return _position;
+ }
+
+ const gchar* Drawable::getNome(){
+   g_print(_nome);
+   return _nome;
+ }
+ const gchar* Drawable::getTipo(){
+   return _tipo;
+ }
+
+ void Drawable::setTipo(const gchar* tipo){
+   _tipo = tipo;
  }

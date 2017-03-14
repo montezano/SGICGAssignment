@@ -11,25 +11,32 @@
 #include <assert.h>
 
 #include "view/Window.h"
+#include "util/Vector.h"
 
 class WindowPonto : public Window
 {
 public:
 
-	struct Ponto
+	struct WinPonto
 	{
-		gchar *nome;
-		gchar *tipo;
-		gint x;
-		gint y;
+		const gchar *nome;
+		Vector v_inicial;
+		WinPonto(const gchar *nome, Vector inicial) :
+			nome(nome),
+			v_inicial(inicial) {}
+
 	};
 
-	WindowPonto(GtkWidget *window);	
+	WindowPonto(GtkWidget *window);
 	void initialize();
 
-	Ponto add_ponto();
+	WinPonto add_ponto();
 
 	virtual void onNotify(Events event);
+private:
+	GtkEntry *_entry_nome;
+	GtkSpinButton *_spinbutton_inicial_x;
+	GtkSpinButton *_spinbutton_inicial_y;
 
 };
 

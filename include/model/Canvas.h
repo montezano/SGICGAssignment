@@ -12,7 +12,7 @@ class Canvas
 public:
 	Canvas(cairo_surface_t *surface);
 	virtual ~Canvas();
-	void addLine(const char *nome, Vector v_inicial, Vector v_final);
+	void addDrawable(Drawable* d);
 
 	void drawCanvas();
 

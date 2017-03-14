@@ -16,6 +16,7 @@
 
  Line::Line(const gchar * nome, Vector init_position, Vector final_position) : Drawable(nome, init_position)
  {
+   this->_nome = nome;
 	 this->_final_position = final_position;
  }
 

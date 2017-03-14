@@ -9,6 +9,8 @@ class Controller;
 #include <assert.h>
 
 #include "view/WindowPonto.h"
+#include "view/Window.h"
+#include "model/Point.h"
 #include "controller/Controller.h"
 
 using namespace std;

@@ -22,12 +22,16 @@ public:
 
 	virtual void draw(cairo_surface_t *surface) = 0;
 	Vector getPosition();
+	void setTipo(const gchar* tipo);
+	const gchar* getTipo();
+	const gchar* getNome();
 
 protected:
 	const gchar *_nome;
 	const gchar *_tipo;
 	Vector _position;
 	cairo_t *_cr;
+
 
 
 };

@@ -30,7 +30,7 @@ public:
 			nome(nome),
 			v_inicial(inicial),
 			v_final(final) {}
-		
+
 	};
 	WinLinha add_linha();
 

@@ -11,11 +11,16 @@ ControllerPoligono::ControllerPoligono(GtkBuilder * builder)
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window->getWindow());
 
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_coordinates"));
+	assert(button);
+	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_coords_cb), _window->getWindow());
+
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_poligono"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_poligono_cb), _window->getWindow());
 
 	g_signal_connect(_window->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+	_controller = Controller::getInstance();
 
 }
 
@@ -28,11 +33,24 @@ void ControllerPoligono::display()
 	_window->display();
 }
 
+void ControllerPoligono::add_coords_cb(GtkWidget *window)
+{
+	_coords = _window->add_coords();
+	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
+	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
+}
 void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
-	WindowPoligono::Poligono poligono = _window->add_poligono();
+	WindowPoligono::WinPoligono w_pol = _window->add_poligono(_coords);
+	Vector inicial = w_pol.coords.front();
+	Drawable* pol = new Polygon(w_pol.nome,inicial, w_pol.coords);
+	pol->setTipo("poligono");
+	_controller->_main_window_controller->addItemListView(pol);
+	// _controller->_main_window_controller->getCanvas()->addDrawable(pol);
 	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
 	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
 }
 
 WindowPoligono *ControllerPoligono::_window;
+std::vector<Vector> ControllerPoligono::_coords;
+Controller *ControllerPoligono::_controller = NULL;

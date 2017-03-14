@@ -29,24 +29,8 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
-
-//	GtkTreeIter    iter;
-//	GtkTreeModel *model;
-//	model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeView));
-//	gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-//	gtk_list_store_set(GTK_LIST_STORE(model),
-//	                      &iter,
-//	                      0,
-//	                      "John",
-//	                      1,
-//	                      "Doe",
-//	                      2,
-//	                      "Somewhere",
-//	                      3,
-//	                      "KS",
-//	                      -1);
-//	gtk_tree_view_set_model(GTK_TREE_VIEW(treeView),
-//	                           model);
+	_treeView = GTK_TREE_VIEW(gtk_builder_get_object(builder, "object_list_treeview"));
+	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
 
 }
 
@@ -95,11 +79,20 @@ void ControllerMainWindow::input_poligono_cb()
 }
 
 
-//void ControllerMainWindow::addItemListView(WindowLinha::Linha linha)
-//{
-//
-//
-//}
+void ControllerMainWindow::addItemListView(Drawable *drawable)
+{
+	gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
+	gtk_list_store_set(GTK_LIST_STORE(_model),
+												&_iter,
+												0,
+												drawable->getNome(),
+												1,
+												drawable->getTipo(),
+												-1);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
+														 _model);
+
+}
 
 void ControllerMainWindow::input_linha_cb()
 {
