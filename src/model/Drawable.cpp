@@ -29,7 +29,6 @@
  }
 
  const gchar* Drawable::getNome(){
-   g_print(_nome);
    return _nome;
  }
  const gchar* Drawable::getTipo(){

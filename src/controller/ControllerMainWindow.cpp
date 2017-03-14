@@ -23,6 +23,9 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 	assert(button);
 	g_signal_connect(button, "clicked", G_CALLBACK(input_poligono_cb), NULL);
 
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "buttom_remove_object"));
+	assert(button);
+	g_signal_connect(button, "clicked", G_CALLBACK(remove_object), NULL);
 
 	g_signal_connect(_window->getDrawingArea(), "configure-event", G_CALLBACK(configure_event_cb), NULL);
 
@@ -78,16 +81,29 @@ void ControllerMainWindow::input_poligono_cb()
 	_controller->_window_poligono_controller->display();
 }
 
+void ControllerMainWindow::remove_object(){
+	GtkTreeSelection *selection;
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(_treeView));
+	if (gtk_tree_selection_get_selected(selection, &_model, &_iter)){
+	 const gchar *name;
+	 gtk_tree_model_get (_model, &_iter, 0, &name, -1);
+	 g_print ("selected row is: %s\n", name);
+	 _canvas->deleteDrawable(name);
+ }else {
+	 g_print ("no row selected.\n");
+ }
 
-void ControllerMainWindow::addItemListView(Drawable *drawable)
+}
+
+void ControllerMainWindow::addItemListView(const gchar* nome, const gchar* tipo)
 {
 	gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
 	gtk_list_store_set(GTK_LIST_STORE(_model),
 												&_iter,
 												0,
-												drawable->getNome(),
+												nome,
 												1,
-												drawable->getTipo(),
+												tipo,
 												-1);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 														 _model);
@@ -117,3 +133,6 @@ gboolean ControllerMainWindow::configure_event_cb(GtkWidget * widget, GdkEventCo
 MainWindow *ControllerMainWindow::_window = NULL;
 Controller *ControllerMainWindow::_controller = NULL;
 Canvas *ControllerMainWindow::_canvas = NULL;
+GtkTreeModel* ControllerMainWindow::_model = NULL;
+GtkTreeIter ControllerMainWindow::_iter;
+GtkTreeView* ControllerMainWindow::_treeView = NULL;

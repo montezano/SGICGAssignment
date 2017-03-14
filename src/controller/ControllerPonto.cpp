@@ -31,10 +31,8 @@ void ControllerPonto::display()
 void ControllerPonto::add_ponto_cb(GtkWidget *window)
 {
 	WindowPonto::WinPonto w_ponto = _window->add_ponto();
-	Drawable* p = new Point(w_ponto.nome.c_str(),w_ponto.v_inicial);
-	p->setTipo("ponto");
-	_controller->_main_window_controller->addItemListView(p);
-	_controller->_main_window_controller->getCanvas()->addDrawable(p);
+	_controller->_main_window_controller->addItemListView(w_ponto.nome.c_str(), "ponto");
+	_controller->_main_window_controller->getCanvas()->addPoint(w_ponto.nome.c_str(),w_ponto.v_inicial);
 	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
 	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
 }

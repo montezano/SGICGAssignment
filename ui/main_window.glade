@@ -787,7 +787,6 @@
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrendererspinner1"/>
                                       <attributes>
-                                        <attribute name="visible">0</attribute>
                                         <attribute name="text">0</attribute>
                                       </attributes>
                                     </child>

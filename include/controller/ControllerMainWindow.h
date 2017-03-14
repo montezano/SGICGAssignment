@@ -27,7 +27,7 @@ public:
 	void display();
 
 	void draw_drawable(Drawable *drawable);
-	void addItemListView(Drawable * drawable);
+	void addItemListView(const gchar *nome, const gchar *tipo);
 	void initialize();
 
 	Canvas *getCanvas();
@@ -36,13 +36,14 @@ private:
 	static void input_ponto_cb();
 	static void input_poligono_cb();
 	static void input_linha_cb();
+	static void remove_object();
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
 	static MainWindow *_window;
-	GtkTreeView* _treeView;
-	GtkTreeIter    _iter;
-	GtkTreeModel *_model;
+	static GtkTreeView* _treeView;
+	static GtkTreeIter    _iter;
+	static GtkTreeModel *_model;
 	static Controller *_controller;
 	static Canvas *_canvas;
 
