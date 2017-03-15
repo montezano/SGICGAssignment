@@ -10,6 +10,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 	assert(_controller);
 
 	GtkButton* button;
+        GtkToolButton* toolButton;
 
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ponto"));
 	assert(button);
@@ -27,14 +28,34 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 	assert(button);
 	g_signal_connect(button, "clicked", G_CALLBACK(remove_object), NULL);
 
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(moveUp), NULL);
+        
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_baixo"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(moveDown), NULL);
+        
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_esquerda"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(moveLeft), NULL);
+        
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_direita"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(moveRight), NULL);
+        
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_in"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomIn), NULL);
+        
+        toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
+        assert(toolButton);
+        g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+        
 	g_signal_connect(_window->getDrawingArea(), "configure-event", G_CALLBACK(configure_event_cb), NULL);
-
-
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
 	_treeView = GTK_TREE_VIEW(gtk_builder_get_object(builder, "object_list_treeview"));
-	//_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
-
 	_canvas = new Canvas();
 	_canvas->addObserver(static_cast<Observer*>(_window));
 	assert(_controller->_log);
@@ -74,6 +95,54 @@ Canvas * ControllerMainWindow::getCanvas()
 ///////////////////////////////////////////////////////////////////////
 //	CALLBACK FUNCTIONS
 ///////////////////////////////////////////////////////////////////////
+void ControllerMainWindow::moveUp(){
+    Viewport::moveVertical(0.1);
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
+
+void ControllerMainWindow::moveDown(){
+    Viewport::moveVertical(-0.1);
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
+
+void ControllerMainWindow::moveLeft(){
+    Viewport::moveHorizontal(-0.1);
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
+
+void ControllerMainWindow::moveRight(){
+    Viewport::moveHorizontal(0.1);
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
+
+void ControllerMainWindow::zoomIn(){
+    Viewport::zoom(1.25);
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
+
+void ControllerMainWindow::zoomOut(){
+    Viewport::zoom(0.8);
+    g_print("teste");
+//    cairo_t* cr;
+//    cr = cairo_create(_window->getSurface());
+//    _window->reconfigure(_window->getWindow());
+    gtk_widget_queue_draw(GTK_WIDGET(_window->getDrawingArea()));
+}
 
 void ControllerMainWindow::input_ponto_cb()
 {

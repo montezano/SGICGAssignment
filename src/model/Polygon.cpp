@@ -6,6 +6,7 @@
  */
 
 #include "model/Polygon.h"
+#include "model/Viewport.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -30,15 +31,15 @@ void Polygon::draw(cairo_t *_cr)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, _position.x, _position.y);
+	cairo_move_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
 
-	for (int i = 1; i < _coords.size(); i++)
+	for (size_t i = 1; i < _coords.size(); i++)
 	{
-		cairo_line_to(_cr, _coords[i].x, _coords[i].y);
+		cairo_line_to(_cr, Viewport::transformX(_coords[i].x), Viewport::transformY(_coords[i].y));
 		//cairo_stroke(_cr);
-		cairo_move_to(_cr, _coords[i].x, _coords[i].y);
+		cairo_move_to(_cr, Viewport::transformX(_coords[i].x), Viewport::transformY(_coords[i].y));
 
 	}
-	cairo_line_to(_cr, _position.x, _position.y);
+	cairo_line_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
 	//cairo_stroke(_cr);
 }

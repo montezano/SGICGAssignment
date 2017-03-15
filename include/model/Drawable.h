@@ -10,7 +10,7 @@
 
 #include <gtk/gtk.h>
 #include <string>
-
+#include "model/Viewport.h"
 #include "util/Vector.h"
 
 class Drawable
@@ -32,6 +32,7 @@ protected:
 	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;
+        Viewport viewport;
 	//cairo_t *_cr;
 
 

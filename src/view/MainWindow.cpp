@@ -5,6 +5,7 @@ MainWindow::MainWindow(GtkWidget *window) :
 {
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
+	gtk_widget_set_size_request((GtkWidget*)_drawing_area, Viewport::ViewportX, Viewport::ViewportY);
 
 	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_object_list"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));

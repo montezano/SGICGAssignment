@@ -21,7 +21,6 @@ public:
 	virtual ~MainWindow();
 
 	void initialize();
-
 	GtkDrawingArea* getDrawingArea();
 	cairo_surface_t *getSurface();
 
@@ -29,10 +28,11 @@ public:
 	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
 	virtual void onNotify(Drawable *data, Events event);
-
+	gboolean reconfigure(GtkWidget *widget);
+        
 private:
 
-	gboolean reconfigure(GtkWidget *widget);
+//	gboolean reconfigure(GtkWidget *widget);
 	void clear_surface();
 
 	GtkTreeView* _tree_view;

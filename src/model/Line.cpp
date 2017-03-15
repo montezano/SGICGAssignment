@@ -6,6 +6,7 @@
  */
 
 #include "model/Line.h"
+#include "model/Viewport.h"
 
 #include <assert.h>
 
@@ -29,8 +30,8 @@ void Line::draw(cairo_t *_cr)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, _position.x, _position.y);
-	cairo_line_to(_cr, _final_position.x, _final_position.y);
+	cairo_move_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
+	cairo_line_to(_cr, Viewport::transformX(_final_position.x), Viewport::transformY(_final_position.y));
 	//cairo_destroy(_cr);
 
 }
