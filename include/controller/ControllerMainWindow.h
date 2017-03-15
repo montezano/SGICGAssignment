@@ -14,7 +14,7 @@ class Controller;
 #include "controller/Controller.h"
 #include "model/Drawable.h"
 #include "model/Canvas.h"
-
+#include "model/Viewport.h"
 using namespace std;
 
 class ControllerMainWindow
@@ -37,6 +37,13 @@ private:
 	static void input_poligono_cb();
 	static void input_linha_cb();
 	static void remove_object();
+        static void moveUp();
+        static void moveDown();
+        static void moveLeft();
+        static void moveRight();
+        static void zoomIn();
+        static void zoomOut();
+
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
@@ -44,7 +51,7 @@ private:
 	static GtkTreeView* _treeView;
 	static Controller *_controller;
 	static Canvas *_canvas;
-
+        static Viewport _viewport;
 
 };
 
