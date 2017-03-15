@@ -37,6 +37,8 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder)
 
 	_canvas = new Canvas();
 	_canvas->addObserver(static_cast<Observer*>(_window));
+	assert(_controller->_log);
+	_canvas->addObserver(static_cast<Observer*>(_controller->_log));
 
 
 }
@@ -95,13 +97,13 @@ void ControllerMainWindow::remove_object(){
 		 gtk_tree_model_get (model, &iter, 0, &name, -1);
 		 g_print ("selected row is: %s\n", name);
 		 _canvas->deleteDrawable(name);
-                 _canvas->setSurface(_window->getSurface());
-              gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
-                 
+				 _canvas->setSurface(_window->getSurface());
+			  gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
+				 
 	 }else {
 		 g_print ("no row selected.\n");
 	 }
-        
+		
 //	delete selection;
 //	delete iter;
 //	delete model;

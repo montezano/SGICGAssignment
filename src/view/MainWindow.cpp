@@ -39,9 +39,7 @@ void MainWindow::onNotify(Drawable *data, Events event)
 {
 	switch (event)
 	{
-	case Events::ADD_LINE:
-	case Events::ADD_POINT:
-	case Events::ADD_POLIGONO:
+	case Events::ADD_DRAWABLE:
 		gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
 		gtk_list_store_set(GTK_LIST_STORE(_model),
 			&_iter,
@@ -55,8 +53,8 @@ void MainWindow::onNotify(Drawable *data, Events event)
 		break;
 	case Events::REMOVE_DRAWABLE:
 		reconfigure(_window);
-            break;
-}
+		break;
+	}
 }
 //void MainWindow::deleteItem(GtkTreeModel *model, GtkTreeIter *iter){
 //}
@@ -89,11 +87,11 @@ gboolean MainWindow::reconfigure(GtkWidget *widget)
 		gtk_widget_get_allocated_width(widget),
 		gtk_widget_get_allocated_height(widget));
 	clear_surface();
-        
-        cairo_t *cr;
+		
+	//	cairo_t *cr;
 
-	cr = cairo_create(_surface);
-        gtk_widget_draw((GtkWidget*)_drawing_area,cr);
+	//cr = cairo_create(_surface);
+	//	gtk_widget_draw((GtkWidget*)_drawing_area,cr);
 	return TRUE;
 }
 

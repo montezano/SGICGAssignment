@@ -23,11 +23,13 @@ class ControllerPonto;
 #include "controller/ControllerPonto.h"
 #include "controller/ControllerPoligono.h"
 #include "model/Canvas.h"
+#include "util/Observer.h"
+#include "util/Log.h"
 
 
 using namespace std;
 
-class Controller
+class Controller : public Observer
 {
 	friend class ControllerMainWindow;
 	friend class ControllerLinha;
@@ -41,6 +43,8 @@ public:
 	static Controller *getInstance();
 	static Controller *initialize(int argc, char *argv[]);
 	static void start();
+
+	void onNotify(Drawable *data, Events event);
 
 
 private:
@@ -56,6 +60,8 @@ private:
 
 	static bool _initialized;
 	static Controller *_instance;
+
+	static Log *_log;
 };
 
 #endif//__CONTROLLER_H__

@@ -32,14 +32,14 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 	g_print("addDrawable\n");
 	Drawable* line = new Line(nome,inicial,fim);
 	line->setTipo("linha");
-	this->notify(line, Events::ADD_LINE);
+	this->notify(line, Events::ADD_DRAWABLE);
 	_canvas.push_back(line);
 }
 
 void Canvas::addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords){
 	Drawable* pol = new Polygon(nome,init_position,coords);
 	pol->setTipo("poligono");
-	this->notify(pol, Events::ADD_POLIGONO);
+	this->notify(pol, Events::ADD_DRAWABLE);
 
 	_canvas.push_back(pol);
 }
@@ -49,7 +49,7 @@ void Canvas::addPoint(const gchar *nome, Vector init_position){
 	p->setTipo("ponto");
 	g_print("add point\n");
 	g_print(p->getNome());
-	this->notify(p, Events::ADD_POINT);
+	this->notify(p, Events::ADD_DRAWABLE);
 
 	this->_canvas.push_back(static_cast<Drawable*>(p));
 	g_print("add point2\n");
@@ -81,11 +81,11 @@ void Canvas::deleteDrawable(const gchar* nome) {
 	 		_canvas.erase(_canvas.begin()+i);
 	 	}
 	 }
-//	 cairo_destroy(_cr);
+	 cairo_destroy(_cr);
 
 	 notify(ret, Events::REMOVE_DRAWABLE);
-//	 _cr = cairo_create(_surface);
-//	 drawCanvas(_cr);
+	 _cr = cairo_create(_surface);
+	 drawCanvas(_cr);
 	delete ret;
 
 	 g_print("%d", this->_canvas.size());
