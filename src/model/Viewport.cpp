@@ -2,8 +2,20 @@
 
 #define PIXEL_AREA_MIN 1000
 
-float Viewport::windowX = -300, Viewport::windowY = -300;
-float Viewport::windowW = 600, Viewport::windowH = 600;
+
+
+Viewport::Viewport()
+{
+	windowX = -300;
+	windowY = -300;
+	windowW = 600;
+	windowH = 600;
+}
+
+Viewport::~Viewport()
+{
+
+}
 
 float Viewport::transformX(float xw) {
   return (((float)xw - (float)windowX)/(float)windowW ) * (float)ViewportX;
@@ -17,7 +29,7 @@ float Viewport::transformY(float yw) {
 void Viewport::zoom(float factor) {
   float cX, cY;
   if (((windowW * windowH) / (factor * factor)) <= PIXEL_AREA_MIN) {
-    return;
+	return;
   }
   cX = windowW / 2 + windowX;
   cY = windowH / 2 + windowY;
@@ -25,6 +37,7 @@ void Viewport::zoom(float factor) {
   windowH /= factor;
   windowX = cX - (windowW / 2);
   windowY = cY - (windowH / 2);
+  //notify(NULL, (factor > 0) ? Events::VIEWPORT_ZOOM_IN: Events::VIEWPORT_ZOOM_OUT);
 }
 
 void Viewport::moveHorizontal(float factor) {

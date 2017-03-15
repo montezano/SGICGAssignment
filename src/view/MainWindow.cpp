@@ -3,9 +3,11 @@
 MainWindow::MainWindow(GtkWidget *window) :
 	Window(window)
 {
+	_viewport = new Viewport();
+
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
-	gtk_widget_set_size_request((GtkWidget*)_drawing_area, Viewport::ViewportX, Viewport::ViewportY);
+	gtk_widget_set_size_request((GtkWidget*)_drawing_area, _viewport->ViewportX, _viewport->ViewportY);
 
 	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_object_list"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
@@ -34,6 +36,11 @@ GtkDrawingArea * MainWindow::getDrawingArea()
 cairo_surface_t * MainWindow::getSurface()
 {
 	return _surface;
+}
+
+Viewport * MainWindow::getViewport()
+{
+	return _viewport;
 }
 
 void MainWindow::onNotify(Drawable *data, Events event)

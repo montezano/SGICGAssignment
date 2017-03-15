@@ -16,7 +16,7 @@
 class Canvas : public Subject
 {
 public:
-	Canvas();
+	Canvas(Viewport *viewport);
 	Canvas(cairo_surface_t *surface);
 	void setSurface(cairo_surface_t *surface);
 	virtual ~Canvas();
@@ -24,12 +24,14 @@ public:
 	void addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
 	void addPoint(const gchar *nome, Vector init_position);
 	void drawCanvas(cairo_t *cr);
+	void updateViewport();
 	void deleteDrawable(const gchar* nome);
 
 private:
 	std::vector<Drawable*> _canvas;
 	cairo_surface_t *_surface;
 	cairo_t *_cr;
+	Viewport *_viewport;
 
 };
 

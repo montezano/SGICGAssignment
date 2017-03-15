@@ -16,7 +16,7 @@ public:
 	Polygon(const gchar *nome, double inicial_x, double inicial_y, std::vector<Vector> coords);
 	Polygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
 	virtual ~Polygon();
-	virtual void draw(cairo_t *_cr);
+	virtual void draw(cairo_t *_cr, Viewport *viewport);
 
 private:
 	std::vector<Vector> _coords;

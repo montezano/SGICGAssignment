@@ -16,20 +16,25 @@
 
 #include <gtk/gtk.h>
 
-class Viewport {
+//#include "util/Subject.h"
+
+class Viewport/* : public Subject*/
+{
 private:
-  static float windowX, windowY;
-  static float windowW, windowH;
+  float windowX, windowY;
+  float windowW, windowH;
 
 public:
-  const static int ViewportX = 600, ViewportY = 600;
+	Viewport();
+	virtual ~Viewport();
+  const int ViewportX = 600, ViewportY = 600;
 
-  static float transformX(float xw);
-  static float transformY(float yw);
+  float transformX(float xw);
+  float transformY(float yw);
   
-  static void zoom(float factor);
-  static void moveHorizontal(float factor);
-  static void moveVertical(float factor);
+  void zoom(float factor);
+  void moveHorizontal(float factor);
+  void moveVertical(float factor);
 };
 
 

@@ -26,12 +26,12 @@ Line::~Line()
 	// TODO Auto-generated destructor stub
 }
 
-void Line::draw(cairo_t *_cr)
+void Line::draw(cairo_t *_cr, Viewport *viewport)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
-	cairo_line_to(_cr, Viewport::transformX(_final_position.x), Viewport::transformY(_final_position.y));
+	cairo_move_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
+	cairo_line_to(_cr, viewport->transformX(_final_position.x), viewport->transformY(_final_position.y));
 	//cairo_destroy(_cr);
 
 }

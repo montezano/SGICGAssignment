@@ -24,12 +24,14 @@ public:
 	GtkDrawingArea* getDrawingArea();
 	cairo_surface_t *getSurface();
 
+	Viewport *getViewport();
+
 	gboolean draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
 	virtual void onNotify(Drawable *data, Events event);
 	gboolean reconfigure(GtkWidget *widget);
-        
+		
 private:
 
 //	gboolean reconfigure(GtkWidget *widget);
@@ -42,6 +44,8 @@ private:
 	GtkTreeView* _treeView;
 	GtkTreeIter    _iter;
 	GtkTreeModel *_model;
+
+	Viewport *_viewport;
 
 
 };

@@ -47,7 +47,6 @@ void ControllerPoligono::add_coords_cb(GtkWidget *window)
 void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
 	WindowPoligono::WinPoligono w_pol = _window->add_poligono();
-	_controller->_main_window_controller->addItemListView(w_pol.nome.c_str(),"poligono");
 	_controller->_main_window_controller->getCanvas()->addPolygon(w_pol.nome.c_str(), _coords[0], _coords);
 	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
 	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.

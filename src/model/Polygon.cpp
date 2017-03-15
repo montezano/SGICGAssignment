@@ -26,20 +26,20 @@ Polygon::~Polygon()
 	// TODO Auto-generated destructor stub
 }
 
-void Polygon::draw(cairo_t *_cr)
+void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
+	cairo_move_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
 
 	for (size_t i = 1; i < _coords.size(); i++)
 	{
-		cairo_line_to(_cr, Viewport::transformX(_coords[i].x), Viewport::transformY(_coords[i].y));
+		cairo_line_to(_cr, viewport->transformX(_coords[i].x), viewport->transformY(_coords[i].y));
 		//cairo_stroke(_cr);
-		cairo_move_to(_cr, Viewport::transformX(_coords[i].x), Viewport::transformY(_coords[i].y));
+		cairo_move_to(_cr, viewport->transformX(_coords[i].x), viewport->transformY(_coords[i].y));
 
 	}
-	cairo_line_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
+	cairo_line_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
 	//cairo_stroke(_cr);
 }

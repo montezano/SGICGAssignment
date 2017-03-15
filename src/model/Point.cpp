@@ -23,13 +23,13 @@ Point::~Point()
 	// TODO Auto-generated destructor stub
 }
 
-void Point::draw(cairo_t *_cr)
+void Point::draw(cairo_t *_cr, Viewport *viewport)
 {
 	//_cr = cairo_create(surface);
 	cairo_set_line_width (_cr, 3);
 	cairo_set_line_cap  (_cr, CAIRO_LINE_CAP_ROUND); /* Round dot*/
 	//TODO fazer transformação viewport antes
-	cairo_move_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
-	cairo_line_to(_cr, Viewport::transformX(_position.x), Viewport::transformY(_position.y));
+	cairo_move_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
+	cairo_line_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
 	//cairo_stroke(_cr);
 }

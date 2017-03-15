@@ -33,7 +33,6 @@ void ControllerLinha::add_linha_cb(GtkWidget * window)
 {
 	WindowLinha::WinLinha w_line = _window->add_linha();
 
-	_controller->_main_window_controller->addItemListView(w_line.nome.c_str(), "linha");
 	_controller->_main_window_controller->getCanvas()->addLine(w_line.nome.c_str(),w_line.v_inicial, w_line.v_final);
 	 //_controller->_main_window_controller->draw_drawable((Drawable*)line);
 

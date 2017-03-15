@@ -2,8 +2,9 @@
 
 #include <assert.h>
 
-Canvas::Canvas()
+Canvas::Canvas(Viewport *viewport)
 {
+	_viewport = viewport;
 }
 
 Canvas::Canvas(cairo_surface_t *surface)
@@ -63,9 +64,14 @@ void Canvas::drawCanvas(cairo_t *cr)
 	assert(_surface);
 	for(auto drawable: _canvas)
 	{
-		drawable->draw(_cr);
+		drawable->draw(_cr, _viewport);
 	}
 	cairo_stroke(_cr);
+}
+
+void Canvas::updateViewport()
+{
+
 }
 
 void Canvas::deleteDrawable(const gchar* nome) {
