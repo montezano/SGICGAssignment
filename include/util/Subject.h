@@ -14,7 +14,7 @@ public:
 	void addObserver(Observer *observer);
 	void removeObserver(Observer *observer);
 protected:
-	void notify(void *entity, Events event);
+	void notify(Drawable *entity, Events event);
 
 private:
 	std::vector<Observer*> _observers;

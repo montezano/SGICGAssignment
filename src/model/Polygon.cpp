@@ -25,19 +25,20 @@ Polygon::~Polygon()
 	// TODO Auto-generated destructor stub
 }
 
-void Polygon::draw(cairo_surface_t *surface)
+void Polygon::draw(cairo_t *_cr)
+
 {
-	assert(surface);
-	_cr = cairo_create(surface);
+	//assert(surface);
+	//_cr = cairo_create(surface);
 	cairo_move_to(_cr, _position.x, _position.y);
 
 	for (int i = 1; i < _coords.size(); i++)
 	{
 		cairo_line_to(_cr, _coords[i].x, _coords[i].y);
-		cairo_stroke(_cr);
+		//cairo_stroke(_cr);
 		cairo_move_to(_cr, _coords[i].x, _coords[i].y);
 
 	}
 	cairo_line_to(_cr, _position.x, _position.y);
-	cairo_stroke(_cr);
+	//cairo_stroke(_cr);
 }

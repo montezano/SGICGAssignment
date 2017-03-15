@@ -19,7 +19,7 @@ public:
 
 	struct WinPonto
 	{
-		const gchar *nome;
+		std::string nome;
 		Vector v_inicial;
 		WinPonto(const gchar *nome, Vector inicial) :
 			nome(nome),
@@ -32,7 +32,7 @@ public:
 
 	WinPonto add_ponto();
 
-	virtual void onNotify(void *data, Events event);
+	virtual void onNotify(Drawable *data, Events event);
 
 private:
 	GtkEntry *_entry_nome;

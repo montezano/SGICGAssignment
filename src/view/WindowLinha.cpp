@@ -34,9 +34,13 @@ WindowLinha::WinLinha WindowLinha::add_linha()
 	gtk_widget_hide(_window);
 	WinLinha linha = WinLinha(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
 	gtk_entry_set_text(_entry_nome,"" );
+	gtk_spin_button_set_value (_spinbutton_inicial_x, 0.0);
+	gtk_spin_button_set_value (_spinbutton_inicial_y, 0.0);
+	gtk_spin_button_set_value (_spinbutton_final_x, 0.0);
+	gtk_spin_button_set_value (_spinbutton_final_y, 0.0);
 	return linha;
 }
 
-void WindowLinha::onNotify(void * data, Events event)
+void WindowLinha::onNotify(Drawable *data, Events event)
 {
 }

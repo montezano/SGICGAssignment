@@ -3,7 +3,11 @@
 
 enum Events
 {
-	ADD_DRAWABLE
+	ADD_LINE,
+	ADD_POINT,
+	ADD_POLIGONO,
+	ADD_DRAWABLE,
+	REMOVE_DRAWABLE
 };
 
 #endif // !__EVENT_H__

@@ -17,7 +17,7 @@ public:
 	Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y);
 	Point(const gchar *nome, Vector init_position);
 	virtual ~Point();
-	virtual void draw(cairo_surface_t *surface);
+	virtual void draw(cairo_t *_cr);
 };
 
 #endif /* SRC_MODEL_POINT_H_ */

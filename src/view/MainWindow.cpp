@@ -12,6 +12,8 @@ MainWindow::MainWindow(GtkWidget *window) :
 	//_tree_view = GTK_TREE_VIEW(find_child(_window, "treeview_main_object_list"));
 	_surface = NULL;
 	g_print("MainWindow build\n");
+
+	reconfigure(_window);
 }
 
 MainWindow::~MainWindow()
@@ -33,11 +35,13 @@ cairo_surface_t * MainWindow::getSurface()
 	return _surface;
 }
 
-void MainWindow::onNotify(void *data, Events event)
+void MainWindow::onNotify(Drawable *data, Events event)
 {
 	switch (event)
 	{
-	case Events::ADD_DRAWABLE:
+	case Events::ADD_LINE:
+	case Events::ADD_POINT:
+	case Events::ADD_POLIGONO:
 		gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
 		gtk_list_store_set(GTK_LIST_STORE(_model),
 			&_iter,
@@ -48,6 +52,9 @@ void MainWindow::onNotify(void *data, Events event)
 			-1);
 		gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 			_model);
+		break;
+	case Events::REMOVE_DRAWABLE:
+		reconfigure(_window);
 	}
 }
 
@@ -63,6 +70,11 @@ gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   da
 }
 
 gboolean MainWindow::configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
+{
+	return reconfigure(widget);
+}
+
+gboolean MainWindow::reconfigure(GtkWidget *widget)
 {
 	if (_surface)
 	{

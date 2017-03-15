@@ -10,7 +10,7 @@ void Subject::removeObserver(Observer * observer)
 	//std::remove_if(_observers.begin(), _observers.end(), observer);
 }
 
-void Subject::notify(void *data, Events event)
+void Subject::notify(Drawable *data, Events event)
 {
 	for (auto observer : _observers)
 	{

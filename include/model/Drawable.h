@@ -22,7 +22,7 @@ public:
 	Drawable(const gchar *nome, Vector vector);
 	virtual ~Drawable();
 
-	virtual void draw(cairo_surface_t *surface) = 0;
+	virtual void draw(cairo_t *_cr) = 0;
 	Vector getPosition();
 	void setTipo(const gchar* tipo);
 	const gchar* getTipo();
@@ -32,7 +32,7 @@ protected:
 	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;
-	cairo_t *_cr;
+	//cairo_t *_cr;
 
 
 

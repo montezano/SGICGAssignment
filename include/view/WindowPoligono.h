@@ -11,7 +11,7 @@ public:
 
 	struct WinPoligono
 	{
-		const gchar *nome;
+		std::string nome;
 		std::vector<Vector> coords;
 		WinPoligono(const gchar *nome, std::vector<Vector> aux_coords) :
 			nome(nome),
@@ -25,7 +25,7 @@ public:
 	Vector add_coords();
 	WinPoligono add_poligono();
 
-	virtual void onNotify(void *data, Events event);
+	virtual void onNotify(Drawable *data, Events event);
 
 
 private:

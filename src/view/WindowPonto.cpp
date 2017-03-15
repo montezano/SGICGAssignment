@@ -24,9 +24,13 @@ WindowPonto::WinPonto WindowPonto::add_ponto()
 	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
 	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
 	gtk_widget_hide(_window);
-	return WinPonto(nome, Vector(inicial_x, inicial_y));
+	WinPonto p = WinPonto(nome, Vector(inicial_x, inicial_y));
+	gtk_entry_set_text(_entry_nome, "");
+	gtk_spin_button_set_value (_spinbutton_inicial_x, 0.0);
+	gtk_spin_button_set_value (_spinbutton_inicial_y, 0.0);
+	return p;
 }
 
-void WindowPonto::onNotify(void * data, Events event)
+void WindowPonto::onNotify(Drawable *data, Events event)
 {
 }
