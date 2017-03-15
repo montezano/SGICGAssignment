@@ -87,20 +87,24 @@ void ControllerMainWindow::input_poligono_cb()
 
 void ControllerMainWindow::remove_object(){
 	GtkTreeSelection *selection;
-	GtkTreeIter *iter = new GtkTreeIter();	
+	GtkTreeIter iter;	
 	GtkTreeModel *model = NULL;
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(_treeView));
-	if (gtk_tree_selection_get_selected(selection, &model, iter)){
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)){
 		 const gchar *name;
-		 gtk_tree_model_get (model, iter, 0, &name, -1);
+		 gtk_tree_model_get (model, &iter, 0, &name, -1);
 		 g_print ("selected row is: %s\n", name);
 		 _canvas->deleteDrawable(name);
+                 _canvas->setSurface(_window->getSurface());
+              gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
+                 
 	 }else {
 		 g_print ("no row selected.\n");
 	 }
-	delete selection;
-	delete iter;
-	delete model;
+        
+//	delete selection;
+//	delete iter;
+//	delete model;
 }
 
 void ControllerMainWindow::addItemListView(const gchar* nome, const gchar* tipo)

@@ -55,9 +55,11 @@ void MainWindow::onNotify(Drawable *data, Events event)
 		break;
 	case Events::REMOVE_DRAWABLE:
 		reconfigure(_window);
-	}
+            break;
 }
-
+}
+//void MainWindow::deleteItem(GtkTreeModel *model, GtkTreeIter *iter){
+//}
 gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data)
 {
 	assert(cr);
@@ -87,6 +89,11 @@ gboolean MainWindow::reconfigure(GtkWidget *widget)
 		gtk_widget_get_allocated_width(widget),
 		gtk_widget_get_allocated_height(widget));
 	clear_surface();
+        
+        cairo_t *cr;
+
+	cr = cairo_create(_surface);
+        gtk_widget_draw((GtkWidget*)_drawing_area,cr);
 	return TRUE;
 }
 

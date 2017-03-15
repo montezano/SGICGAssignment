@@ -29,6 +29,7 @@
 *.app
 sgi
 main_window.glade~
+nbproject/
 /Debug/SGICGAssignment.tlog
 /Release/SGICGAssignment.tlog
 /Release

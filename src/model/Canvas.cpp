@@ -29,10 +29,6 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 {
 	//this->notify(static_cast<void*>(d), Events::ADD_DRAWABLE);
 	//_canvas.push_back(static_cast<Drawable*>(d));
-
-
-
-
 	g_print("addDrawable\n");
 	Drawable* line = new Line(nome,inicial,fim);
 	line->setTipo("linha");
@@ -85,13 +81,13 @@ void Canvas::deleteDrawable(const gchar* nome) {
 	 		_canvas.erase(_canvas.begin()+i);
 	 	}
 	 }
-	 cairo_destroy(_cr);
+//	 cairo_destroy(_cr);
 
 	 notify(ret, Events::REMOVE_DRAWABLE);
-	 _cr = cairo_create(_surface);
-	 drawCanvas(_cr);
+//	 _cr = cairo_create(_surface);
+//	 drawCanvas(_cr);
 	delete ret;
 
-	 //g_print("%d", this->_canvas.size());
+	 g_print("%d", this->_canvas.size());
 
 }
