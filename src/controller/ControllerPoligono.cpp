@@ -1,6 +1,6 @@
 #include "controller/ControllerPoligono.h"
 
-ControllerPoligono::ControllerPoligono(GtkBuilder * builder)
+ControllerPoligono::ControllerPoligono(GtkBuilder * builder, Canvas *canvas)
 
 {
 	_window = new WindowPoligono(GTK_WIDGET(gtk_builder_get_object(builder, "window_poligono")));
@@ -22,6 +22,8 @@ ControllerPoligono::ControllerPoligono(GtkBuilder * builder)
 	g_signal_connect(_window->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 	_controller = Controller::getInstance();
 
+	_canvas = canvas;
+
 }
 
 ControllerPoligono::~ControllerPoligono()
@@ -36,22 +38,14 @@ void ControllerPoligono::display()
 void ControllerPoligono::add_coords_cb(GtkWidget *window)
 {
 	_coords.push_back(_window->add_coords());
-	//for (auto ponto : _coords)
-	//{
-	//	g_print("x: %d, y: %d", ponto.x, ponto.y);
-
-	//}
-	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
 }
 void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
 	WindowPoligono::WinPoligono w_pol = _window->add_poligono();
-	_controller->_main_window_controller->getCanvas()->addPolygon(w_pol.nome.c_str(), _coords[0], _coords);
-	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
+	_canvas->addPolygon(w_pol.nome.c_str(), _coords[0], _coords);
 }
 
-WindowPoligono *ControllerPoligono::_window;
+WindowPoligono *ControllerPoligono::_window = NULL;
 std::vector<Vector> ControllerPoligono::_coords;
 Controller *ControllerPoligono::_controller = NULL;
+Canvas *ControllerPoligono::_canvas = NULL;

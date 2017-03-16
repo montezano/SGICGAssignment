@@ -1,6 +1,6 @@
 #include "controller/ControllerLinha.h"
 
-ControllerLinha::ControllerLinha(GtkBuilder * builder)
+ControllerLinha::ControllerLinha(GtkBuilder * builder, Canvas *canvas)
 {
 	_window = new WindowLinha(GTK_WIDGET(gtk_builder_get_object(builder, "window_linha")));
 
@@ -16,8 +16,7 @@ ControllerLinha::ControllerLinha(GtkBuilder * builder)
 
 	g_signal_connect(_window->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
-	_controller = Controller::getInstance();
-
+	_canvas = canvas;
 }
 
 ControllerLinha::~ControllerLinha()
@@ -33,15 +32,8 @@ void ControllerLinha::add_linha_cb(GtkWidget * window)
 {
 	WindowLinha::WinLinha w_line = _window->add_linha();
 
-	_controller->_main_window_controller->getCanvas()->addLine(w_line.nome.c_str(),w_line.v_inicial, w_line.v_final);
-	 //_controller->_main_window_controller->draw_drawable((Drawable*)line);
-
-	//g_print(linha.tipo);
-	//ControllerMainWindow * c;
-	//c->addItemListView(linha);
-
+	_canvas->addLine(w_line.nome.c_str(),w_line.v_inicial, w_line.v_final);
 }
 
 WindowLinha *ControllerLinha::_window = NULL;
-
-Controller *ControllerLinha::_controller = NULL;
+Canvas *ControllerLinha::_canvas = NULL;

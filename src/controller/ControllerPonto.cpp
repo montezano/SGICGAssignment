@@ -1,9 +1,8 @@
 #include "controller/ControllerPonto.h"
 
-ControllerPonto::ControllerPonto(GtkBuilder * builder)
+ControllerPonto::ControllerPonto(GtkBuilder * builder, Canvas *canvas)
 {
 	_window = new WindowPonto(GTK_WIDGET(gtk_builder_get_object(builder, "window_ponto")));
-	_controller = Controller::getInstance();
 
 	GtkButton* button;
 
@@ -17,6 +16,7 @@ ControllerPonto::ControllerPonto(GtkBuilder * builder)
 
 	g_signal_connect(_window->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
+	_canvas = canvas;
 }
 
 ControllerPonto::~ControllerPonto()
@@ -31,10 +31,9 @@ void ControllerPonto::display()
 void ControllerPonto::add_ponto_cb(GtkWidget *window)
 {
 	WindowPonto::WinPonto w_ponto = _window->add_ponto();
-	_controller->_main_window_controller->getCanvas()->addPoint(w_ponto.nome.c_str(),w_ponto.v_inicial);
-	//LUIZ, aqui voc� pega os valores do struct linha para fazer o que quiser. Est�o como tipos primitivos do gtk (gchar, gchar, gint, gint)
-	//O viewport far� parte do modelo, e acredito que ser� chamado a partir do controle.
+	_canvas->addPoint(w_ponto.nome.c_str(),w_ponto.v_inicial);
+
 }
 
 WindowPonto *ControllerPonto::_window;
-Controller *ControllerPonto::_controller = NULL;
+Canvas *ControllerPonto::_canvas = NULL;

@@ -12,13 +12,14 @@ class Controller;
 #include "controller/Controller.h"
 #include "util/Vector.h"
 #include "model/Polygon.h"
+#include "model/Canvas.h"
 
 using namespace std;
 
 class ControllerPoligono
 {
 public:
-	ControllerPoligono(GtkBuilder *builder);
+	ControllerPoligono(GtkBuilder *builder, Canvas *canvas);
 	virtual ~ControllerPoligono();
 
 	static void display();
@@ -32,6 +33,7 @@ private:
 	static WindowPoligono *_window;
 	static Controller *_controller;
 	static std::vector<Vector> _coords;
+	static Canvas *_canvas;
 
 };
 

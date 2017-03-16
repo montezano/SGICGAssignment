@@ -12,6 +12,7 @@ class Controller;
 #include "view/WindowLinha.h"
 #include "controller/Controller.h"
 #include "model/Line.h"
+#include "model/Canvas.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ class ControllerLinha
 {
 public:
 
-	ControllerLinha(GtkBuilder *builder);
+	ControllerLinha(GtkBuilder *builder, Canvas *canvas);
 	virtual ~ControllerLinha();
 
 	static void display();
@@ -28,7 +29,7 @@ private:
 
 	static void add_linha_cb(GtkWidget *window);
 	static WindowLinha *_window;
-	static Controller *_controller;
+	static Canvas *_canvas;
 
 };
 

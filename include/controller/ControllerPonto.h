@@ -11,6 +11,7 @@ class Controller;
 #include "view/WindowPonto.h"
 #include "view/Window.h"
 #include "model/Point.h"
+#include "model/Canvas.h"
 #include "controller/Controller.h"
 
 using namespace std;
@@ -18,7 +19,7 @@ using namespace std;
 class ControllerPonto
 {
 public:
-	ControllerPonto(GtkBuilder *builder);
+	ControllerPonto(GtkBuilder *builder, Canvas *canvas);
 	virtual ~ControllerPonto();
 
 	static void display();
@@ -28,8 +29,8 @@ private:
 	static void add_ponto_cb(GtkWidget *window);
 
 	static WindowPonto *_window;
+	static Canvas *_canvas;
 
-	static Controller *_controller;
 
 };
 

@@ -52,7 +52,6 @@ private:
 
 	void configureObservers();
 
-
 	static GtkBuilder *_builder;
 
 	static ControllerMainWindow *_main_window_controller;
@@ -61,8 +60,9 @@ private:
 	static ControllerPoligono	*_window_poligono_controller;
 	static bool _initialized;
 	static Controller *_instance;
-
-	static Log *_log;
+	static Viewport _viewport;
+	static Log _log;
+	static Canvas _canvas;
 };
 
 #endif//__CONTROLLER_H__

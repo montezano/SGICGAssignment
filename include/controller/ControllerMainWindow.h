@@ -20,17 +20,15 @@ using namespace std;
 class ControllerMainWindow
 {
 public:
-	ControllerMainWindow(GtkBuilder *builder, const Controller *controller);
+	ControllerMainWindow(GtkBuilder *builder, const Controller *controller, Canvas *canvas, Viewport *viewport);
 
 	~ControllerMainWindow();
 
 	void display();
 
-	void draw_drawable(Drawable *drawable);
 	void initialize();
-	void configureObservers();
 
-	Canvas *getCanvas();
+	Window *getWindow();
 private:
 
 	void configureButtons(GtkBuilder *builder);
@@ -53,7 +51,7 @@ private:
 	static GtkTreeView* _treeView;
 	static const Controller *_controller;
 	static Canvas *_canvas;
-	static Viewport _viewport;
+	static Viewport *_viewport;
 
 };
 
