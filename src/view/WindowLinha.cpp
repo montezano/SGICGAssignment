@@ -41,6 +41,6 @@ WindowLinha::WinLinha WindowLinha::add_linha()
 	return linha;
 }
 
-void WindowLinha::onNotify(Drawable *data, Events event)
+void WindowLinha::onNotify(void *data, Events event)
 {
 }

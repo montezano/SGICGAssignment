@@ -25,7 +25,7 @@ public:
 	Vector add_coords();
 	WinPoligono add_poligono();
 
-	virtual void onNotify(Drawable *data, Events event);
+	virtual void onNotify(void *data, Events event);
 
 
 private:

@@ -32,7 +32,7 @@ public:
 
 	WinPonto add_ponto();
 
-	virtual void onNotify(Drawable *data, Events event);
+	virtual void onNotify(void *data, Events event);
 
 private:
 	GtkEntry *_entry_nome;

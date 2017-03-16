@@ -44,7 +44,7 @@ public:
 	static Controller *initialize(int argc, char *argv[]);
 	static void start();
 
-	void onNotify(Drawable *data, Events event);
+	void onNotify(void *data, Events event);
 
 
 private:
@@ -57,7 +57,7 @@ private:
 	static ControllerLinha		*_window_linha_controller;
 	static ControllerPonto		*_window_ponto_controller;
 	static ControllerPoligono	*_window_poligono_controller;
-        Viewport viewport;
+		Viewport viewport;
 	static bool _initialized;
 	static Controller *_instance;
 

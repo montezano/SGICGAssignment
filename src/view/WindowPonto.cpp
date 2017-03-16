@@ -31,6 +31,6 @@ WindowPonto::WinPonto WindowPonto::add_ponto()
 	return p;
 }
 
-void WindowPonto::onNotify(Drawable *data, Events event)
+void WindowPonto::onNotify(void *data, Events event)
 {
 }

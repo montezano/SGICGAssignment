@@ -58,7 +58,7 @@ void Controller::start()
 	g_print("end\n");
 }
 
-void Controller::onNotify(Drawable * data, Events event)
+void Controller::onNotify(void * data, Events event)
 {
 }
 

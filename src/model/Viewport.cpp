@@ -37,15 +37,17 @@ void Viewport::zoom(float factor) {
   windowH /= factor;
   windowX = cX - (windowW / 2);
   windowY = cY - (windowH / 2);
-  //notify(NULL, (factor > 0) ? Events::VIEWPORT_ZOOM_IN: Events::VIEWPORT_ZOOM_OUT);
+  notify(NULL, (factor > 0) ? Events::VIEWPORT_ZOOM_IN: Events::VIEWPORT_ZOOM_OUT);
 }
 
 void Viewport::moveHorizontal(float factor) {
   windowX += factor * 100;
+  notify(NULL, Events::VIEWPORT_MOVE_HORIZONTAL);
 }
 
 void Viewport::moveVertical(float factor) {
   windowY += factor * 100;
+  notify(NULL, Events::VIEWPORT_MOVE_VERTICAL);
 }
 
 

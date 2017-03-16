@@ -50,7 +50,7 @@ private:
 	static GtkTreeView* _treeView;
 	static Controller *_controller;
 	static Canvas *_canvas;
-		static Viewport _viewport;
+	static Viewport _viewport;
 
 };
 

@@ -14,7 +14,7 @@ class Log : public Observer
 {
 public:
 	Log();
-	virtual void onNotify(Drawable *draw, Events event);
+	virtual void onNotify(void *draw, Events event);
 
 private:
 	std::string _position;

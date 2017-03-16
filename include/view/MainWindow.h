@@ -29,7 +29,7 @@ public:
 	gboolean draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
-	virtual void onNotify(Drawable *data, Events event);
+	virtual void onNotify(void *data, Events event);
 	gboolean reconfigure(GtkWidget *widget);
 		
 private:

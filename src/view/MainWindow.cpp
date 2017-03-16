@@ -4,6 +4,7 @@ MainWindow::MainWindow(GtkWidget *window) :
 	Window(window)
 {
 	_viewport = new Viewport();
+	_viewport->addObserver(this);
 
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
@@ -14,9 +15,9 @@ MainWindow::MainWindow(GtkWidget *window) :
 
 	//_tree_view = GTK_TREE_VIEW(find_child(_window, "treeview_main_object_list"));
 	_surface = NULL;
-	g_print("MainWindow build\n");
 
 	reconfigure(_window);
+	
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +44,7 @@ Viewport * MainWindow::getViewport()
 	return _viewport;
 }
 
-void MainWindow::onNotify(Drawable *data, Events event)
+void MainWindow::onNotify(void *data, Events event)
 {
 	switch (event)
 	{
@@ -58,10 +59,19 @@ void MainWindow::onNotify(Drawable *data, Events event)
 			-1);
 		gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 			_model);
+		reconfigure(_window);
+
 		break;
 	case Events::REMOVE_DRAWABLE:
 		reconfigure(_window);
+
 		break;
+	case Events::VIEWPORT_MOVE_HORIZONTAL:
+	case Events::VIEWPORT_MOVE_VERTICAL:
+	case Events::VIEWPORT_ZOOM_IN:
+	case Events::VIEWPORT_ZOOM_OUT:
+		reconfigure(_window);
+
 	}
 }
 //void MainWindow::deleteItem(GtkTreeModel *model, GtkTreeIter *iter){

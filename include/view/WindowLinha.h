@@ -34,7 +34,7 @@ public:
 	};
 	WinLinha add_linha();
 
-	virtual void onNotify(Drawable *data, Events event);
+	virtual void onNotify(void *data, Events event);
 
 
 private:

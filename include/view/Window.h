@@ -25,7 +25,7 @@ public:
 
 	GtkWidget *getWindow();
 
-	virtual void onNotify(Drawable *data, Events event) = 0;
+	virtual void onNotify(void *data, Events event) = 0;
 
 protected:
 

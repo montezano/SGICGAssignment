@@ -2,13 +2,12 @@
 #define __OBSERVER_H__
 
 #include "util/Event.h"
-#include "model/Drawable.h"
 
 class Observer
 {
 public:
 	virtual ~Observer() {};
-	virtual void onNotify(Drawable *data, Events event) = 0;
+	virtual void onNotify(void *data, Events event) = 0;
 
 };
 

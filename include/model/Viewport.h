@@ -16,9 +16,9 @@
 
 #include <gtk/gtk.h>
 
-//#include "util/Subject.h"
+#include "util/Subject.h"
 
-class Viewport/* : public Subject*/
+class Viewport : public Subject
 {
 private:
   float windowX, windowY;
