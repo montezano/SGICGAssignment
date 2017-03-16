@@ -50,6 +50,8 @@ public:
 private:
 	Controller(int argc, char *argv[]);
 
+	void configureObservers();
+
 
 	static GtkBuilder *_builder;
 
@@ -57,7 +59,6 @@ private:
 	static ControllerLinha		*_window_linha_controller;
 	static ControllerPonto		*_window_ponto_controller;
 	static ControllerPoligono	*_window_poligono_controller;
-		Viewport viewport;
 	static bool _initialized;
 	static Controller *_instance;
 

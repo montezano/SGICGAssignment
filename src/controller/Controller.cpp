@@ -2,8 +2,24 @@
 
 Controller::Controller(int argc, char *argv[])
 {
+	gtk_init(&argc, &argv);
 
-	g_print("Controller build sucessufuly\n");
+	_log = new Log();
+	assert(_log);
+
+	_builder = gtk_builder_new();
+	gtk_builder_add_from_file(_builder, MAIN_WINDOW_FILE, NULL);
+
+	_main_window_controller = new ControllerMainWindow(_builder, this);
+	assert(_main_window_controller);
+	_window_linha_controller = new ControllerLinha(_builder);
+	assert(_window_linha_controller);
+	_window_ponto_controller = new ControllerPonto(_builder);
+	_window_poligono_controller = new ControllerPoligono(_builder);
+
+	assert(_builder); ///< assert if the window was successfully created
+
+	gtk_builder_connect_signals(_builder, NULL);
 }
 
 Controller::~Controller()
@@ -12,7 +28,6 @@ Controller::~Controller()
 
 Controller * Controller::getInstance()
 {
-	assert(_instance);
 	return _instance;
 }
 
@@ -24,38 +39,16 @@ Controller * Controller::initialize(int argc, char * argv[])
 	}
 	_instance = new Controller(argc, argv);
 	assert(_instance);
-	gtk_init(&argc, &argv);
-
-	_log = new Log();
-	assert(_log);
-
-	_builder = gtk_builder_new();
-	gtk_builder_add_from_file(_builder, MAIN_WINDOW_FILE, NULL);
-
-	_main_window_controller = new ControllerMainWindow(_builder);
-	assert(_main_window_controller);
-	_window_linha_controller = new ControllerLinha(_builder);
-	assert(_window_linha_controller);
-	_window_ponto_controller = new ControllerPonto(_builder);
-	_window_poligono_controller = new ControllerPoligono(_builder);
-
-	assert(_builder); ///< assert if the window was successfully created
-
-	gtk_builder_connect_signals(_builder, NULL);
-
-
+	
 	return _instance;
 }
 
 void Controller::start()
 {
-	g_print("initialized\n");
 	assert(_main_window_controller);
 	_main_window_controller->initialize();
 	_main_window_controller->display();
-	g_print("start\n");
 	gtk_main();
-	g_print("end\n");
 }
 
 void Controller::onNotify(void * data, Events event)

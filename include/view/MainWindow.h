@@ -17,14 +17,12 @@ class MainWindow : public Window
 {
 public:
 
-	MainWindow(GtkWidget *window);
+	MainWindow(GtkWidget *window, Viewport *viewport);
 	virtual ~MainWindow();
 
 	void initialize();
 	GtkDrawingArea* getDrawingArea();
 	cairo_surface_t *getSurface();
-
-	Viewport *getViewport();
 
 	gboolean draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
@@ -44,9 +42,6 @@ private:
 	GtkTreeView* _treeView;
 	GtkTreeIter    _iter;
 	GtkTreeModel *_model;
-
-	Viewport *_viewport;
-
 
 };
 
