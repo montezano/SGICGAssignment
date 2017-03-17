@@ -45,18 +45,24 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	GtkButton* button;
 	GtkToolButton* toolButton;
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ponto"));
-	g_signal_connect(button, "clicked", G_CALLBACK(input_ponto_cb), NULL);
+	/////////////////////////////////
+	/// ADD/REMOVE BUTTONS
+	/////////////////////////////////
+	_radio_button_linha = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_line"));
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_linha"));
-	g_signal_connect(button, "clicked", G_CALLBACK(input_linha_cb), NULL);
+	_radio_button_poligono = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_polygon"));
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_poligono"));
-	g_signal_connect(button, "clicked", G_CALLBACK(input_poligono_cb), NULL);
+	_radio_button_ponto = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "buttom_remove_object"));
-	g_signal_connect(button, "clicked", G_CALLBACK(remove_object), NULL);
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object"));
+	g_signal_connect(toolButton, "clicked", G_CALLBACK(add_object_cb), NULL);
 
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_remove_object"));
+	g_signal_connect(toolButton, "clicked", G_CALLBACK(remove_object), NULL);
+
+	/////////////////////////////////
+	/// VIEWPORT BUTTONS
+	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveUp), NULL);
 
@@ -74,6 +80,23 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
 	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	/////////////////////////////////
+	/// TRANSOFRMATION BUTTONS
+	/////////////////////////////////
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_up"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_left"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_down"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_right"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+
 }
 
 
@@ -105,16 +128,24 @@ void ControllerMainWindow::zoomOut(){
 	_viewport->zoom(0.8);
 }
 
-
-
-void ControllerMainWindow::input_ponto_cb()
+void ControllerMainWindow::translate_up_cb()
 {
-	_controller->_window_ponto_controller->display();
+
 }
 
-void ControllerMainWindow::input_poligono_cb()
+void ControllerMainWindow::translate_left_cb()
 {
-	_controller->_window_poligono_controller->display();
+
+}
+
+void ControllerMainWindow::translate_right_cb()
+{
+
+}
+
+void ControllerMainWindow::translate_down_cb()
+{
+
 }
 
 void ControllerMainWindow::remove_object(){
@@ -139,9 +170,39 @@ void ControllerMainWindow::remove_object(){
 //	delete model;
 }
 
-void ControllerMainWindow::input_linha_cb()
+void ControllerMainWindow::add_object_cb()
 {
-	_controller->_window_linha_controller->display();
+	GSList *toggle_button = gtk_radio_button_get_group(_radio_button_linha);
+	int index = -1;
+	if (toggle_button)
+	{
+		do
+		{
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button->data)))
+			{
+				break;
+			}
+		} while ((toggle_button = g_slist_next(toggle_button)) != NULL);
+	}
+
+	GtkButton *button = GTK_BUTTON(toggle_button->data);
+	std::string button_name = gtk_button_get_label(button);
+
+	if(button_name == "Linha")
+	{
+		_controller->_window_linha_controller->display();
+	}
+	else
+	{
+		if (button_name == "Poligono")
+		{
+			_controller->_window_poligono_controller->display();
+		}
+		else
+		{
+			_controller->_window_ponto_controller->display();
+		}
+	}
 }
 
 gboolean ControllerMainWindow::draw_cb(GtkWidget * widget, cairo_t * cr, gpointer data)
@@ -162,4 +223,6 @@ Viewport *ControllerMainWindow::_viewport = NULL;
 Canvas *ControllerMainWindow::_canvas = NULL;
 GtkTreeView* ControllerMainWindow::_treeView = NULL;
 
-
+GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;

@@ -33,9 +33,7 @@ private:
 
 	void configureButtons(GtkBuilder *builder);
 
-	static void input_ponto_cb();
-	static void input_poligono_cb();
-	static void input_linha_cb();
+	static void add_object_cb();
 	static void remove_object();
 	static void moveUp();
 	static void moveDown();
@@ -43,6 +41,11 @@ private:
 	static void moveRight();
 	static void zoomIn();
 	static void zoomOut();
+	static void translate_up_cb();
+	static void translate_left_cb();
+	static void translate_right_cb();
+	static void translate_down_cb();
+
 
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
@@ -53,6 +56,9 @@ private:
 	static Canvas *_canvas;
 	static Viewport *_viewport;
 
+	static GtkRadioButton *_radio_button_linha;
+	static GtkRadioButton *_radio_button_poligono;
+	static GtkRadioButton *_radio_button_ponto;
 };
 
 #endif//__CONTROLERMAINWINDOW_H__
