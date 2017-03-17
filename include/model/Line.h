@@ -13,7 +13,7 @@
 
 class Line : public Drawable {
 public:
-	Line(const gchar *nome, double inicial_x, double inicial_y, double final_x, double final_y);
+	Line(const gchar *nome, float inicial_x, float inicial_y, float final_x, float final_y);
 	Line(const gchar *nome, Vector init_position, Vector final_position);
 	virtual ~Line();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);

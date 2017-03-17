@@ -21,8 +21,8 @@ void WindowPonto::initialize()
 WindowPonto::WinPonto WindowPonto::add_ponto()
 {
 	const char* nome = gtk_entry_get_text(_entry_nome);
-	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
-	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
+	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
+	gfloat inicial_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_y));
 	gtk_widget_hide(_window);
 	WinPonto p = WinPonto(nome, Vector(inicial_x, inicial_y));
 	gtk_entry_set_text(_entry_nome, "");

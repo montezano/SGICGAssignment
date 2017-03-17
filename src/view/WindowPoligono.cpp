@@ -27,8 +27,8 @@ void WindowPoligono::initialize()
 
 Vector WindowPoligono::add_coords()
 {
-	gdouble inicial_x = gtk_spin_button_get_value(_spinbutton_inicial_x);
-	gdouble inicial_y = gtk_spin_button_get_value(_spinbutton_inicial_y);
+	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
+	gfloat inicial_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_y));
 	g_print("x: %f, y: %f\n", inicial_x, inicial_y);
 
 	//_v.push_back(Vector(inicial_x, inicial_y));

@@ -7,7 +7,7 @@
 
 #include "Drawable.h"
 
- Drawable::Drawable(const gchar * nome, double inicial_x, double inicial_y) :
+ Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y) :
 	 _nome(nome)
  {
 	 this->_position = Vector(inicial_x, inicial_y);

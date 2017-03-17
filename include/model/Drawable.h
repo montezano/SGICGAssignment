@@ -18,7 +18,7 @@ class Drawable
 
 public:
 
-	Drawable(const gchar *nome, double inicial_x, double inicial_y);
+	Drawable(const gchar *nome, float inicial_x, float inicial_y);
 	Drawable(const gchar *nome, Vector vector);
 	virtual ~Drawable();
 

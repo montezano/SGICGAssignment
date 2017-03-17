@@ -8,7 +8,7 @@ Vector::Vector() :
 }
 
 
-Vector::Vector(double X, double Y) :
+Vector::Vector(float X, float Y) :
 	x(X),
 	y(Y)
 {
@@ -59,19 +59,19 @@ Vector operator -(const Vector& left, const Vector& right)
 }
 
 
-Vector operator *(const Vector& left, double right)
+Vector operator *(const Vector& left, float right)
 {
 	return Vector(left.x * right, left.y * right);
 }
 
 
-Vector operator *(double left, const Vector& right)
+Vector operator *(float left, const Vector& right)
 {
 	return Vector(right.x * left, right.y * left);
 }
 
 
-Vector& operator *=(Vector& left, double right)
+Vector& operator *=(Vector& left, float right)
 {
 	left.x *= right;
 	left.y *= right;
@@ -80,13 +80,13 @@ Vector& operator *=(Vector& left, double right)
 }
 
 
-Vector operator /(const Vector& left, double right)
+Vector operator /(const Vector& left, float right)
 {
 	return Vector(left.x / right, left.y / right);
 }
 
 
-Vector& operator /=(Vector& left, double right)
+Vector& operator /=(Vector& left, float right)
 {
 	left.x /= right;
 	left.y /= right;

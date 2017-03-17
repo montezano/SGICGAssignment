@@ -85,16 +85,16 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/// TRANSOFRMATION BUTTONS
 	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_up"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), NULL);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_left"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_left_cb), NULL);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_down"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_down_cb), NULL);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_right"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_right_cb), NULL);
 
 
 }
@@ -105,27 +105,27 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 //	CALLBACK FUNCTIONS
 ///////////////////////////////////////////////////////////////////////
 void ControllerMainWindow::moveUp(){
-	_viewport->moveVertical(0.1);
+	_viewport->moveVertical(0.1f);
 }
 
 void ControllerMainWindow::moveDown(){
-	_viewport->moveVertical(-0.1);
+	_viewport->moveVertical(-0.1f);
 }
 
 void ControllerMainWindow::moveLeft(){
-	_viewport->moveHorizontal(-0.1);
+	_viewport->moveHorizontal(-0.1f);
 }
 
 void ControllerMainWindow::moveRight(){
-	_viewport->moveHorizontal(0.1);
+	_viewport->moveHorizontal(0.1f);
 }
 
 void ControllerMainWindow::zoomIn(){
-	_viewport->zoom(1.25);
+	_viewport->zoom(1.25f);
 }
 
 void ControllerMainWindow::zoomOut(){
-	_viewport->zoom(0.8);
+	_viewport->zoom(0.8f);
 }
 
 void ControllerMainWindow::translate_up_cb()

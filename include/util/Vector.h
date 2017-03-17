@@ -8,13 +8,13 @@ public:
 	Vector();
 
 
-	Vector(double X, double Y);
+	Vector(float X, float Y);
 
 
 	Vector(const Vector& vector);
 
-	double x; ///< X coordinate of the vector
-	double y; ///< Y coordinate of the vector
+	float x; ///< X coordinate of the vector
+	float y; ///< Y coordinate of the vector
 };
 
 Vector operator -(const Vector& right);
@@ -32,19 +32,19 @@ Vector operator +(const Vector& left, const Vector& right);
 Vector operator -(const Vector& left, const Vector& right);
 
 
-Vector operator *(const Vector& left, double right);
+Vector operator *(const Vector& left, float right);
 
 
-Vector operator *(double left, const Vector& right);
+Vector operator *(float left, const Vector& right);
 
 
-Vector& operator *=(Vector& left, double right);
+Vector& operator *=(Vector& left, float right);
 
 
-Vector operator /(const Vector& left, double right);
+Vector operator /(const Vector& left, float right);
 
 
-Vector& operator /=(Vector& left, double right);
+Vector& operator /=(Vector& left, float right);
 
 
 bool operator ==(const Vector& left, const Vector& right);

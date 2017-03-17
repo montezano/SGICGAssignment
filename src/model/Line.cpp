@@ -10,7 +10,7 @@
 
 #include <assert.h>
 
- Line::Line(const gchar * nome, double inicial_x, double inicial_y, double final_x, double final_y) : Drawable(nome, inicial_x, inicial_y)
+ Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y) : Drawable(nome, inicial_x, inicial_y)
  {
 	 this->_final_position = Vector(final_x, final_y);
  }
