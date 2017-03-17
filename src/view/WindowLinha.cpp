@@ -1,4 +1,4 @@
-#include "view/WindowLinha.h"
+#include "WindowLinha.h"
 
 WindowLinha::WindowLinha(GtkWidget * window) :
 	Window(window)

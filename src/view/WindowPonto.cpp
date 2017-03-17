@@ -1,4 +1,4 @@
-#include "view/WindowPonto.h"
+#include "WindowPonto.h"
 
 WindowPonto::WindowPonto(GtkWidget * window) :
 	Window(window)

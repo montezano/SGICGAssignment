@@ -8,11 +8,11 @@ class Controller;
 #include <gtk/gtk.h>
 #include <assert.h>
 
-#include "view/WindowPoligono.h"
-#include "controller/Controller.h"
+#include "WindowPoligono.h"
+#include "Controller.h"
 #include "util/Vector.h"
-#include "model/Polygon.h"
-#include "model/Canvas.h"
+#include "Polygon.h"
+#include "Canvas.h"
 
 using namespace std;
 

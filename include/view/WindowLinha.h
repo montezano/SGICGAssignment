@@ -9,7 +9,7 @@
 #include <gtk/gtk.h>
 #include <assert.h>
 
-#include "view/Window.h"
+#include "Window.h"
 #include "util/Vector.h"
 #include "util/Event.h"
 

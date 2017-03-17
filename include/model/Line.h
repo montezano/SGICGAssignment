@@ -8,7 +8,7 @@
 #ifndef SRC_MODEL_LINE_H_
 #define SRC_MODEL_LINE_H_
 
-#include "model/Drawable.h"
+#include "Drawable.h"
 
 
 class Line : public Drawable {

@@ -1,7 +1,7 @@
 #ifndef __WINDOWPOLIGONO_H__
 #define __WINDOWPOLIGONO_H__
 
-#include "view/Window.h"
+#include "Window.h"
 #include "util/Vector.h"
 #include <vector>
 

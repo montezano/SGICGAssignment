@@ -8,9 +8,9 @@
 
 #include "util/Vector.h"
 #include "util/Subject.h"
-#include "model/Line.h"
-#include "model/Point.h"
-#include "model/Polygon.h"
+#include "Line.h"
+#include "Point.h"
+#include "Polygon.h"
 
 
 class Canvas : public Subject

@@ -1,4 +1,4 @@
-#include "view/WindowPoligono.h"
+#include "WindowPoligono.h"
 
 WindowPoligono::WindowPoligono(GtkWidget * window) :
 	Window(window)

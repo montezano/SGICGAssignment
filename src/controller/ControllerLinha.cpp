@@ -1,4 +1,4 @@
-#include "controller/ControllerLinha.h"
+#include "ControllerLinha.h"
 
 ControllerLinha::ControllerLinha(GtkBuilder * builder, Canvas *canvas)
 {

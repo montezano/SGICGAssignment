@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 
 #include <assert.h>
-#include "controller/Controller.h"
+#include "Controller.h"
 
 int main(int argc, char *argv[])
 {

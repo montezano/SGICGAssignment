@@ -6,7 +6,7 @@
 
 
 #include <gtk/gtk.h>
-#include "model/Viewport.h"
+#include "Viewport.h"
 #include <assert.h>
 #include <string>
 #include <cstring>

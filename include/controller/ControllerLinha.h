@@ -8,11 +8,11 @@ class Controller;
 #include <gtk/gtk.h>
 #include <assert.h>
 
-#include "view/Window.h"
-#include "view/WindowLinha.h"
-#include "controller/Controller.h"
-#include "model/Line.h"
-#include "model/Canvas.h"
+#include "Window.h"
+#include "WindowLinha.h"
+#include "Controller.h"
+#include "Line.h"
+#include "Canvas.h"
 
 using namespace std;
 

@@ -1,4 +1,4 @@
-#include "controller/ControllerMainWindow.h"
+#include "ControllerMainWindow.h"
 
 ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controller *controller, Canvas *canvas, Viewport *viewport)
 {

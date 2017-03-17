@@ -8,7 +8,7 @@
 #ifndef SRC_MODEL_POINT_H_
 #define SRC_MODEL_POINT_H_
 
-#include "model/Drawable.h"
+#include "Drawable.h"
 #include <gtk/gtk.h>
 
 class Point : public Drawable {

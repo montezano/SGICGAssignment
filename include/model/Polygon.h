@@ -8,7 +8,7 @@
 #ifndef SRC_MODEL_POLYGON_H_
 #define SRC_MODEL_POLYGON_H_
 
-#include "model/Drawable.h"
+#include "Drawable.h"
 #include <vector>
 
 class Polygon : public Drawable {

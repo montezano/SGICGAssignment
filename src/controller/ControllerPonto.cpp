@@ -1,4 +1,4 @@
-#include "controller/ControllerPonto.h"
+#include "ControllerPonto.h"
 
 ControllerPonto::ControllerPonto(GtkBuilder * builder, Canvas *canvas)
 {

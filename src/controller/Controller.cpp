@@ -1,4 +1,4 @@
-#include "controller/Controller.h"
+#include "Controller.h"
 
 Controller::Controller(int argc, char *argv[])
 {

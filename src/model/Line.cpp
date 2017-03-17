@@ -5,8 +5,8 @@
  *      Author: luizurias
  */
 
-#include "model/Line.h"
-#include "model/Viewport.h"
+#include "Line.h"
+#include "Viewport.h"
 
 #include <assert.h>
 

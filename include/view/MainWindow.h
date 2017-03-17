@@ -10,8 +10,8 @@
 
 #include <assert.h>
 
-#include "view/Window.h"
-#include "model/Drawable.h"
+#include "Window.h"
+#include "Drawable.h"
 
 class MainWindow : public Window
 {

@@ -1,4 +1,4 @@
-#include "view/MainWindow.h"
+#include "MainWindow.h"
 
 MainWindow::MainWindow(GtkWidget *window, Viewport *viewport) :
 	Window(window)

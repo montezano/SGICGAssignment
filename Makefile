@@ -1,5 +1,5 @@
 LIBS = `pkg-config --libs gtk+-3.0`
-INCLUDES = -I./include/ `pkg-config --cflags gtk+-3.0`
+INCLUDES = -I./include/ -I./include/view -I./include/controller -I./include/model -I./include/util `pkg-config --cflags gtk+-3.0`
 CC = g++ -std=c++11
 CPPFLAGS =
 CXXFLAGS =

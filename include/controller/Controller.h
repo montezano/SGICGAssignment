@@ -17,12 +17,12 @@ class ControllerPonto;
 #include <gtk/gtk.h>
 #include <assert.h>
 
-#include "view/Window.h"
-#include "controller/ControllerMainWindow.h"
-#include "controller/ControllerLinha.h"
-#include "controller/ControllerPonto.h"
-#include "controller/ControllerPoligono.h"
-#include "model/Canvas.h"
+#include "Window.h"
+#include "ControllerMainWindow.h"
+#include "ControllerLinha.h"
+#include "ControllerPonto.h"
+#include "ControllerPoligono.h"
+#include "Canvas.h"
 #include "util/Observer.h"
 #include "util/Log.h"
 

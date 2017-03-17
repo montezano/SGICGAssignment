@@ -1,4 +1,4 @@
-#include "view/Window.h"
+#include "Window.h"
 
 Window::Window(GtkWidget * window)
 {

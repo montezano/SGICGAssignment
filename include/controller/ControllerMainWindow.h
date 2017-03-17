@@ -9,12 +9,12 @@ class Controller;
 #include <gtk/gtk.h>
 #include <assert.h>
 
-#include "view/Window.h"
-#include "view/MainWindow.h"
-#include "controller/Controller.h"
-#include "model/Drawable.h"
-#include "model/Canvas.h"
-#include "model/Viewport.h"
+#include "Window.h"
+#include "MainWindow.h"
+#include "Controller.h"
+#include "Drawable.h"
+#include "Canvas.h"
+#include "Viewport.h"
 using namespace std;
 
 class ControllerMainWindow

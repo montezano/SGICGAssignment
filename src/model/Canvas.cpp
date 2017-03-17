@@ -1,4 +1,4 @@
-#include "model/Canvas.h"
+#include "Canvas.h"
 
 #include <assert.h>
 

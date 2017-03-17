@@ -10,7 +10,7 @@
 
 #include <gtk/gtk.h>
 #include <string>
-#include "model/Viewport.h"
+#include "Viewport.h"
 #include "util/Vector.h"
 
 class Drawable

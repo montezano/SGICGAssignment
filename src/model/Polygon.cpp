@@ -5,8 +5,8 @@
  *      Author: luizurias
  */
 
-#include "model/Polygon.h"
-#include "model/Viewport.h"
+#include "Polygon.h"
+#include "Viewport.h"
 
 #include <assert.h>
 #include <stdlib.h>

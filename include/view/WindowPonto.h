@@ -10,7 +10,7 @@
 
 #include <assert.h>
 
-#include "view/Window.h"
+#include "Window.h"
 #include "util/Vector.h"
 
 class WindowPonto : public Window

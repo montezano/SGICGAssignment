@@ -5,7 +5,7 @@
  *      Author: luizurias
  */
 
-#include "model/Drawable.h"
+#include "Drawable.h"
 
  Drawable::Drawable(const gchar * nome, double inicial_x, double inicial_y) :
 	 _nome(nome)

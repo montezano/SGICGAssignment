@@ -5,8 +5,8 @@
  *      Author: luizurias
  */
 
-#include "model/Point.h"
-#include "model/Viewport.h"
+#include "Point.h"
+#include "Viewport.h"
 
 Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y) : Drawable (nome,inicial_x,inicial_y)
 {

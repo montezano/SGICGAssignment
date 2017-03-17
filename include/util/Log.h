@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "model/Drawable.h"
+#include "Drawable.h"
 #include "util/Event.h"
 #include "util/Observer.h"
 

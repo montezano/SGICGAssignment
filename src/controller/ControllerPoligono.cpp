@@ -1,4 +1,4 @@
-#include "controller/ControllerPoligono.h"
+#include "ControllerPoligono.h"
 
 ControllerPoligono::ControllerPoligono(GtkBuilder * builder, Canvas *canvas)
 
