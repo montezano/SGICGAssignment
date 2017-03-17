@@ -33,9 +33,6 @@ private:
 
 	void configureButtons(GtkBuilder *builder);
 
-	static void input_ponto();
-	static void input_poligono();
-	static void input_linha();
 	static void add_object_cb();
 	static void remove_object();
 	static void moveUp();
@@ -44,6 +41,11 @@ private:
 	static void moveRight();
 	static void zoomIn();
 	static void zoomOut();
+	static void translate_up_cb();
+	static void translate_left_cb();
+	static void translate_right_cb();
+	static void translate_down_cb();
+
 
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);

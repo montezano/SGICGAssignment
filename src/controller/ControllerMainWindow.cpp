@@ -45,18 +45,24 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	GtkButton* button;
 	GtkToolButton* toolButton;
 
+	/////////////////////////////////
+	/// ADD/REMOVE BUTTONS
+	/////////////////////////////////
 	_radio_button_linha = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_line"));
 
 	_radio_button_poligono = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_polygon"));
 
 	_radio_button_ponto = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object_2"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(add_object_cb), NULL);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_remove_object_2"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_remove_object"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(remove_object), NULL);
 
+	/////////////////////////////////
+	/// VIEWPORT BUTTONS
+	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveUp), NULL);
 
@@ -74,6 +80,23 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
 	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	/////////////////////////////////
+	/// TRANSOFRMATION BUTTONS
+	/////////////////////////////////
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_up"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_left"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_down"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_right"));
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+
+
 }
 
 
@@ -105,16 +128,24 @@ void ControllerMainWindow::zoomOut(){
 	_viewport->zoom(0.8);
 }
 
-
-
-void ControllerMainWindow::input_ponto()
+void ControllerMainWindow::translate_up_cb()
 {
-	_controller->_window_ponto_controller->display();
+
 }
 
-void ControllerMainWindow::input_poligono()
+void ControllerMainWindow::translate_left_cb()
 {
-	_controller->_window_poligono_controller->display();
+
+}
+
+void ControllerMainWindow::translate_right_cb()
+{
+
+}
+
+void ControllerMainWindow::translate_down_cb()
+{
+
 }
 
 void ControllerMainWindow::remove_object(){
@@ -139,24 +170,8 @@ void ControllerMainWindow::remove_object(){
 //	delete model;
 }
 
-void ControllerMainWindow::input_linha()
-{
-	_controller->_window_linha_controller->display();
-}
-
 void ControllerMainWindow::add_object_cb()
 {
-
-	//for (int i = 0; i < g_slist_length(buttons_list); i++)
-	//{
-	//	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(buttons_list)))
-	//	{
-	//		index = i;
-	//		break;
-	//	}
-	//}
-
-
 	GSList *toggle_button = gtk_radio_button_get_group(_radio_button_linha);
 	int index = -1;
 	if (toggle_button)
@@ -175,19 +190,17 @@ void ControllerMainWindow::add_object_cb()
 
 	if(button_name == "Linha")
 	{
-
-		input_linha();
+		_controller->_window_linha_controller->display();
 	}
 	else
 	{
 		if (button_name == "Poligono")
 		{
-			input_poligono();
+			_controller->_window_poligono_controller->display();
 		}
 		else
 		{
-			input_ponto();
-
+			_controller->_window_ponto_controller->display();
 		}
 	}
 }
