@@ -33,9 +33,10 @@ private:
 
 	void configureButtons(GtkBuilder *builder);
 
-	static void input_ponto_cb();
-	static void input_poligono_cb();
-	static void input_linha_cb();
+	static void input_ponto();
+	static void input_poligono();
+	static void input_linha();
+	static void add_object_cb();
 	static void remove_object();
 	static void moveUp();
 	static void moveDown();
@@ -53,6 +54,9 @@ private:
 	static Canvas *_canvas;
 	static Viewport *_viewport;
 
+	static GtkRadioButton *_radio_button_linha;
+	static GtkRadioButton *_radio_button_poligono;
+	static GtkRadioButton *_radio_button_ponto;
 };
 
 #endif//__CONTROLERMAINWINDOW_H__
