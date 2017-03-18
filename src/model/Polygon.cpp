@@ -44,7 +44,7 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 	//cairo_stroke(_cr);
 }
 
-Vector & Polygon::getCenter()
+Vector Polygon::getCenter()
 {
 	Vector sum = _position;
 	for (auto vector : _coords)
@@ -57,9 +57,9 @@ Vector & Polygon::getCenter()
 
 void Polygon::transform(Transformation & transformation)
 {
-	transformation.transformPoint(_position);
+	_position = transformation.transformPoint(_position);
 	for (auto vector : _coords)
 	{
-		transformation.transformPoint(vector);
+		vector = transformation.transformPoint(vector);
 	}
 }

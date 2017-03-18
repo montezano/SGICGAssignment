@@ -28,7 +28,7 @@ public:
 	void setTipo(const gchar* tipo);
 	const gchar* getTipo();
 	const gchar* getNome();
-	virtual Vector &getCenter() = 0;
+	virtual Vector getCenter() = 0;
 	virtual void transform(Transformation &transformation) = 0;
 
 protected:

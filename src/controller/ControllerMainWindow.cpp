@@ -85,16 +85,16 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/// TRANSOFRMATION BUTTONS
 	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_up"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_left"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_left_cb), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_down"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_down_cb), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_right"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_right_cb), NULL);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
 
 
 }
@@ -128,46 +128,75 @@ void ControllerMainWindow::zoomOut(){
 	_viewport->zoom(0.8f);
 }
 
-void ControllerMainWindow::translate_up_cb()
+void ControllerMainWindow::translate_up_cb(GtkWidget *widget)
 {
+	Vector factor = Vector(0,0);
+	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
+	const char *drawable_name = getObjectSelected();
+	if (drawable_name)
+	{
+		if (button_name == "Cima")
+		{
+			factor.y = 10;
+			_canvas->translateDrawable(drawable_name, factor);
+		}
+		else
+		{
+			if (button_name == "Direita")
+			{
+				factor.x = 10;
+				_canvas->translateDrawable(drawable_name, factor);
+			}
+			else
+			{
+				if (button_name == "Baixo")
+				{
+					factor.y = -10;
+					_canvas->translateDrawable(drawable_name, factor);
+				}
+				else
+				{
+					if (button_name == "Esquerda")
+					{
+						factor.x = -10;
+						_canvas->translateDrawable(drawable_name, factor);
+					}
+					else
+					{
+						assert(false);
+					}
+				}
 
+			}
+		}
+	}
+	
 }
 
-void ControllerMainWindow::translate_left_cb()
+//void ControllerMainWindow::translate_left_cb()
+//{
+//
+//}
+//
+//void ControllerMainWindow::translate_right_cb()
+//{
+//
+//}
+//
+//void ControllerMainWindow::translate_down_cb()
+//{
+//
+//}
+
+void ControllerMainWindow::remove_object()
 {
-
-}
-
-void ControllerMainWindow::translate_right_cb()
-{
-
-}
-
-void ControllerMainWindow::translate_down_cb()
-{
-
-}
-
-void ControllerMainWindow::remove_object(){
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;	
-	GtkTreeModel *model = NULL;
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(_treeView));
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)){
-		const gchar *name;
-		gtk_tree_model_get (model, &iter, 0, &name, -1);
-		g_print ("selected row is: %s\n", name);
+	const char *name = getObjectSelected();
+	if (name)
+	{
 		_canvas->deleteDrawable(name);
-		//_canvas->setSurface(_window->getSurface());
-		gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
-				 
-	 }else {
-		 g_print ("no row selected.\n");
-	 }
-		
-//	delete selection;
-//	delete iter;
-//	delete model;
+
+		gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+	}		 
 }
 
 void ControllerMainWindow::add_object_cb()
@@ -217,6 +246,22 @@ gboolean ControllerMainWindow::configure_event_cb(GtkWidget * widget, GdkEventCo
 	return ret;
 }
 
+const gchar * ControllerMainWindow::getObjectSelected()
+{
+
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(_treeView));
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		const gchar *name;
+		gtk_tree_model_get(model, &iter, 0, &name, -1);
+		return name;
+
+	}
+	else {
+		g_print("no row selected.\n");
+		return nullptr;
+	}
+}
+
 MainWindow *ControllerMainWindow::_window = NULL;
 const Controller *ControllerMainWindow::_controller = NULL;
 Viewport *ControllerMainWindow::_viewport = NULL;
@@ -226,3 +271,7 @@ GtkTreeView* ControllerMainWindow::_treeView = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
+
+GtkTreeSelection *ControllerMainWindow::selection = NULL;
+GtkTreeIter ControllerMainWindow::iter;
+GtkTreeModel *ControllerMainWindow::model;

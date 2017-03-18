@@ -36,13 +36,13 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 
 }
 
-Vector & Line::getCenter()
+Vector Line::getCenter()
 {
 	return (_position + _final_position) / 2.f;
 }
 
 void Line::transform(Transformation & transformation)
 {
-	transformation.transformPoint(_position);
-	transformation.transformPoint(_final_position);
+	_position = transformation.transformPoint(_position);
+	_final_position = transformation.transformPoint(_final_position);
 }

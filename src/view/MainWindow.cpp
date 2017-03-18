@@ -63,7 +63,11 @@ void MainWindow::onNotify(void *data, Events event)
 	case Events::VIEWPORT_ZOOM_IN:
 	case Events::VIEWPORT_ZOOM_OUT:
 		reconfigure(_window);
-
+		break;
+	case Events::TRANSFORMATION_TRANSLATE:
+	case Events::TRANSFORMATION_SCALE:
+	case Events::TRANSFORMATION_ROTATE:
+		reconfigure(_window);
 	}
 }
 //void MainWindow::deleteItem(GtkTreeModel *model, GtkTreeIter *iter){

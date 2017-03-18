@@ -41,12 +41,8 @@ private:
 	static void moveRight();
 	static void zoomIn();
 	static void zoomOut();
-	static void translate_up_cb();
-	static void translate_left_cb();
-	static void translate_right_cb();
-	static void translate_down_cb();
-
-
+	static void translate_up_cb(GtkWidget *widget);
+	static const gchar *getObjectSelected();
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
@@ -59,6 +55,12 @@ private:
 	static GtkRadioButton *_radio_button_linha;
 	static GtkRadioButton *_radio_button_poligono;
 	static GtkRadioButton *_radio_button_ponto;
+
+	static GtkTreeSelection *selection;
+	static GtkTreeIter iter;
+	static GtkTreeModel *model;
+
+
 };
 
 #endif//__CONTROLERMAINWINDOW_H__

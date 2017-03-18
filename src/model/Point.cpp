@@ -34,12 +34,12 @@ void Point::draw(cairo_t *_cr, Viewport *viewport)
 	//cairo_stroke(_cr);
 }
 
-Vector & Point::getCenter()
+Vector Point::getCenter()
 {
 	return _position;
 }
 
 void Point::transform(Transformation & transformation)
 {
-	transformation.transformPoint(_position);
+	_position = transformation.transformPoint(_position);
 }

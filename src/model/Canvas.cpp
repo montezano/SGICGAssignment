@@ -78,6 +78,7 @@ void Canvas::deleteDrawable(const gchar* nome) {
 void Canvas::translateDrawable(const gchar * name, Vector &offset)
 {
 	Drawable *ret = findDrawable(name);
+	assert(ret);
 	Transformation transformation = Transformation();
 	transformation.translate(offset);
 
@@ -133,7 +134,7 @@ void Canvas::rotateDrawableWorldCenter(const gchar * name, float & angle)
 Drawable * Canvas::findDrawable(const gchar * name)
 {
 	for (size_t i = 0; i< this->_canvas.size(); i++) {
-		if (strcmp(_canvas.at(i)->getNome(), name) == 0) {
+		if (strcmp(_canvas[i]->getNome(), name) == 0) {
 			return _canvas[i];
 		}
 	}
