@@ -11,7 +11,8 @@
 #include <gtk/gtk.h>
 #include <string>
 #include "Viewport.h"
-#include "util/Vector.h"
+#include "Vector.h"
+#include "Transformation.h"
 
 class Drawable
 {
@@ -27,6 +28,8 @@ public:
 	void setTipo(const gchar* tipo);
 	const gchar* getTipo();
 	const gchar* getNome();
+	virtual Vector &getCenter() = 0;
+	virtual void transform(Transformation &transformation) = 0;
 
 protected:
 	std::string _nome;

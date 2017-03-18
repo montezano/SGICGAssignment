@@ -6,11 +6,12 @@
 #include <cstring>
 
 
-#include "util/Vector.h"
-#include "util/Subject.h"
+#include "Vector.h"
+#include "Subject.h"
 #include "Line.h"
 #include "Point.h"
 #include "Polygon.h"
+#include "Transformation.h"
 
 
 class Canvas : public Subject
@@ -24,9 +25,16 @@ public:
 	void addPoint(const gchar *nome, Vector init_position);
 	void drawCanvas(cairo_surface_t *surfac);
 	void updateViewport();
-	void deleteDrawable(const gchar* nome);
+	void deleteDrawable(const gchar *nome);
+	void translateDrawable(const gchar* name, Vector &offset);
+	void scaleDrawable(const gchar *name, Vector &factor);
+	void rotateDrawableOwnCenter(const gchar *name, float &angle);
+	void rotateDrawableSpecificCenter(const gchar *name, float &angle, Vector center);
+	void rotateDrawableWorldCenter(const gchar *name, float &angle);
 
 private:
+
+	Drawable *findDrawable(const gchar *name);
 	std::vector<Drawable*> _canvas;
 	Viewport *_viewport;
 

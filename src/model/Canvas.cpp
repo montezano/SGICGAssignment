@@ -62,14 +62,10 @@ void Canvas::updateViewport()
 }
 
 void Canvas::deleteDrawable(const gchar* nome) {
-	//g_print("%d\n",this->_canvas.size());
-	//g_print("antes\n");
+
 	Drawable *ret = NULL;
-	//g_print(this->_canvas[0]->getNome());
 	 for(size_t i = 0; i< this->_canvas.size(); i++){
-	 	g_print("NOMES\n");
 	 	if(strcmp(_canvas.at(i)->getNome(),nome) == 0) {
-			g_print("removendo!!\n");
 			ret = _canvas[i];
 	 		_canvas.erase(_canvas.begin()+i);
 	 	}
@@ -77,4 +73,69 @@ void Canvas::deleteDrawable(const gchar* nome) {
 
 	 notify(static_cast<void*>(ret), Events::REMOVE_DRAWABLE);
 	delete ret;
+}
+
+void Canvas::translateDrawable(const gchar * name, Vector &offset)
+{
+	Drawable *ret = findDrawable(name);
+	Transformation transformation = Transformation();
+	transformation.translate(offset);
+
+	ret->transform(transformation);
+
+	notify(static_cast<void*>(ret), Events::TRANSFORMATION_TRANSLATE);
+}
+
+void Canvas::scaleDrawable(const gchar * name, Vector & factor)
+{
+	Drawable *ret = findDrawable(name);
+	Transformation transformation = Transformation();
+
+	transformation.translate(-ret->getCenter()).scale(factor).translate(ret->getCenter());
+
+	ret->transform(transformation);
+	notify(static_cast<void*>(ret), Events::TRANSFORMATION_SCALE);
+}
+
+void Canvas::rotateDrawableOwnCenter(const gchar * name, float & angle)
+{
+	Drawable *ret = findDrawable(name);
+	Transformation transformation = Transformation();
+
+	transformation.translate(-ret->getCenter()).rotate(angle).translate(ret->getCenter());
+
+	ret->transform(transformation);
+	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);
+}
+
+void Canvas::rotateDrawableSpecificCenter(const gchar * name, float & angle, Vector center)
+{
+	Drawable *ret = findDrawable(name);
+	Transformation transformation = Transformation();
+
+	transformation.translate(-center).rotate(angle).translate(center);
+
+	ret->transform(transformation);
+	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);
+}
+
+void Canvas::rotateDrawableWorldCenter(const gchar * name, float & angle)
+{
+	Drawable *ret = findDrawable(name);
+	Transformation transformation = Transformation();
+
+	transformation.rotate(angle);
+
+	ret->transform(transformation);
+	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);
+}
+
+Drawable * Canvas::findDrawable(const gchar * name)
+{
+	for (size_t i = 0; i< this->_canvas.size(); i++) {
+		if (strcmp(_canvas.at(i)->getNome(), name) == 0) {
+			return _canvas[i];
+		}
+	}
+	return nullptr;
 }

@@ -17,6 +17,9 @@ public:
 	Line(const gchar *nome, Vector init_position, Vector final_position);
 	virtual ~Line();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
+	virtual Vector &getCenter();
+	virtual void transform(Transformation &transformation);
+
 
 private:
 	Vector _final_position;

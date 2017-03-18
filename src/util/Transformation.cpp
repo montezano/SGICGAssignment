@@ -109,24 +109,6 @@ Transformation& Transformation::rotate(float angle)
 	return combine(rotation);
 }
 
-Transformation& Transformation::rotate(float angle, float centerX, float centerY)
-{
-	float rad = angle * 3.141592654f / 180.f;
-	float cos = std::cos(rad);
-	float sin = std::sin(rad);
-
-	Transformation rotation(cos, -sin, centerX * (1 - cos) + centerY * sin,
-		sin, cos, centerY * (1 - cos) - centerX * sin,
-		0, 0, 1);
-
-	return combine(rotation);
-}
-
-Transformation& Transformation::rotate(float angle, const Vector& center)
-{
-	return rotate(angle, center.x, center.y);
-}
-
 Transformation& Transformation::scale(float scaleX, float scaleY)
 {
 	Transformation scaling(scaleX, 0, 0,
@@ -136,23 +118,9 @@ Transformation& Transformation::scale(float scaleX, float scaleY)
 	return combine(scaling);
 }
 
-Transformation& Transformation::scale(float scaleX, float scaleY, float centerX, float centerY)
-{
-	Transformation scaling(scaleX, 0, centerX * (1 - scaleX),
-		0, scaleY, centerY * (1 - scaleY),
-		0, 0, 1);
-
-	return combine(scaling);
-}
-
 Transformation& Transformation::scale(const Vector& factors)
 {
 	return scale(factors.x, factors.y);
-}
-
-Transformation& Transformation::scale(const Vector& factors, const Vector& center)
-{
-	return scale(factors.x, factors.y, center.x, center.y);
 }
 
 Transformation operator *(const Transformation& left, const Transformation& right)

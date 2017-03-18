@@ -33,3 +33,13 @@ void Point::draw(cairo_t *_cr, Viewport *viewport)
 	cairo_line_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
 	//cairo_stroke(_cr);
 }
+
+Vector & Point::getCenter()
+{
+	return _position;
+}
+
+void Point::transform(Transformation & transformation)
+{
+	transformation.transformPoint(_position);
+}

@@ -17,7 +17,7 @@
 
  Line::Line(const gchar * nome, Vector init_position, Vector final_position) : Drawable(nome, init_position)
  {
-   this->_nome = nome;
+	 this->_nome = nome;
 	 this->_final_position = final_position;
  }
 
@@ -34,4 +34,15 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 	cairo_line_to(_cr, viewport->transformX(_final_position.x), viewport->transformY(_final_position.y));
 	//cairo_destroy(_cr);
 
+}
+
+Vector & Line::getCenter()
+{
+	return (_position + _final_position) / 2.f;
+}
+
+void Line::transform(Transformation & transformation)
+{
+	transformation.transformPoint(_position);
+	transformation.transformPoint(_final_position);
 }

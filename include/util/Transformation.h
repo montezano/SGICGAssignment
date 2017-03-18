@@ -35,26 +35,14 @@ public:
 	/// \brief Combine the current transform with a translation
 	Transformation& translate(const Vector& offset);
 
-	/// \brief Combine the current transform with a rotation
+	/// \brief Combine the current transform with a rotation with world center
 	Transformation& rotate(float angle);
-
-	/// \brief Combine the current transform with a rotation
-	Transformation& rotate(float angle, float centerX, float centerY);
-
-	/// \brief Combine the current transform with a rotation
-	Transformation& rotate(float angle, const Vector& center);
 
 	/// \brief Combine the current transform with a scaling
 	Transformation& scale(float scaleX, float scaleY);
 
 	/// \brief Combine the current transform with a scaling
-	Transformation& scale(float scaleX, float scaleY, float centerX, float centerY);
-
-	/// \brief Combine the current transform with a scaling
 	Transformation& scale(const Vector& factors);
-
-	/// \brief Combine the current transform with a scaling
-	Transformation& scale(const Vector& factors, const Vector& center);
 
 	static const Transformation Identity;
 

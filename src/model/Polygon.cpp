@@ -43,3 +43,23 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 	cairo_line_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
 	//cairo_stroke(_cr);
 }
+
+Vector & Polygon::getCenter()
+{
+	Vector sum = _position;
+	for (auto vector : _coords)
+	{
+		sum += vector;
+	}
+
+	return sum / static_cast<float>(_coords.size());
+}
+
+void Polygon::transform(Transformation & transformation)
+{
+	transformation.transformPoint(_position);
+	for (auto vector : _coords)
+	{
+		transformation.transformPoint(vector);
+	}
+}

@@ -17,6 +17,8 @@ public:
 	Polygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
 	virtual ~Polygon();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
+	virtual Vector &getCenter();
+	virtual void transform(Transformation &transformation);
 
 private:
 	std::vector<Vector> _coords;
