@@ -25,6 +25,11 @@ float Viewport::transformY(float yw) {
   return (1 - (((float)yw - (float)windowY)/(float)windowH)) * (float)ViewportY;
 }
 
+Vector Viewport::transfor(Vector & vector)
+{
+	return Vector(transformX(vector.x), transformY(vector.y));
+}
+
 
 void Viewport::zoom(float factor) {
   float cX, cY;

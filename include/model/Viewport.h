@@ -16,7 +16,8 @@
 
 #include <gtk/gtk.h>
 
-#include "util/Subject.h"
+#include "Subject.h"
+#include "Vector.h"
 
 class Viewport : public Subject
 {
@@ -31,6 +32,7 @@ public:
 
   float transformX(float xw);
   float transformY(float yw);
+  Vector transfor(Vector &vector);
   
   void zoom(float factor);
   void moveHorizontal(float factor);

@@ -7,13 +7,14 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controlle
 	_window = new MainWindow(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")), _viewport);
 	assert(_window);
 
+	_window_coordinates = new WindowCoordinates(GTK_WIDGET(gtk_builder_get_object(builder, "window_coordinates")));
+	assert(_window_coordinates);
+
 	assert(controller);
 	_controller = controller;
 
 	configureButtons(builder);
 	
-
-
 	g_signal_connect(_window->getDrawingArea(), "configure-event", G_CALLBACK(configure_event_cb), NULL);
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
@@ -99,18 +100,28 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	GtkScale *_scale;
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
 	assert(_scale);
-	gtk_range_set_range(GTK_RANGE(_scale), -100, 100);
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
-
-	GtkRadioButton *radio_button;
 
 	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
 	_radio_button_rotation_self = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_object"));
 	_radio_button_rotation_specific = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_other"));
+	g_signal_connect(_radio_button_rotation_specific, "clicked", G_CALLBACK(rotate_specific_cb), NULL);
 
+	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_scaling"));
+	assert(_scale);
+	g_signal_connect(_scale, "button-release-event", G_CALLBACK(scale_cb), NULL);
 
+	/////////////////////////////////
+	/// COORDINATES WINDOW
+	/////////////////////////////////
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_ok"));
+	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
 
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_cancel"));
+	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
 }
+
+
 
 
 
@@ -219,7 +230,7 @@ gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpo
 			}
 			else
 			{
-				//_canvas->rotateDrawableSpecificCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+				_canvas->rotateDrawableSpecificCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))), _window_coordinates->getCoordinates());
 			}
 		}
 	}
@@ -228,20 +239,23 @@ gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpo
 	return FALSE;
 }
 
-//void ControllerMainWindow::translate_left_cb()
-//{
-//
-//}
-//
-//void ControllerMainWindow::translate_right_cb()
-//{
-//
-//}
-//
-//void ControllerMainWindow::translate_down_cb()
-//{
-//
-//}
+void ControllerMainWindow::rotate_specific_cb()
+{
+	_window_coordinates->display();
+}
+
+gboolean ControllerMainWindow::scale_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+{
+	const gchar *nome = getObjectSelected();
+	if (nome)
+	{
+		_canvas->scaleDrawable(nome,
+			Vector(static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))),
+					static_cast<float>(gtk_range_get_value(GTK_RANGE(widget)))));
+	}
+	return FALSE;
+
+}
 
 void ControllerMainWindow::remove_object()
 {
@@ -318,6 +332,7 @@ const gchar * ControllerMainWindow::getObjectSelected()
 }
 
 MainWindow *ControllerMainWindow::_window = NULL;
+WindowCoordinates *ControllerMainWindow::_window_coordinates = NULL;
 const Controller *ControllerMainWindow::_controller = NULL;
 Viewport *ControllerMainWindow::_viewport = NULL;
 Canvas *ControllerMainWindow::_canvas = NULL;
@@ -327,9 +342,11 @@ GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
 
-GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world;
-GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self;
-GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific = NULL;
+
+
 
 GtkTreeSelection *ControllerMainWindow::selection = NULL;
 GtkTreeIter ControllerMainWindow::iter;

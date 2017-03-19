@@ -87,7 +87,7 @@ void Canvas::translateDrawable(const gchar * name, Vector &offset)
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_TRANSLATE);
 }
 
-void Canvas::scaleDrawable(const gchar * name, Vector & factor)
+void Canvas::scaleDrawable(const gchar * name, Vector factor)
 {
 	Drawable *ret = findDrawable(name);
 	Transformation transformation = Transformation();
@@ -114,7 +114,7 @@ void Canvas::rotateDrawableSpecificCenter(const gchar * name, float angle, Vecto
 	Drawable *ret = findDrawable(name);
 	Transformation transformation = Transformation();
 
-	transformation.translate(-center).rotate(angle).translate(center);
+	transformation.translate(center).rotate(angle).translate(-center);
 
 	ret->transform(transformation);
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);

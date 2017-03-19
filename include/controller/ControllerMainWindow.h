@@ -11,6 +11,7 @@ class Controller;
 
 #include "Window.h"
 #include "MainWindow.h"
+#include "WindowCoordinates.h"
 #include "Controller.h"
 #include "Drawable.h"
 #include "Canvas.h"
@@ -46,6 +47,8 @@ private:
 	static void zoomOut();
 	static void translate_cb(GtkWidget *widget);
 	static gboolean rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static void rotate_specific_cb();
+	static gboolean scale_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static const gchar *getObjectSelected();
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
@@ -55,6 +58,8 @@ private:
 	/// MEMBER VARIABLES
 	/////////////////////////////////
 	static MainWindow *_window;
+	static WindowCoordinates *_window_coordinates;
+
 	static GtkTreeView* _treeView;
 	static const Controller *_controller;
 	static Canvas *_canvas;
