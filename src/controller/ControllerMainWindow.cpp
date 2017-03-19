@@ -85,16 +85,29 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/// TRANSOFRMATION BUTTONS
 	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_up"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_left"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_down"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_translation_right"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_up_cb), toolButton);
+	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(translate_cb), toolButton);
+
+	GtkScale *_scale;
+	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
+	assert(_scale);
+	gtk_range_set_range(GTK_RANGE(_scale), -100, 100);
+	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
+
+	GtkRadioButton *radio_button;
+
+	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
+	_radio_button_rotation_self = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_object"));
+	_radio_button_rotation_specific = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_other"));
+
 
 
 }
@@ -128,7 +141,7 @@ void ControllerMainWindow::zoomOut(){
 	_viewport->zoom(0.8f);
 }
 
-void ControllerMainWindow::translate_up_cb(GtkWidget *widget)
+void ControllerMainWindow::translate_cb(GtkWidget *widget)
 {
 	Vector factor = Vector(0,0);
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
@@ -171,6 +184,48 @@ void ControllerMainWindow::translate_up_cb(GtkWidget *widget)
 		}
 	}
 	
+}
+
+gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+	const gchar *nome = getObjectSelected();
+	if (nome)
+	{
+		GSList *toggle_button = gtk_radio_button_get_group(_radio_button_rotation_world);
+		int index = -1;
+		if (toggle_button)
+		{
+			do
+			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button->data)))
+				{
+					break;
+				}
+			} while ((toggle_button = g_slist_next(toggle_button)) != NULL);
+		}
+
+		GtkButton *button = GTK_BUTTON(toggle_button->data);
+		std::string button_name = gtk_button_get_label(button);
+
+		if (button_name == "Centro")
+		{
+			_canvas->rotateDrawableWorldCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+		}
+		else
+		{
+			if (button_name == "Objeto")
+			{
+				_canvas->rotateDrawableOwnCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+			}
+			else
+			{
+				//_canvas->rotateDrawableSpecificCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+			}
+		}
+	}
+	g_print("range value: %f\n", gtk_range_get_value(GTK_RANGE(widget)));
+
+	return FALSE;
 }
 
 //void ControllerMainWindow::translate_left_cb()
@@ -271,6 +326,10 @@ GtkTreeView* ControllerMainWindow::_treeView = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
+
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific;
 
 GtkTreeSelection *ControllerMainWindow::selection = NULL;
 GtkTreeIter ControllerMainWindow::iter;

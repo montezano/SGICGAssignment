@@ -33,6 +33,9 @@ private:
 
 	void configureButtons(GtkBuilder *builder);
 
+	/////////////////////////////////
+	/// CALLBACK FUNCTIONS
+	/////////////////////////////////
 	static void add_object_cb();
 	static void remove_object();
 	static void moveUp();
@@ -41,11 +44,16 @@ private:
 	static void moveRight();
 	static void zoomIn();
 	static void zoomOut();
-	static void translate_up_cb(GtkWidget *widget);
+	static void translate_cb(GtkWidget *widget);
+	static gboolean rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static const gchar *getObjectSelected();
 	static gboolean draw_cb(GtkWidget *widget, cairo_t   *cr, gpointer   data);
 	static gboolean configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
+
+	/////////////////////////////////
+	/// MEMBER VARIABLES
+	/////////////////////////////////
 	static MainWindow *_window;
 	static GtkTreeView* _treeView;
 	static const Controller *_controller;
@@ -55,6 +63,10 @@ private:
 	static GtkRadioButton *_radio_button_linha;
 	static GtkRadioButton *_radio_button_poligono;
 	static GtkRadioButton *_radio_button_ponto;
+
+	static GtkRadioButton *_radio_button_rotation_world;
+	static GtkRadioButton *_radio_button_rotation_self;
+	static GtkRadioButton *_radio_button_rotation_specific;
 
 	static GtkTreeSelection *selection;
 	static GtkTreeIter iter;
