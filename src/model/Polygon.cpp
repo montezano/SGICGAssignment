@@ -52,14 +52,15 @@ Vector Polygon::getCenter()
 		sum += vector;
 	}
 
-	return sum / static_cast<float>(_coords.size());
+	return sum / static_cast<float>(_coords.size()+1);
 }
 
 void Polygon::transform(Transformation & transformation)
 {
 	_position = transformation.transformPoint(_position);
-	for (auto vector : _coords)
+	for (size_t i = 1; i < _coords.size(); i++)
 	{
-		vector = transformation.transformPoint(vector);
+		_coords[i] = transformation.transformPoint(_coords[i]);
 	}
+        
 }

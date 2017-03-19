@@ -10,6 +10,8 @@ WindowCoordinates::WindowCoordinates(GtkWidget * window) :
 
 	_spinbutton_coordinates_y = GTK_SPIN_BUTTON(find_child(_window, "spinbutton_coordinates_y"));
 	assert(_spinbutton_coordinates_y);
+        
+
 }
 
 void WindowCoordinates::initialize()

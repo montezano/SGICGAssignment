@@ -101,6 +101,11 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
 	assert(_scale);
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
+        
+        _scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
+	assert(_scale);
+        gtk_widget_hide(GTK_WIDGET(_scale));
+//	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
 
 	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
 	_radio_button_rotation_self = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_object"));
@@ -119,6 +124,9 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_cancel"));
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
+        
+        g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+
 }
 
 

@@ -7,7 +7,7 @@ ControllerPoligono::ControllerPoligono(GtkBuilder * builder, Canvas *canvas)
 
 	GtkButton* button;
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_poligono"));
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_poligon"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window->getWindow());
 
@@ -15,7 +15,7 @@ ControllerPoligono::ControllerPoligono(GtkBuilder * builder, Canvas *canvas)
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_coords_cb), _window->getWindow());
 
-	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_poligono"));
+	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_ok_poligon"));
 	assert(button);
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(add_poligono_cb), _window->getWindow());
 
