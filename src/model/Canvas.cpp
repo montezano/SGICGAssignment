@@ -23,7 +23,7 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 	//_canvas.push_back(static_cast<Drawable*>(d));
 	Drawable* line = new Line(nome,inicial,fim);
 	line->setTipo("linha");
-	
+
 	_canvas.push_back(line);
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
@@ -103,7 +103,7 @@ void Canvas::rotateDrawableOwnCenter(const gchar * name, float angle)
 	Drawable *ret = findDrawable(name);
 	Transformation transformation = Transformation();
 
-	transformation.translate(-ret->getCenter()).rotate(angle).translate(ret->getCenter());
+	transformation.translate(ret->getCenter()).rotate(angle).translate(-ret->getCenter());
 
 	ret->transform(transformation);
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);

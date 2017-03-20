@@ -14,7 +14,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controlle
 	_controller = controller;
 
 	configureButtons(builder);
-	
+
 	g_signal_connect(_window->getDrawingArea(), "configure-event", G_CALLBACK(configure_event_cb), NULL);
 	g_signal_connect(_window->getDrawingArea(), "draw", G_CALLBACK(draw_cb), NULL);
 
@@ -101,7 +101,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
 	assert(_scale);
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
-        
+
         _scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
 	assert(_scale);
         gtk_widget_hide(GTK_WIDGET(_scale));
@@ -124,7 +124,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_cancel"));
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
-        
+
         g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
 }
@@ -202,7 +202,7 @@ void ControllerMainWindow::translate_cb(GtkWidget *widget)
 			}
 		}
 	}
-	
+
 }
 
 gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -228,17 +228,17 @@ gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpo
 
 		if (button_name == "Centro")
 		{
-			_canvas->rotateDrawableWorldCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+			_canvas->rotateDrawableWorldCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
 		}
 		else
 		{
 			if (button_name == "Objeto")
 			{
-				_canvas->rotateDrawableOwnCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+				_canvas->rotateDrawableOwnCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
 			}
 			else
 			{
-				_canvas->rotateDrawableSpecificCenter(nome, -static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))), _window_coordinates->getCoordinates());
+				_canvas->rotateDrawableSpecificCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))), _window_coordinates->getCoordinates());
 			}
 		}
 	}
@@ -273,7 +273,7 @@ void ControllerMainWindow::remove_object()
 		_canvas->deleteDrawable(name);
 
 		gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
-	}		 
+	}
 }
 
 void ControllerMainWindow::add_object_cb()
