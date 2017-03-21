@@ -6,8 +6,8 @@
 #include <stdio.h>
 
 #include "Drawable.h"
-#include "util/Event.h"
-#include "util/Observer.h"
+#include "Event.h"
+#include "Observer.h"
 
 
 class Log : public Observer

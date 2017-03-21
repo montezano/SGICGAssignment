@@ -4,8 +4,8 @@
 #include <vector>
 #include <algorithm>
 
-#include "util/Observer.h"
-#include "util/Event.h"
+#include "Observer.h"
+#include "Event.h"
 
 class Subject
 {

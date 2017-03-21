@@ -11,7 +11,7 @@
 #include <assert.h>
 
 #include "Window.h"
-#include "util/Vector.h"
+#include "Vector.h"
 
 class WindowPonto : public Window
 {

@@ -10,7 +10,7 @@ class Controller;
 
 #include "WindowPoligono.h"
 #include "Controller.h"
-#include "util/Vector.h"
+#include "Vector.h"
 #include "Polygon.h"
 #include "Canvas.h"
 

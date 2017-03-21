@@ -10,8 +10,8 @@
 #include <assert.h>
 
 #include "Window.h"
-#include "util/Vector.h"
-#include "util/Event.h"
+#include "Vector.h"
+#include "Event.h"
 
 class WindowLinha : public Window
 {

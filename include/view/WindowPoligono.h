@@ -2,7 +2,7 @@
 #define __WINDOWPOLIGONO_H__
 
 #include "Window.h"
-#include "util/Vector.h"
+#include "Vector.h"
 #include <vector>
 
 class WindowPoligono : public Window

@@ -23,8 +23,8 @@ class ControllerPonto;
 #include "ControllerPonto.h"
 #include "ControllerPoligono.h"
 #include "Canvas.h"
-#include "util/Observer.h"
-#include "util/Log.h"
+#include "Observer.h"
+#include "Log.h"
 
 
 using namespace std;

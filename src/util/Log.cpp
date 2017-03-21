@@ -1,4 +1,4 @@
-#include "util/Log.h"
+#include "Log.h"
 
 Log::Log()
 {
@@ -40,9 +40,9 @@ void Log::onNotify(void * data, Events event)
         case TRANSFORMATION_ROTATE:
                 g_print("Rotation on object %s.\n",static_cast<Drawable*>(data)->getNome());
                 break;
-                
-            
-                
+
+
+
 
 	}
 }
