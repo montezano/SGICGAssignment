@@ -54,5 +54,3 @@ void Viewport::moveVertical(float factor) {
   windowY += factor * 100;
   notify(NULL, Events::VIEWPORT_MOVE_VERTICAL);
 }
-
-

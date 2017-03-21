@@ -62,5 +62,5 @@ void Polygon::transform(Transformation & transformation)
 	{
 		_coords[i] = transformation.transformPoint(_coords[i]);
 	}
-        
+
 }
