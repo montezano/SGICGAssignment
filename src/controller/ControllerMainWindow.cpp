@@ -65,22 +65,22 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/// VIEWPORT BUTTONS
 	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
-	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveUp), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_baixo"));
-	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveDown), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_esquerda"));
-	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveLeft), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_direita"));
-	g_signal_connect(toolButton, "clicked", G_CALLBACK(moveRight), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_in"));
-	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomIn), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(zoom_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
-	assert(toolButton);	g_signal_connect(toolButton, "clicked", G_CALLBACK(zoomOut), NULL);
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(zoom_cb), toolButton);
 
 	/////////////////////////////////
 	/// TRANSOFRMATION BUTTONS
@@ -136,28 +136,59 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 ///////////////////////////////////////////////////////////////////////
 //	CALLBACK FUNCTIONS
 ///////////////////////////////////////////////////////////////////////
-void ControllerMainWindow::moveUp(){
-	_viewport->moveVertical(0.1f);
+void ControllerMainWindow::move_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
+
+	if (button_name == "Cima")
+	{
+		_viewport->moveVertical(0.1f);
+	}
+	else
+	{
+		if (button_name == "Direita")
+		{
+			_viewport->moveHorizontal(0.1f);
+		}
+		else
+		{
+			if (button_name == "Baixo")
+			{
+					_viewport->moveVertical(-0.1f);
+			}
+			else
+			{
+				if (button_name == "Esquerda")
+				{
+					_viewport->moveHorizontal(-0.1f);
+				}
+				else
+				{
+					assert(false);
+				}
+			}
+		}
+	}
 }
 
-void ControllerMainWindow::moveDown(){
-	_viewport->moveVertical(-0.1f);
-}
-
-void ControllerMainWindow::moveLeft(){
-	_viewport->moveHorizontal(-0.1f);
-}
-
-void ControllerMainWindow::moveRight(){
-	_viewport->moveHorizontal(0.1f);
-}
-
-void ControllerMainWindow::zoomIn(){
-	_viewport->zoom(1.25f);
-}
-
-void ControllerMainWindow::zoomOut(){
-	_viewport->zoom(0.8f);
+void ControllerMainWindow::zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
+	if (button_name == "Amplia")
+	{
+		_viewport->zoom(1.25f);
+	}
+	else
+	{
+		if (button_name == "Reduzir")
+		{
+			_viewport->zoom(0.8f);
+		}
+		else
+		{
+			assert(false);
+		}
+	}
 }
 
 void ControllerMainWindow::translate_cb(GtkWidget *widget)

@@ -39,12 +39,8 @@ private:
 	/////////////////////////////////
 	static void add_object_cb();
 	static void remove_object();
-	static void moveUp();
-	static void moveDown();
-	static void moveLeft();
-	static void moveRight();
-	static void zoomIn();
-	static void zoomOut();
+	static void move_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static void zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void translate_cb(GtkWidget *widget);
 	static gboolean rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void rotate_specific_cb();
