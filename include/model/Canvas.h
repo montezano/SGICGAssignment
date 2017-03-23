@@ -18,9 +18,10 @@
 class Canvas : public Subject
 {
 public:
-	Canvas(Viewport *viewport);
+	Canvas(Viewport *viewport, Windowport *window);
 	Canvas();
 	virtual ~Canvas();
+	void setWindow(Windowport *window);
 	void addLine(const gchar* nome, Vector inicial, Vector final);
 	void addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
 	void addPoint(const gchar *nome, Vector init_position);
@@ -38,9 +39,8 @@ private:
 
 	Drawable *findDrawable(const gchar *name);
 	std::vector<Drawable*> _canvas;
-	std::vector<Drawable*> _window;
-	Windowport *_windowport;
 	Viewport *_viewport;
+	Windowport *_window;
 
 };
 

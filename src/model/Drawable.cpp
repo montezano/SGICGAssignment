@@ -7,16 +7,21 @@
 
 #include "Drawable.h"
 
- Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y) :
-	 _nome(nome)
+ Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowport *window) :
+	 _nome(nome),
+	 _position(Vector(inicial_x, inicial_y)),
+	 _position_window(Vector(inicial_x, inicial_y))
  {
-	 this->_position = Vector(inicial_x, inicial_y);
+	 _window = window;
+
  }
 
- Drawable::Drawable(const gchar * nome, Vector vector) :
-	 _nome(nome)
+ Drawable::Drawable(const gchar * nome, Vector vector, Windowport *window) :
+	 _nome(nome),
+	 _position(vector),
+	 _position_window(vector)
  {
-	 this->_position = vector;
+	 _window = window;
  }
 
  Drawable::~Drawable()
@@ -26,6 +31,11 @@
  Vector Drawable::getPosition()
  {
 	 return _position;
+ }
+
+ Vector Drawable::getPositionWindow()
+ {
+	 return _position_window;
  }
 
  const gchar* Drawable::getNome(){

@@ -11,12 +11,15 @@
 #include <assert.h>
 #include <stdlib.h>
 
- Polygon::Polygon(const gchar * nome, double inicial_x, double inicial_y, std::vector<Vector> coords) : Drawable(nome, inicial_x, inicial_y),
+ Polygon::Polygon(const gchar * nome, double inicial_x, double inicial_y, std::vector<Vector> coords, Windowport *window) :
+	 Drawable(nome, inicial_x, inicial_y, window),
 	 _coords(coords)
  {
+
  }
 
- Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords) : Drawable(nome, init_position),
+ Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords, Windowport *window) :
+	 Drawable(nome, init_position, window),
 	 _coords(coords)
  {
  }
@@ -31,16 +34,16 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
+	cairo_move_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
 
-	for (size_t i = 1; i < _coords.size(); i++)
+	for (size_t i = 1; i < _coords_window.size(); i++)
 	{
-		cairo_line_to(_cr, viewport->transformX(_coords[i].x), viewport->transformY(_coords[i].y));
+		cairo_line_to(_cr, viewport->transformX(_coords_window[i].x), viewport->transformY(_coords_window[i].y));
 		//cairo_stroke(_cr);
-		cairo_move_to(_cr, viewport->transformX(_coords[i].x), viewport->transformY(_coords[i].y));
+		cairo_move_to(_cr, viewport->transformX(_coords_window[i].x), viewport->transformY(_coords_window[i].y));
 
 	}
-	cairo_line_to(_cr, viewport->transformX(_position.x), viewport->transformY(_position.y));
+	cairo_line_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
 	//cairo_stroke(_cr);
 }
 
@@ -63,4 +66,15 @@ void Polygon::transform(Transformation & transformation)
 		_coords[i] = transformation.transformPoint(_coords[i]);
 	}
 
+	updateWindow();
+}
+
+void Polygon::updateWindow()
+{
+	_position_window = _window->getTransformation().transformPoint(_position);
+	
+	for (size_t i = 1; i < _coords_window.size(); i++)
+	{
+		_coords_window[i] = _window->getTransformation().transformPoint(_coords[i]);
+	}
 }

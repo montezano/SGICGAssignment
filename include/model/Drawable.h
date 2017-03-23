@@ -13,18 +13,20 @@
 #include "Viewport.h"
 #include "Vector.h"
 #include "Transformation.h"
+#include "Windowport.h"
 
 class Drawable
 {
 
 public:
 
-	Drawable(const gchar *nome, float inicial_x, float inicial_y);
-	Drawable(const gchar *nome, Vector vector);
+	Drawable(const gchar *nome, float inicial_x, float inicial_y, Windowport *window);
+	Drawable(const gchar *nome, Vector vector, Windowport *window);
 	virtual ~Drawable();
 
 	virtual void draw(cairo_t *_cr, Viewport *viewport) = 0;
 	Vector getPosition();
+	Vector getPositionWindow();
 	void setTipo(const gchar* tipo);
 	const gchar* getTipo();
 	const gchar* getNome();
@@ -32,9 +34,13 @@ public:
 	virtual void transform(Transformation &transformation) = 0;
 
 protected:
+
+	virtual void updateWindow() = 0;
 	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;
+	Vector _position_window;
+	Windowport *_window;
 	//cairo_t *_cr;
 
 
