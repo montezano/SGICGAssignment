@@ -1,10 +1,3 @@
-/*
- * Line.cpp
- *
- *  Created on: 12 de mar de 2017
- *      Author: luizurias
- */
-
 #include "Polygon.h"
 #include "Viewport.h"
 
@@ -15,13 +8,14 @@
 	 Drawable(nome, inicial_x, inicial_y, window),
 	 _coords(coords)
  {
-
+	 updateWindow();
  }
 
  Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords, Windowport *window) :
 	 Drawable(nome, init_position, window),
 	 _coords(coords)
  {
+	 updateWindow();
  }
 
 Polygon::~Polygon()

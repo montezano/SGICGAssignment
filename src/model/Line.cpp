@@ -8,6 +8,7 @@
 	 _final_position(Vector(final_x, final_y)),
 	 _final_position_window(Vector(final_x, final_y))
  {
+	 updateWindow();
  }
 
  Line::Line(const gchar * nome, Vector init_position, Vector final_position, Windowport *window) :
@@ -15,6 +16,7 @@
 	 _final_position(final_position),
 	 _final_position_window(final_position)
  {
+	 updateWindow();
  }
 
 Line::~Line()

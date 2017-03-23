@@ -1,7 +1,9 @@
 #include "ControllerMainWindow.h"
 
-ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controller *controller, Canvas *canvas, Viewport *viewport)
+ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controller *controller, Canvas *canvas, Viewport *viewport, Windowport *windowport)
 {
+	assert(windowport);
+	_windowport = windowport;
 	assert(viewport);
 	_viewport = viewport;
 	_window = new MainWindow(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")), _viewport);
@@ -62,7 +64,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(remove_object), NULL);
 
 	/////////////////////////////////
-	/// VIEWPORT BUTTONS
+	/// WINDOW BUTTONS
 	/////////////////////////////////
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
@@ -82,6 +84,12 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(zoom_cb), toolButton);
 
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotation_right"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotation_left"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
 	/////////////////////////////////
 	/// TRANSOFRMATION BUTTONS
 	/////////////////////////////////
@@ -100,11 +108,11 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	GtkScale *_scale;
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
 	assert(_scale);
-	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
+	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_object_cb), NULL);
 
-        _scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
+		_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
 	assert(_scale);
-        gtk_widget_hide(GTK_WIDGET(_scale));
+		gtk_widget_hide(GTK_WIDGET(_scale));
 //	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
 
 	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
@@ -125,7 +133,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_cancel"));
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
 
-        g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+		g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
 }
 
@@ -142,25 +150,25 @@ void ControllerMainWindow::move_cb(GtkWidget *widget, GdkEvent *event, gpointer 
 
 	if (button_name == "Cima")
 	{
-		_viewport->moveVertical(0.1f);
+		_windowport->move(Vector(0,10.f));
 	}
 	else
 	{
 		if (button_name == "Direita")
 		{
-			_viewport->moveHorizontal(0.1f);
+			_windowport->move(Vector(10.f , 0));
 		}
 		else
 		{
 			if (button_name == "Baixo")
 			{
-					_viewport->moveVertical(-0.1f);
+				_windowport->move(Vector(0, -10.f));
 			}
 			else
 			{
 				if (button_name == "Esquerda")
 				{
-					_viewport->moveHorizontal(-0.1f);
+					_windowport->move(Vector(-10.f, 0));
 				}
 				else
 				{
@@ -176,13 +184,33 @@ void ControllerMainWindow::zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer 
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
 	if (button_name == "Amplia")
 	{
-		_viewport->zoom(1.25f);
+		_windowport->zoom(1.2f);
 	}
 	else
 	{
 		if (button_name == "Reduzir")
 		{
-			_viewport->zoom(0.8f);
+			_windowport->zoom(0.8f);
+		}
+		else
+		{
+			assert(false);
+		}
+	}
+}
+
+void ControllerMainWindow::rotate_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+{
+	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
+	if (button_name == "Rotaciona direita")
+	{
+		_windowport->rotate(10.f);
+	}
+	else
+	{
+		if (button_name == "Rotaciona esquerda")
+		{
+			_windowport->rotate(-10.f);
 		}
 		else
 		{
@@ -236,13 +264,13 @@ void ControllerMainWindow::translate_cb(GtkWidget *widget)
 
 }
 
-gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+gboolean ControllerMainWindow::rotate_object_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	const gchar *nome = getObjectSelected();
 	if (nome)
 	{
 		GSList *toggle_button = gtk_radio_button_get_group(_radio_button_rotation_world);
-		int index = -1;
+		//int index = -1;
 		if (toggle_button)
 		{
 			do
@@ -273,8 +301,6 @@ gboolean ControllerMainWindow::rotate_cb(GtkWidget *widget, GdkEvent *event, gpo
 			}
 		}
 	}
-	g_print("range value: %f\n", gtk_range_get_value(GTK_RANGE(widget)));
-
 	return FALSE;
 }
 
@@ -376,6 +402,8 @@ const Controller *ControllerMainWindow::_controller = NULL;
 Viewport *ControllerMainWindow::_viewport = NULL;
 Canvas *ControllerMainWindow::_canvas = NULL;
 GtkTreeView* ControllerMainWindow::_treeView = NULL;
+Windowport *ControllerMainWindow::_windowport = NULL;
+
 
 GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
@@ -390,3 +418,4 @@ GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific = NULL;
 GtkTreeSelection *ControllerMainWindow::selection = NULL;
 GtkTreeIter ControllerMainWindow::iter;
 GtkTreeModel *ControllerMainWindow::model;
+

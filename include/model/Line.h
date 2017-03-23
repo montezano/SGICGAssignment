@@ -19,8 +19,6 @@ public:
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 	virtual Vector getCenter();
 	virtual void transform(Transformation &transformation);
-
-protected:
 	virtual void updateWindow();
 
 private:

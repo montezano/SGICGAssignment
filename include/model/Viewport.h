@@ -21,22 +21,24 @@
 
 class Viewport : public Subject
 {
-private:
-  float windowX, windowY;
-  float windowW, windowH;
-
 public:
 	Viewport();
 	virtual ~Viewport();
-  const int ViewportX = 600, ViewportY = 600;
+	const int ViewportX = 600, ViewportY = 600;
+	
 
-  float transformX(float xw);
-  float transformY(float yw);
-  Vector transfor(Vector &vector);
-  
-  void zoom(float factor);
-  void moveHorizontal(float factor);
-  void moveVertical(float factor);
+
+	float transformX(float xw);
+	float transformY(float yw);
+	Vector transform(Vector &vector);
+ // 
+	//void zoom(float factor);
+	//void moveHorizontal(float factor);
+	//void moveVertical(float factor);
+
+private:
+	float windowX, windowY;
+	float windowW, windowH;
 };
 
 

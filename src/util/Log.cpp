@@ -25,21 +25,24 @@ void Log::onNotify(void * data, Events event)
 			static_cast<Drawable*>(data)->getPosition().x,
 			static_cast<Drawable*>(data)->getPosition().y);
 		break;
-	case VIEWPORT_MOVE_VERTICAL:
-		g_print("VIEWPORT move vertical.\n");
-                break;
-        case VIEWPORT_MOVE_HORIZONTAL:
-                g_print("VIEWPORT move horizontal.\n");
-                break;
+	case WINDOW_MOVE:
+		g_print("WINDOW move.\n");
+		break;
+	case WINDOW_ZOOM:
+		g_print("WINDOW zoom.\n");
+		break;
+	case WINDOW_ROTATE:
+		g_print("WINDOW rotate.\n");
+		break;
 	case TRANSFORMATION_TRANSLATE:
 		g_print("Translation on object %s.\n", static_cast<Drawable*>(data)->getNome());
-                break;
-        case TRANSFORMATION_SCALE:
+		break;
+	case TRANSFORMATION_SCALE:
 		g_print("Scheduling on object %s.\n", static_cast<Drawable*>(data)->getNome());
-                break;
-        case TRANSFORMATION_ROTATE:
-                g_print("Rotation on object %s.\n",static_cast<Drawable*>(data)->getNome());
-                break;
+		break;
+	case TRANSFORMATION_ROTATE:
+		g_print("Rotation on object %s.\n",static_cast<Drawable*>(data)->getNome());
+		break;
 
 
 

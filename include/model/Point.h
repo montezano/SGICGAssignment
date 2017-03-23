@@ -1,10 +1,3 @@
-/*
- * Point.h
- *
- *  Created on: 12 de mar de 2017
- *      Author: luizurias
- */
-
 #ifndef SRC_MODEL_POINT_H_
 #define SRC_MODEL_POINT_H_
 
@@ -20,9 +13,8 @@ public:
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 	virtual Vector getCenter();
 	virtual void transform(Transformation &transformation);
-
-protected:
 	virtual void updateWindow();
+
 };
 
 #endif /* SRC_MODEL_POINT_H_ */

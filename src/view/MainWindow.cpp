@@ -58,10 +58,9 @@ void MainWindow::onNotify(void *data, Events event)
 		reconfigure(_window);
 
 		break;
-	case Events::VIEWPORT_MOVE_HORIZONTAL:
-	case Events::VIEWPORT_MOVE_VERTICAL:
-	case Events::VIEWPORT_ZOOM_IN:
-	case Events::VIEWPORT_ZOOM_OUT:
+	case Events::WINDOW_MOVE:
+	case Events::WINDOW_ZOOM:
+	case Events::WINDOW_ROTATE:
 		reconfigure(_window);
 		break;
 	case Events::TRANSFORMATION_TRANSLATE:

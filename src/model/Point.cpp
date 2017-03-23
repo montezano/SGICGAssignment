@@ -11,13 +11,12 @@
 Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport *window) : 
 	Drawable (nome,inicial_x,inicial_y, window)
 {
-	// TODO Auto-generated constructor stub
-
+	updateWindow();
 }
 Point::Point(const gchar *nome, Vector init_position, Windowport *window) : 
 	Drawable (nome, init_position, window)
 {
-
+	updateWindow();
 }
 
 Point::~Point()

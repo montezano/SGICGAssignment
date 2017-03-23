@@ -15,7 +15,7 @@
 #include "Windowport.h"
 
 
-class Canvas : public Subject
+class Canvas : public Subject, public Observer
 {
 public:
 	Canvas(Viewport *viewport, Windowport *window);
@@ -26,15 +26,15 @@ public:
 	void addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
 	void addPoint(const gchar *nome, Vector init_position);
 	void drawCanvas(cairo_surface_t *surfac);
-	void updateViewport();
+	void updateWindow();
 	void deleteDrawable(const gchar *nome);
 	void translateDrawable(const gchar* name, Vector &offset);
 	void scaleDrawable(const gchar *name, Vector factor);
 	void rotateDrawableOwnCenter(const gchar *name, float angle);
 	void rotateDrawableSpecificCenter(const gchar *name, float angle, Vector center);
 	void rotateDrawableWorldCenter(const gchar *name, float angle);
-	void updateWindowport();
-
+	
+	virtual void onNotify(void *data, Events event);
 private:
 
 	Drawable *findDrawable(const gchar *name);

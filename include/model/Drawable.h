@@ -32,10 +32,11 @@ public:
 	const gchar* getNome();
 	virtual Vector getCenter() = 0;
 	virtual void transform(Transformation &transformation) = 0;
+	virtual void updateWindow() = 0;
+
 
 protected:
 
-	virtual void updateWindow() = 0;
 	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;

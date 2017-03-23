@@ -1,18 +1,18 @@
 #include "Controller.h"
 
-Controller::Controller(int argc, char *argv[])
+Controller::Controller(int argc, char *argv[]) :
+	_window(Vector(-300, -300), Vector(600, 600), &_viewport)
 {
 	gtk_init(&argc, &argv);
 
-
-	_canvas = Canvas(&_viewport);
+	_canvas = Canvas(&_viewport, &_window);
 
 	_builder = gtk_builder_new();
 
 	gtk_builder_add_from_file(_builder, MAIN_WINDOW_FILE, NULL);
 	assert(_builder); ///< assert if the window was successfully created
 
-	_main_window_controller = new ControllerMainWindow(_builder, this, &_canvas, &_viewport);
+	_main_window_controller = new ControllerMainWindow(_builder, this, &_canvas, &_viewport, &_window);
 	assert(_main_window_controller);
 	_window_linha_controller = new ControllerLinha(_builder, &_canvas);
 	assert(_window_linha_controller);
@@ -34,6 +34,10 @@ void Controller::configureObservers()
 
 	_viewport.addObserver(&_log);
 	_viewport.addObserver(_main_window_controller->getWindow());
+
+	_window.addObserver(&_log);
+	_window.addObserver(_main_window_controller->getWindow());
+	_window.addObserver(&_canvas);
 }
 
 Controller::~Controller()
@@ -80,5 +84,6 @@ Controller *Controller::_instance = NULL;
 Viewport Controller::_viewport;
 Log Controller::_log;
 Canvas Controller::_canvas;
+//Windowport Controller::_window;
 
 

@@ -21,7 +21,7 @@ using namespace std;
 class ControllerMainWindow
 {
 public:
-	ControllerMainWindow(GtkBuilder *builder, const Controller *controller, Canvas *canvas, Viewport *viewport);
+	ControllerMainWindow(GtkBuilder *builder, const Controller *controller, Canvas *canvas, Viewport *viewport, Windowport *window);
 
 	~ControllerMainWindow();
 
@@ -41,8 +41,9 @@ private:
 	static void remove_object();
 	static void move_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static void rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void translate_cb(GtkWidget *widget);
-	static gboolean rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static gboolean rotate_object_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void rotate_specific_cb();
 	static gboolean scale_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static const gchar *getObjectSelected();
@@ -60,6 +61,7 @@ private:
 	static const Controller *_controller;
 	static Canvas *_canvas;
 	static Viewport *_viewport;
+	static Windowport *_windowport;
 
 	static GtkRadioButton *_radio_button_linha;
 	static GtkRadioButton *_radio_button_poligono;

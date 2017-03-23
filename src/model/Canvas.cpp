@@ -65,9 +65,12 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	cairo_stroke(cr);
 }
 
-void Canvas::updateViewport()
+void Canvas::updateWindow()
 {
-
+	for (auto drawable : _canvas)
+	{
+		drawable->updateWindow();
+	}
 }
 
 void Canvas::deleteDrawable(const gchar* nome) {
@@ -138,6 +141,17 @@ void Canvas::rotateDrawableWorldCenter(const gchar * name, float angle)
 
 	ret->transform(transformation);
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);
+}
+
+void Canvas::onNotify(void * data, Events event)
+{
+	switch (event)
+	{
+	case WINDOW_MOVE:
+	case WINDOW_ROTATE:
+	case WINDOW_ZOOM:
+		updateWindow();
+	}
 }
 
 Drawable * Canvas::findDrawable(const gchar * name)
