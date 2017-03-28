@@ -1,11 +1,10 @@
 #include "MainWindow.h"
 
-MainWindow::MainWindow(GtkWidget *window, Viewport *viewport) :
+MainWindow::MainWindow(GtkWidget *window) :
 	Window(window)
 {
 	_drawing_area = GTK_DRAWING_AREA(find_child(_window, "mainwindow_drawing_area"));
 	assert(_drawing_area);
-	gtk_widget_set_size_request((GtkWidget*)_drawing_area, viewport->ViewportX, viewport->ViewportY);
 
 	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_object_list"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
@@ -100,7 +99,11 @@ gboolean MainWindow::reconfigure(GtkWidget *widget)
 		gtk_widget_get_allocated_width(widget),
 		gtk_widget_get_allocated_height(widget));
 	clear_surface();
-		
+
+	Vector *size = new Vector(gtk_widget_get_allocated_width(widget),
+		gtk_widget_get_allocated_height(widget));
+
+	notify(static_cast<void*>(size), Events::MAINWINDOW_RECONFIGURE);
 	//	cairo_t *cr;
 
 	//cr = cairo_create(_surface);

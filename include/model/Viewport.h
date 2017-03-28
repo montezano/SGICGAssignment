@@ -24,7 +24,9 @@ class Viewport : public Subject
 public:
 	Viewport();
 	virtual ~Viewport();
-	const int ViewportX = 600, ViewportY = 600;
+	float ViewportX = 600, ViewportY = 600;
+
+	void setSize(Vector vector);
 	
 
 

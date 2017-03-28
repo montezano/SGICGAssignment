@@ -30,8 +30,8 @@ void Point::draw(cairo_t *_cr, Viewport *viewport)
 	cairo_set_line_width (_cr, 3);
 	cairo_set_line_cap  (_cr, CAIRO_LINE_CAP_ROUND); /* Round dot*/
 	//TODO fazer transformação viewport antes
-	cairo_move_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
-	cairo_line_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
+	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
+	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 	//cairo_stroke(_cr);
 }
 
@@ -48,5 +48,5 @@ void Point::transform(Transformation & transformation)
 
 void Point::updateWindow()
 {
-	_position_window = _window->getTransformation().transformPoint(_position);
+	_position_window = _window->normalize(_position);
 }

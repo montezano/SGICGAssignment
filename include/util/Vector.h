@@ -35,6 +35,9 @@ Vector operator -(const Vector& left, const Vector& right);
 Vector operator *(const Vector& left, float right);
 
 
+Vector operator *(const Vector& left, const Vector& right);
+
+
 Vector operator *(float left, const Vector& right);
 
 
@@ -42,6 +45,9 @@ Vector& operator *=(Vector& left, float right);
 
 
 Vector operator /(const Vector& left, float right);
+
+
+Vector operator /(const Vector& left, Vector& right);
 
 
 Vector& operator /=(Vector& left, float right);

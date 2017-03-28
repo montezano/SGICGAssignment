@@ -2,10 +2,15 @@
 
 Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 	_transformation(),
-	_size(size)
+	_size(size / 2.f)
 {
 	_center = Vector(position + (size / 2.f));
 	_angle = 0.f;
+}
+
+void Windowport::setSize(Vector vector)
+{
+	_size = vector / 2.f;
 }
 
 void Windowport::setCenter(Vector position)
@@ -42,6 +47,21 @@ void Windowport::zoom(float factor)
 Transformation Windowport::getTransformation()
 {
   return _transformation;
+}
+
+Vector Windowport::normalize(Vector & vector)
+{
+	return (_transformation.transformPoint(vector) - _center) / _size;
+}
+
+float Windowport::unormalize_x(Vector & vector)
+{
+	return vector.x *_size.x;
+}
+
+float Windowport::unormalize_y(Vector & vector)
+{
+	return vector.y *_size.y;
 }
 
 void Windowport::draw(cairo_t *_cr, Viewport *viewport)

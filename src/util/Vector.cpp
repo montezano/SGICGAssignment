@@ -64,6 +64,11 @@ Vector operator *(const Vector& left, float right)
 	return Vector(left.x * right, left.y * right);
 }
 
+Vector operator*(const Vector & left, const Vector & right)
+{
+	return Vector(left.x * right.x, left.y * right.y);
+}
+
 
 Vector operator *(float left, const Vector& right)
 {
@@ -83,6 +88,11 @@ Vector& operator *=(Vector& left, float right)
 Vector operator /(const Vector& left, float right)
 {
 	return Vector(left.x / right, left.y / right);
+}
+
+Vector operator/(const Vector & left, Vector & right)
+{
+	return Vector(left.x / right.x, left.y / right.y);
 }
 
 

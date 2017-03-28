@@ -10,14 +10,15 @@
 
 #include <assert.h>
 
+#include "Subject.h"
 #include "Window.h"
 #include "Drawable.h"
 
-class MainWindow : public Window
+class MainWindow : public Window, public Subject
 {
 public:
 
-	MainWindow(GtkWidget *window, Viewport *viewport);
+	MainWindow(GtkWidget *window);
 	virtual ~MainWindow();
 
 	void initialize();
@@ -42,7 +43,6 @@ private:
 	GtkTreeView* _treeView;
 	GtkTreeIter    _iter;
 	GtkTreeModel *_model;
-
 };
 
 

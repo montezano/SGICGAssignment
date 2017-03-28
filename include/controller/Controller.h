@@ -63,7 +63,7 @@ private:
 	static Viewport _viewport;
 	static Log _log;
 	static Canvas _canvas;
-	Windowport _window;
+	Windowport _windowport;
 };
 
 #endif//__CONTROLLER_H__

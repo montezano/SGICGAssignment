@@ -1,6 +1,6 @@
 #include "Viewport.h"
 
-#define PIXEL_AREA_MIN 1000
+//#define PIXEL_AREA_MIN 1000
 
 
 
@@ -17,12 +17,20 @@ Viewport::~Viewport()
 
 }
 
+void Viewport::setSize(Vector vector)
+{
+	windowX = -(vector.x / 2);
+	windowY = -(vector.y / 2);
+	windowW = vector.x;
+	windowH = vector.y;
+}
+
 float Viewport::transformX(float xw) {
-  return (((float)xw - (float)windowX)/(float)windowW ) * (float)ViewportX;
+  return ((xw - windowX)/windowW ) * ViewportX;
 }
 
 float Viewport::transformY(float yw) {
-  return (1 - (((float)yw - (float)windowY)/(float)windowH)) * (float)ViewportY;
+  return (1 - ((yw - windowY)/windowH)) * ViewportY;
 }
 
 Vector Viewport::transform(Vector & vector)

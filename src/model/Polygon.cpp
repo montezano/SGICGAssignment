@@ -28,16 +28,16 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
+	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 
 	for (size_t i = 1; i < _coords_window.size(); i++)
 	{
-		cairo_line_to(_cr, viewport->transformX(_coords_window[i].x), viewport->transformY(_coords_window[i].y));
+		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_coords_window[i])), viewport->transformY(_window->unormalize_y(_coords_window[i])));
 		//cairo_stroke(_cr);
-		cairo_move_to(_cr, viewport->transformX(_coords_window[i].x), viewport->transformY(_coords_window[i].y));
+		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_coords_window[i])), viewport->transformY(_window->unormalize_y(_coords_window[i])));
 
 	}
-	cairo_line_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
+	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 	//cairo_stroke(_cr);
 }
 
@@ -65,10 +65,10 @@ void Polygon::transform(Transformation & transformation)
 
 void Polygon::updateWindow()
 {
-	_position_window = _window->getTransformation().transformPoint(_position);
+	_position_window = _window->normalize(_position);
 	
 	for (size_t i = 1; i < _coords_window.size(); i++)
 	{
-		_coords_window[i] = _window->getTransformation().transformPoint(_coords[i]);
+		_coords_window[i] = _window->normalize(_coords[i]);
 	}
 }

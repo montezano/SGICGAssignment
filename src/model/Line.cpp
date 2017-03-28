@@ -28,8 +28,8 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 {
 	//assert(surface);
 	//_cr = cairo_create(surface);
-	cairo_move_to(_cr, viewport->transformX(_position_window.x), viewport->transformY(_position_window.y));
-	cairo_line_to(_cr, viewport->transformX(_final_position_window.x), viewport->transformY(_final_position_window.y));
+	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
+	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_final_position_window)), viewport->transformY(_window->unormalize_y(_final_position_window)));
 	//cairo_destroy(_cr);
 
 }
@@ -48,6 +48,6 @@ void Line::transform(Transformation & transformation)
 
 void Line::updateWindow()
 {
-	_position_window = _window->getTransformation().transformPoint(_position);
-	_final_position_window = _window->getTransformation().transformPoint(_final_position);
+	_position_window = _window->normalize(_position);
+	_final_position_window = _window->normalize(_final_position);
 }

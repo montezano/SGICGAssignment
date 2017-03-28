@@ -6,7 +6,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controlle
 	_windowport = windowport;
 	assert(viewport);
 	_viewport = viewport;
-	_window = new MainWindow(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")), _viewport);
+	_window = new MainWindow(GTK_WIDGET(gtk_builder_get_object(builder, "main_window")));
 	assert(_window);
 
 	_window_coordinates = new WindowCoordinates(GTK_WIDGET(gtk_builder_get_object(builder, "window_coordinates")));

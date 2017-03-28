@@ -1,18 +1,18 @@
 #include "Controller.h"
 
 Controller::Controller(int argc, char *argv[]) :
-	_window(Vector(-300, -300), Vector(600, 600), &_viewport)
+	_windowport(Vector(-300, -300), Vector(600, 600), &_viewport)
 {
 	gtk_init(&argc, &argv);
 
-	_canvas = Canvas(&_viewport, &_window);
+	_canvas = Canvas(&_viewport, &_windowport);
 
 	_builder = gtk_builder_new();
 
 	gtk_builder_add_from_file(_builder, MAIN_WINDOW_FILE, NULL);
 	assert(_builder); ///< assert if the window was successfully created
 
-	_main_window_controller = new ControllerMainWindow(_builder, this, &_canvas, &_viewport, &_window);
+	_main_window_controller = new ControllerMainWindow(_builder, this, &_canvas, &_viewport, &_windowport);
 	assert(_main_window_controller);
 	_window_linha_controller = new ControllerLinha(_builder, &_canvas);
 	assert(_window_linha_controller);
@@ -35,9 +35,9 @@ void Controller::configureObservers()
 	_viewport.addObserver(&_log);
 	_viewport.addObserver(_main_window_controller->getWindow());
 
-	_window.addObserver(&_log);
-	_window.addObserver(_main_window_controller->getWindow());
-	_window.addObserver(&_canvas);
+	_windowport.addObserver(&_log);
+	_windowport.addObserver(_main_window_controller->getWindow());
+	_windowport.addObserver(&_canvas);
 }
 
 Controller::~Controller()
@@ -71,6 +71,15 @@ void Controller::start()
 
 void Controller::onNotify(void * data, Events event)
 {
+	switch (event)
+	{
+	case MAINWINDOW_RECONFIGURE:
+		Vector size = *static_cast<Vector*>(data);
+		_viewport.setSize(size);
+		_windowport.setSize(size);
+		_canvas.updateWindow();
+		break;
+	}
 }
 
 GtkBuilder *Controller::_builder = NULL;
