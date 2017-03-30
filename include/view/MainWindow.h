@@ -14,7 +14,7 @@
 #include "Window.h"
 #include "Drawable.h"
 
-class MainWindow : public Window, public Subject
+class MainWindow : public Window
 {
 public:
 

@@ -50,28 +50,29 @@ void MainWindow::onNotify(void *data, Events event)
 			-1);
 		gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 			_model);
-		reconfigure(_window);
+		reconfigure(GTK_WIDGET(_drawing_area));
 
 		break;
 	case Events::REMOVE_DRAWABLE:
-		reconfigure(_window);
+		reconfigure(GTK_WIDGET(_drawing_area));
 
 		break;
 	case Events::WINDOW_MOVE:
 	case Events::WINDOW_ZOOM:
 	case Events::WINDOW_ROTATE:
-		reconfigure(_window);
+		reconfigure(GTK_WIDGET(_drawing_area));
 		break;
 	case Events::TRANSFORMATION_TRANSLATE:
 	case Events::TRANSFORMATION_SCALE:
 	case Events::TRANSFORMATION_ROTATE:
-		reconfigure(_window);
+		reconfigure(GTK_WIDGET(_drawing_area));
 	}
 }
 //void MainWindow::deleteItem(GtkTreeModel *model, GtkTreeIter *iter){
 //}
 gboolean MainWindow::draw_window(GtkWidget *widget, cairo_t   *cr, gpointer   data)
 {
+
 	assert(cr);
 	cairo_set_source_surface(cr, _surface, 0, 0);
 	cairo_paint(cr);
@@ -88,6 +89,11 @@ gboolean MainWindow::configure_event(GtkWidget *widget, GdkEventConfigure *event
 
 gboolean MainWindow::reconfigure(GtkWidget *widget)
 {
+	Vector *size = new Vector(gtk_widget_get_allocated_width(widget),
+		gtk_widget_get_allocated_height(widget));
+
+	notify(static_cast<void*>(size), Events::MAINWINDOW_RECONFIGURE);
+
 	if (_surface)
 	{
 		cairo_surface_destroy(_surface);
@@ -100,10 +106,7 @@ gboolean MainWindow::reconfigure(GtkWidget *widget)
 		gtk_widget_get_allocated_height(widget));
 	clear_surface();
 
-	Vector *size = new Vector(gtk_widget_get_allocated_width(widget),
-		gtk_widget_get_allocated_height(widget));
 
-	notify(static_cast<void*>(size), Events::MAINWINDOW_RECONFIGURE);
 	//	cairo_t *cr;
 
 	//cr = cairo_create(_surface);

@@ -10,6 +10,8 @@ Viewport::Viewport()
 	windowY = -300;
 	windowW = 600;
 	windowH = 600;
+	ViewportX = 600;
+	ViewportY = 600;
 }
 
 Viewport::~Viewport()
@@ -23,6 +25,8 @@ void Viewport::setSize(Vector vector)
 	windowY = -(vector.y / 2);
 	windowW = vector.x;
 	windowH = vector.y;
+	ViewportX = vector.x;
+	ViewportY = vector.y;
 }
 
 float Viewport::transformX(float xw) {

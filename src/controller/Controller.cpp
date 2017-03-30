@@ -38,6 +38,8 @@ void Controller::configureObservers()
 	_windowport.addObserver(&_log);
 	_windowport.addObserver(_main_window_controller->getWindow());
 	_windowport.addObserver(&_canvas);
+
+	_main_window_controller->getWindow()->addObserver(this);
 }
 
 Controller::~Controller()
@@ -71,6 +73,7 @@ void Controller::start()
 
 void Controller::onNotify(void * data, Events event)
 {
+
 	switch (event)
 	{
 	case MAINWINDOW_RECONFIGURE:

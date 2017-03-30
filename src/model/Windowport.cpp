@@ -2,7 +2,7 @@
 
 Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 	_transformation(),
-	_size(size / 2.f)
+	_size((size / 2.f) - 10)
 {
 	_center = Vector(position + (size / 2.f));
 	_angle = 0.f;
@@ -10,7 +10,8 @@ Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 
 void Windowport::setSize(Vector vector)
 {
-	_size = vector / 2.f;
+	_size = (vector / 2.f) - 10;
+
 }
 
 void Windowport::setCenter(Vector position)
@@ -64,18 +65,24 @@ float Windowport::unormalize_y(Vector & vector)
 	return vector.y *_size.y;
 }
 
-void Windowport::draw(cairo_t *_cr, Viewport *viewport)
+void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 {
-	cairo_move_to(_cr, viewport->transformX(_center.x), viewport->transformY(_center.y));
-	cairo_line_to(_cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y));
 
-	cairo_move_to(_cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y));
-	cairo_line_to(_cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y + _size.y));
+	cairo_set_source_rgb(cr, 255, 0, 0);
 
-	cairo_move_to(_cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y + _size.y));
-	cairo_line_to(_cr, viewport->transformX(_center.x), viewport->transformY(_center.y + _size.y));
 
-	cairo_move_to(_cr, viewport->transformX(_center.x), viewport->transformY(_center.y + _size.y));
-	cairo_line_to(_cr, viewport->transformX(_center.x), viewport->transformY(_center.y));
+	cairo_move_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));
+	cairo_line_to(cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y - _size.y));
+
+	cairo_move_to(cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y - _size.y));
+	cairo_line_to(cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y + _size.y));
+
+	cairo_move_to(cr, viewport->transformX(_center.x + _size.x), viewport->transformY(_center.y + _size.y));
+	cairo_line_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y + _size.y));
+
+	cairo_move_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y + _size.y));
+	cairo_line_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));
+
+	cairo_stroke(cr);
 }

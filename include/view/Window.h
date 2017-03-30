@@ -1,8 +1,8 @@
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
 
-#include "util/Observer.h"
-#include "util/Event.h"
+#include "Observer.h"
+#include "Event.h"
 
 
 #include <gtk/gtk.h>
@@ -10,10 +10,11 @@
 #include <assert.h>
 #include <string>
 #include <cstring>
+#include "Subject.h"
 
 
 
-class Window : public Observer
+class Window : public Observer, public Subject
 {
 public:
 	Window(GtkWidget *window);

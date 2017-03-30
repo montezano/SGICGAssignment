@@ -58,6 +58,8 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	assert(surface);
 	cairo_t *cr = cairo_create(surface);
 
+	_window->draw(cr, _viewport);
+
 	for(auto drawable: _canvas)
 	{
 		drawable->draw(cr, _viewport);
