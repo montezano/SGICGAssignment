@@ -8,14 +8,18 @@
 #include "Point.h"
 #include "Viewport.h"
 
-Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport *window) : 
-	Drawable (nome,inicial_x,inicial_y, window)
+Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport *window, Command *clipping) :
+	Drawable(nome, inicial_x, inicial_y, window),
+	_visible(true)
 {
+	_clipping = clipping;
 	updateWindow();
 }
-Point::Point(const gchar *nome, Vector init_position, Windowport *window) : 
-	Drawable (nome, init_position, window)
+Point::Point(const gchar *nome, Vector init_position, Windowport *window, Command *clipping) :
+	Drawable (nome, init_position, window),
+	_visible(true)
 {
+	_clipping = clipping;
 	updateWindow();
 }
 
@@ -26,13 +30,13 @@ Point::~Point()
 
 void Point::draw(cairo_t *_cr, Viewport *viewport)
 {
-	//_cr = cairo_create(surface);
-	cairo_set_line_width (_cr, 3);
-	cairo_set_line_cap  (_cr, CAIRO_LINE_CAP_ROUND); /* Round dot*/
-	//TODO fazer transformação viewport antes
-	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
-	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
-	//cairo_stroke(_cr);
+	if (_visible)
+	{
+		cairo_set_line_width(_cr, 3);
+		cairo_set_line_cap(_cr, CAIRO_LINE_CAP_ROUND); /* Round dot*/
+		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
+		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
+	}
 }
 
 Vector Point::getCenter()
@@ -49,4 +53,11 @@ void Point::transform(Transformation & transformation)
 void Point::updateWindow()
 {
 	_position_window = _window->normalize(_position);
+	//const Point point = *this;
+	_clipping->execute(*this);
+}
+
+void Point::setVisible(bool state)
+{
+	_visible = state;
 }

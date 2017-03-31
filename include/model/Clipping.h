@@ -6,7 +6,8 @@
 class PointClipping : public Command
 {
 public:
-  virtual void execute(Drawable &drawable);
+	PointClipping() {};
+	virtual void execute(Drawable &drawable);
 };
 
 

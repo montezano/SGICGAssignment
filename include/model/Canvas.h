@@ -13,12 +13,13 @@
 #include "Polygon.h"
 #include "Transformation.h"
 #include "Windowport.h"
+#include "Command.h"
 
 
 class Canvas : public Subject, public Observer
 {
 public:
-	Canvas(Viewport *viewport, Windowport *window);
+	Canvas(Viewport *viewport, Windowport *window, Command *point, Command *line, Command *polygon);
 	Canvas();
 	virtual ~Canvas();
 	void setWindow(Windowport *window);
@@ -41,6 +42,9 @@ private:
 	std::vector<Drawable*> _canvas;
 	Viewport *_viewport;
 	Windowport *_window;
+	Command *_point_clipping;
+	Command *_line_clipping;
+	Command *_polygon_clipping;
 
 };
 

@@ -5,7 +5,9 @@ Controller::Controller(int argc, char *argv[]) :
 {
 	gtk_init(&argc, &argv);
 
-	_canvas = Canvas(&_viewport, &_windowport);
+	_point_clipping = new PointClipping();
+
+	_canvas = Canvas(&_viewport, &_windowport, _point_clipping, _line_clipping, _polygon_clipping);
 
 	_builder = gtk_builder_new();
 
@@ -96,6 +98,10 @@ Controller *Controller::_instance = NULL;
 Viewport Controller::_viewport;
 Log Controller::_log;
 Canvas Controller::_canvas;
-//Windowport Controller::_window;
+
+Command *Controller::_point_clipping = NULL;
+Command *Controller::_line_clipping = NULL;
+Command *Controller::_polygon_clipping = NULL;
+
 
 

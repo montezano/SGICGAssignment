@@ -25,6 +25,7 @@ class ControllerPonto;
 #include "Canvas.h"
 #include "Observer.h"
 #include "Log.h"
+#include "Clipping.h"
 
 
 using namespace std;
@@ -63,7 +64,11 @@ private:
 	static Viewport _viewport;
 	static Log _log;
 	static Canvas _canvas;
+	static Command *_point_clipping;
+	static Command *_line_clipping;
+	static Command *_polygon_clipping;
 	Windowport _windowport;
+	
 };
 
 #endif//__CONTROLLER_H__

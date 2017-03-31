@@ -2,12 +2,15 @@
 
 #include <assert.h>
 
-Canvas::Canvas(Viewport *viewport, Windowport *window)
+Canvas::Canvas(Viewport *viewport, Windowport *window, Command *point, Command *line, Command *polygon)
 {
 	assert(viewport);
 	assert(window);
 	_viewport = viewport;
 	_window = window;
+	_point_clipping = point;
+	_line_clipping = line;
+	_polygon_clipping = polygon;
 }
 
 Canvas::Canvas()
@@ -46,7 +49,7 @@ void Canvas::addPolygon(const gchar *nome, Vector init_position, std::vector<Vec
 }
 
 void Canvas::addPoint(const gchar *nome, Vector init_position){
-	Point* p = new Point(nome, init_position, _window);
+	Point* p = new Point(nome, init_position, _window, _point_clipping);
 	p->setTipo("ponto");
 
 	this->_canvas.push_back(static_cast<Drawable*>(p));
