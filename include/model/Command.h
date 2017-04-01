@@ -1,6 +1,7 @@
 #ifndef __COMMAND_H__
 #define __COMMAND_H__
 
+class Drawable;
 #include "Drawable.h"
 
 class Command

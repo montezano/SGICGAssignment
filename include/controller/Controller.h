@@ -26,6 +26,8 @@ class ControllerPonto;
 #include "Observer.h"
 #include "Log.h"
 #include "Clipping.h"
+#include "Command.h"
+
 
 
 using namespace std;

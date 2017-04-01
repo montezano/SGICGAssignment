@@ -3,7 +3,7 @@
 
 #include <assert.h>
 
- Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window) :
+ Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window, Command *clipping) :
 	 Drawable(nome, inicial_x, inicial_y, window),
 	 _final_position(Vector(final_x, final_y)),
 	 _final_position_window(Vector(final_x, final_y))
@@ -11,7 +11,7 @@
 	 updateWindow();
  }
 
- Line::Line(const gchar * nome, Vector init_position, Vector final_position, Windowport *window) :
+ Line::Line(const gchar * nome, Vector init_position, Vector final_position, Windowport *window, Command *clipping) :
 	 Drawable(nome, init_position, window),
 	 _final_position(final_position),
 	 _final_position_window(final_position)
@@ -50,4 +50,25 @@ void Line::updateWindow()
 {
 	_position_window = _window->normalize(_position);
 	_final_position_window = _window->normalize(_final_position);
+}
+
+Vector Line::getFinalPosition()
+{
+	return _final_position;
+}
+
+Vector Line::getFinalPositionWindow()
+{
+	return _final_position_window;
+}
+
+void Line::setClippedPosition(Vector position, Vector final_position)
+{
+	_clipped_position = position;
+	_clipped_final_position = final_position;
+}
+
+void Line::setClippedFinalPosition(Vector vector)
+{
+	_clipped_final_position = vector;
 }

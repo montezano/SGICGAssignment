@@ -6,8 +6,17 @@
 class PointClipping : public Command
 {
 public:
-	PointClipping() {};
 	virtual void execute(Drawable &drawable);
+};
+
+class CSClipping : public Command
+{
+public:
+	virtual void execute(Drawable &drawable);
+
+private:
+	unsigned int getRegion(Vector &vector);
+	Vector clip(unsigned int &placement, Vector &vector1, int coeficient);
 };
 
 

@@ -5,8 +5,11 @@
  *      Author: luizurias
  */
 
+
 #ifndef SRC_MODEL_DRAWABLE_H_
 #define SRC_MODEL_DRAWABLE_H_
+
+class Command;
 
 #include <gtk/gtk.h>
 #include <string>
@@ -14,6 +17,7 @@
 #include "Vector.h"
 #include "Transformation.h"
 #include "Windowport.h"
+#include "Command.h"
 
 class Drawable
 {
@@ -42,6 +46,7 @@ protected:
 	Vector _position;
 	Vector _position_window;
 	Windowport *_window;
+	Command *_clipping;
 	//cairo_t *_cr;
 
 

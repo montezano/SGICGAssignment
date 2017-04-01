@@ -2,7 +2,6 @@
 #define SRC_MODEL_POINT_H_
 
 #include "Drawable.h"
-#include "Command.h"
 #include <gtk/gtk.h>
 
 class Point : public Drawable {
@@ -18,7 +17,6 @@ public:
 	void setVisible(bool state);
 private:
 	bool _visible;
-	Command *_clipping;
 };
 
 #endif /* SRC_MODEL_POINT_H_ */

@@ -6,6 +6,7 @@ Controller::Controller(int argc, char *argv[]) :
 	gtk_init(&argc, &argv);
 
 	_point_clipping = new PointClipping();
+	_line_clipping = new CSClipping();
 
 	_canvas = Canvas(&_viewport, &_windowport, _point_clipping, _line_clipping, _polygon_clipping);
 
