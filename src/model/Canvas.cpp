@@ -33,7 +33,7 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 {
 	//this->notify(static_cast<void*>(d), Events::ADD_DRAWABLE);
 	//_canvas.push_back(static_cast<Drawable*>(d));
-	Drawable* line = new Line(nome,inicial,fim, _window);
+	Drawable* line = new Line(nome,inicial,fim, _window, _point_clipping);
 	line->setTipo("linha");
 
 	_canvas.push_back(line);

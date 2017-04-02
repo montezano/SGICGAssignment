@@ -43,6 +43,10 @@ private:
 	static void zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void rotate_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void translate_cb(GtkWidget *widget);
+	static void point_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static void line_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+	static void polygon_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+
 	static gboolean rotate_object_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void rotate_specific_cb();
 	static gboolean scale_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -70,6 +74,9 @@ private:
 	static GtkRadioButton *_radio_button_rotation_world;
 	static GtkRadioButton *_radio_button_rotation_self;
 	static GtkRadioButton *_radio_button_rotation_specific;
+
+	static GtkRadioMenuItem *_radio_menu_line;
+	static GtkRadioMenuItem *_radio_menu_polygon;
 
 	static GtkTreeSelection *selection;
 	static GtkTreeIter iter;

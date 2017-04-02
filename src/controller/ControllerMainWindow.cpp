@@ -107,13 +107,10 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	GtkScale *_scale;
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
-	assert(_scale);
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_object_cb), NULL);
 
-		_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
-	assert(_scale);
-		gtk_widget_hide(GTK_WIDGET(_scale));
-//	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_cb), NULL);
+	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
+	gtk_widget_hide(GTK_WIDGET(_scale));
 
 	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
 	_radio_button_rotation_self = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_object"));
@@ -121,7 +118,6 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	g_signal_connect(_radio_button_rotation_specific, "clicked", G_CALLBACK(rotate_specific_cb), NULL);
 
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_scaling"));
-	assert(_scale);
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(scale_cb), NULL);
 
 	/////////////////////////////////
@@ -133,8 +129,36 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_coordinates_cancel"));
 	g_signal_connect_swapped(button, "clicked", G_CALLBACK(gtk_widget_hide), _window_coordinates->getWindow());
 
-		g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+	g_signal_connect(_window_coordinates->getWindow(), "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
+	/////////////////////////////////
+	/// CLIPPING ALGORITHM SELECTION
+	/////////////////////////////////
+	GtkRadioMenuItem *item;
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_point"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(point_algorithm_cb), NULL);
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linecs"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linelb"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linenicholl"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_polsuthodg"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(polygon_algorithm_cb), NULL);
+
+	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_polweil"));
+	assert(item);
+	g_signal_connect(item, "toggled", G_CALLBACK(polygon_algorithm_cb), NULL);
 }
 
 
@@ -262,6 +286,72 @@ void ControllerMainWindow::translate_cb(GtkWidget *widget)
 		}
 	}
 
+}
+
+void ControllerMainWindow::point_algorithm_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+{
+	_controller->setAlgorithm(Controller::POINT);
+}
+
+void ControllerMainWindow::line_algorithm_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+{
+
+	GSList *toggle_button = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(widget));
+	//int index = -1;
+	if (toggle_button)
+	{
+		do
+		{
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(toggle_button->data)))
+			{
+				break;
+			}
+		} while ((toggle_button = g_slist_next(toggle_button)) != NULL);
+	}
+
+	std::string button_name = gtk_menu_item_get_label(GTK_MENU_ITEM(toggle_button->data));
+
+	if (button_name == "Cohen Sutherland")
+	{
+	}
+	else
+	{
+		if (button_name == "Liang-Barsky")
+		{
+		}
+		else
+		{
+		}
+	}
+}
+
+void ControllerMainWindow::polygon_algorithm_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+{
+	GSList *toggle_button = gtk_radio_menu_item_get_group(_radio_menu_line);
+	//int index = -1;
+	if (toggle_button)
+	{
+		do
+		{
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(toggle_button->data)))
+			{
+				break;
+			}
+		} while ((toggle_button = g_slist_next(toggle_button)) != NULL);
+	}
+
+
+	std::string button_name = gtk_menu_item_get_label(GTK_MENU_ITEM(toggle_button->data));
+
+	if (button_name == "Sutherland Hodgeman")
+	{
+	}
+	else
+	{
+		if (button_name == "Weiler Atherton")
+		{
+		}
+	}
 }
 
 gboolean ControllerMainWindow::rotate_object_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -413,7 +503,8 @@ GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific = NULL;
 
-
+GtkRadioMenuItem *ControllerMainWindow::_radio_menu_line = NULL;
+GtkRadioMenuItem *ControllerMainWindow::_radio_menu_polygon = NULL;
 
 GtkTreeSelection *ControllerMainWindow::selection = NULL;
 GtkTreeIter ControllerMainWindow::iter;

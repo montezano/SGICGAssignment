@@ -9,8 +9,6 @@
 #ifndef SRC_MODEL_DRAWABLE_H_
 #define SRC_MODEL_DRAWABLE_H_
 
-class Command;
-
 #include <gtk/gtk.h>
 #include <string>
 #include "Viewport.h"

@@ -23,9 +23,14 @@ public:
 	float unormalize_y(Vector &vector);
 	void draw(cairo_t *_cr, Viewport *viewport);
 
+	Vector *getInitWindowPosition();
+	Vector *getFinalWindowPosition();
+
 private:
 	Vector _center;
 	Vector _size;
+	Vector _initial_position;
+	Vector _final_position;
 	float _angle;
 	Viewport *_viewport;
 	Transformation _transformation;

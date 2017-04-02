@@ -54,7 +54,7 @@ void Point::updateWindow()
 {
 	_position_window = _window->normalize(_position);
 	//const Point point = *this;
-	_clipping->execute(*this);
+	_clipping->execute(this);
 }
 
 void Point::setVisible(bool state)

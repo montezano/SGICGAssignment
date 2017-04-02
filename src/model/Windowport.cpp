@@ -6,6 +6,9 @@ Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 {
 	_center = Vector(position + (size / 2.f));
 	_angle = 0.f;
+
+	_initial_position = _center - _size;
+	_final_position = _center + _size;
 }
 
 void Windowport::setSize(Vector vector)
@@ -85,4 +88,14 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 	cairo_line_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));
 
 	cairo_stroke(cr);
+}
+
+Vector * Windowport::getInitWindowPosition()
+{
+	return &_initial_position;
+}
+
+Vector * Windowport::getFinalWindowPosition()
+{
+	return &_final_position;
 }

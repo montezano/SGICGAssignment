@@ -2,17 +2,39 @@
 #define __CLIPPING_H__
 
 #include "Command.h"
+#include "Vector.h"
 
-class PointClipping : public Command
+/////////////////////////////////////////////
+// CLIPPING
+/////////////////////////////////////////////
+class Clipping : public Command
 {
 public:
-	virtual void execute(Drawable &drawable);
+	Clipping(Vector *initial_point, Vector *final_point);
+	virtual void execute(void * data) = 0;
+protected:
+	Vector *_initial_point;
+	Vector *_final_point;
 };
 
-class CSClipping : public Command
+/////////////////////////////////////////////
+// POINT CLIPPING
+/////////////////////////////////////////////
+class PointClipping : public Clipping
 {
 public:
-	virtual void execute(Drawable &drawable);
+	PointClipping(Vector *initial_point, Vector *final_point);
+	virtual void execute(void * data);
+};
+
+/////////////////////////////////////////////
+// COHEN SUTHERLAND	 CLIPPING
+/////////////////////////////////////////////
+class CSClipping : public Clipping
+{
+public:
+	CSClipping(Vector *initial_point, Vector *final_point);
+	virtual void execute(void * data);
 
 private:
 	unsigned int getRegion(Vector &vector);
