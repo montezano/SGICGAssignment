@@ -15,6 +15,7 @@ public:
 	virtual void updateWindow();
 
 private:
+	virtual void clip();
 	std::vector<Vector> _coords;
 	std::vector<Vector> _coords_window;
 };

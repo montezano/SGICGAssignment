@@ -72,3 +72,7 @@ void Polygon::updateWindow()
 		_coords_window[i] = _window->normalize(_coords[i]);
 	}
 }
+
+void Polygon::clip()
+{
+}

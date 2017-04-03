@@ -68,6 +68,11 @@ float Windowport::unormalize_y(Vector & vector)
 	return vector.y *_size.y;
 }
 
+Vector Windowport::unormalize(Vector & vector)
+{
+	return Vector(vector.x * _size.x, vector.y * _size.y);
+}
+
 void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 {

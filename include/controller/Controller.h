@@ -25,7 +25,6 @@ class ControllerPonto;
 #include "Canvas.h"
 #include "Observer.h"
 #include "Log.h"
-#include "Clipping.h"
 
 
 using namespace std;
@@ -38,24 +37,12 @@ class Controller : public Observer
 	friend class ControllerPoligono;
 public:
 
-	enum ClippingAlgorithm
-	{
-		POINT,
-		CS,
-		LB,
-		NICLEENIC,
-		SUTHHODG,
-		WEIL
-	};
-
 	void operator=(Controller const&) = delete;
 	~Controller();
 
 	static Controller *getInstance();
 	static Controller *initialize(int argc, char *argv[]);
 	static void start();
-	static void setAlgorithm(ClippingAlgorithm alg);
-
 
 	void onNotify(void *data, Events event);
 
@@ -64,7 +51,6 @@ private:
 	Controller(int argc, char *argv[]);
 
 	void configureObservers();
-	void initClippingAlgorithm();
 
 	static GtkBuilder *_builder;
 
@@ -77,9 +63,7 @@ private:
 	static Viewport _viewport;
 	static Log _log;
 	static Canvas _canvas;
-	static Command *_point_clipping;
-	static Command *_line_clipping;
-	static Command *_polygon_clipping;
+
 	Windowport _windowport;
 	
 };

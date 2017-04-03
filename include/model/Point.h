@@ -7,16 +7,16 @@
 class Point : public Drawable {
 
 public:
-	Point(const gchar *nome, gdouble inicial_x, gdouble inicial_, Windowport *windowy, Command *clipping);
-	Point(const gchar *nome, Vector init_position, Windowport *window, Command *clipping);
+	Point(const gchar *nome, gdouble inicial_x, gdouble inicial_, Windowport *windowy);
+	Point(const gchar *nome, Vector init_position, Windowport *window);
 	virtual ~Point();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 	virtual Vector getCenter();
 	virtual void transform(Transformation &transformation);
 	virtual void updateWindow();
-	void setVisible(bool state);
 private:
-	bool _visible;
+	virtual void clip();
+	void pointClip();
 };
 
 #endif /* SRC_MODEL_POINT_H_ */

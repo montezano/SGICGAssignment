@@ -21,6 +21,7 @@ public:
 	Vector normalize(Vector &vector);
 	float unormalize_x(Vector &vector);
 	float unormalize_y(Vector &vector);
+	Vector unormalize(Vector &vector);
 	void draw(cairo_t *_cr, Viewport *viewport);
 
 	Vector *getInitWindowPosition();

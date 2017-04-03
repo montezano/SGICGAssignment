@@ -6,7 +6,7 @@ Controller::Controller(int argc, char *argv[]) :
 	gtk_init(&argc, &argv);
 
 
-	_canvas = Canvas(&_viewport, &_windowport, _point_clipping, _line_clipping, _polygon_clipping);
+	_canvas = Canvas(&_viewport, &_windowport);
 
 	_builder = gtk_builder_new();
 
@@ -26,7 +26,6 @@ Controller::Controller(int argc, char *argv[]) :
 	gtk_builder_connect_signals(_builder, NULL);
 
 	configureObservers();
-	initClippingAlgorithm();
 }
 
 void Controller::configureObservers()
@@ -42,36 +41,6 @@ void Controller::configureObservers()
 	_windowport.addObserver(&_canvas);
 
 	_main_window_controller->getWindow()->addObserver(this);
-}
-
-void Controller::initClippingAlgorithm()
-{
-	Vector *init_pos = _windowport.getInitWindowPosition();
-	Vector *final_pos = _windowport.getFinalWindowPosition();
-	
-	_point_clipping = new PointClipping(init_pos, final_pos);
-	_line_clipping = new CSClipping(init_pos, final_pos);
-	_polygon_clipping = NULL;
-
-}
-
-void Controller::setAlgorithm(ClippingAlgorithm alg)
-{
-	//switch (alg)
-	//{
-	//case POINT:
-	//	_point_clipping = _clip_algorithms.find(alg)->second;
-	//	break;
-	//case CS:
-	//case LB:
-	//case NICLEENIC:
-	//	_line_clipping = _clip_algorithms.find(alg)->second;
-	//	break;
-	//case SUTHHODG:
-	//case WEIL:
-	//	_polygon_clipping = _clip_algorithms.find(alg)->second;
-	//	break;
-	//}
 }
 
 Controller::~Controller()
@@ -128,11 +97,3 @@ Controller *Controller::_instance = NULL;
 Viewport Controller::_viewport;
 Log Controller::_log;
 Canvas Controller::_canvas;
-
-Command *Controller::_point_clipping = NULL;
-Command *Controller::_line_clipping = NULL;
-Command *Controller::_polygon_clipping = NULL;
-
-
-
-

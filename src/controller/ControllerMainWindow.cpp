@@ -290,7 +290,6 @@ void ControllerMainWindow::translate_cb(GtkWidget *widget)
 
 void ControllerMainWindow::point_algorithm_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
 {
-	_controller->setAlgorithm(Controller::POINT);
 }
 
 void ControllerMainWindow::line_algorithm_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)

@@ -1,25 +1,14 @@
-/*
- * Point.cpp
- *
- *  Created on: 12 de mar de 2017
- *      Author: luizurias
- */
-
 #include "Point.h"
 #include "Viewport.h"
 
-Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport *window, Command *clipping) :
-	Drawable(nome, inicial_x, inicial_y, window),
-	_visible(true)
+Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport *window) :
+	Drawable(nome, inicial_x, inicial_y, window)
 {
-	_clipping = clipping;
 	updateWindow();
 }
-Point::Point(const gchar *nome, Vector init_position, Windowport *window, Command *clipping) :
-	Drawable (nome, init_position, window),
-	_visible(true)
+Point::Point(const gchar *nome, Vector init_position, Windowport *window) :
+	Drawable (nome, init_position, window)
 {
-	_clipping = clipping;
 	updateWindow();
 }
 
@@ -53,11 +42,24 @@ void Point::transform(Transformation & transformation)
 void Point::updateWindow()
 {
 	_position_window = _window->normalize(_position);
-	//const Point point = *this;
-	_clipping->execute(this);
+
+	clip();
 }
 
-void Point::setVisible(bool state)
+void Point::clip()
 {
-	_visible = state;
+	pointClip();
+}
+
+void Point::pointClip()
+{
+	Vector vector = _position_window;
+	if (vector.x > -1.f && vector.y > -1.f && vector.x < 1.f && vector.y < 1.f)
+	{
+		_visible = true;
+	}
+	else
+	{
+		_visible = false;
+	}
 }

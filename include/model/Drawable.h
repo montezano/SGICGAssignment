@@ -1,21 +1,13 @@
-/*
- * Drawable.h
- *
- *  Created on: 12 de mar de 2017
- *      Author: luizurias
- */
-
-
 #ifndef SRC_MODEL_DRAWABLE_H_
 #define SRC_MODEL_DRAWABLE_H_
 
+class Clipping;
 #include <gtk/gtk.h>
 #include <string>
 #include "Viewport.h"
 #include "Vector.h"
 #include "Transformation.h"
 #include "Windowport.h"
-#include "Command.h"
 
 class Drawable
 {
@@ -38,13 +30,14 @@ public:
 
 
 protected:
+	virtual void clip() = 0;
 
 	std::string _nome;
 	const gchar *_tipo;
 	Vector _position;
 	Vector _position_window;
 	Windowport *_window;
-	Command *_clipping;
+	bool _visible;
 	//cairo_t *_cr;
 
 
