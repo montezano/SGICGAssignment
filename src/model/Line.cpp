@@ -12,6 +12,7 @@
 #define CS_TOP_RIGHT	CS_TOP | CS_RIGHT
 #define CS_BOTTOM_LEFT	CS_BOTTOM | CS_LEFT
 #define CS_BOTTOM_RIGHT	CS_BOTTOM | CS_RIGHT
+LineAlgorithm _line_alg;
 
  Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window) :
 	 Drawable(nome, inicial_x, inicial_y, window),
@@ -73,17 +74,121 @@ Vector Line::getFinalPositionWindow()
 
 void Line::clip()
 {
-	//switch (_line_alg)
-	//{
-	//case CS:
-		CSClip();
-	//	break;
-	//case LB:
-	//case NICLEENIC:
-	//}
+	switch (_line_alg)
+	{
+	case CS:
+	 CSClip();
+  //  g_print("CS\n");
+		break;
+	case LB:
+    LBClip();
+    // g_print("LB\n");
+    break;
+  default:
+    LBClip();
+    break;
+	}
 
 }
 
+void Line::LBClip()
+{
+  float p[4], q[4], r[4];
+  float max, min;
+  float dx, dy;
+  _clipped_position = _position_window;
+  _clipped_final_position = _final_position_window;
+
+  dx = _final_position_window.x - _position_window.x;
+  dy = _final_position_window.y - _position_window.y;
+
+  p[0] = -dx;
+  p[1] = dx;
+  p[2] = -dy;
+  p[3] = dy;
+
+  q[0] = (_position_window.x - (-1));
+  q[1] = (1 - _position_window.x);
+  q[2] = (_position_window.y - (-1));
+  q[3] = (1 - _position_window.y);
+
+  for (int i = 0; i < 4; i++) {
+    if (p[i] == 0) {
+      if (i & 0x02) { // dy == 0
+        if ((_position_window.y > 1) || (_position_window.y < -1)) { // outside window
+          _visible = false;
+          return;
+        }
+        if (_position_window.x > 1) {
+          _clipped_position.x = 1;
+        }
+        else if (_position_window.x < -1) {
+          _clipped_position.x = -1;
+        }
+        if (_final_position_window.x > 1) {
+          _clipped_final_position.x = 1;
+        }
+        else if (_final_position_window.x < -1) {
+          _clipped_final_position.x = -1;
+        }
+        return;
+      } else { // dx == 0
+        if ((_position_window.x > 1) || (_position_window.x < -1)) { // outside window
+          _visible = false;
+          return;
+        }
+        if (_position_window.y > 1) {
+          _clipped_position.y = 1;
+        }
+        else if (_position_window.y < -1) {
+          _clipped_position.y = -1;
+        }
+        if (_final_position_window.y > 1) {
+          _clipped_final_position.y = 1;
+        }
+        else if (_final_position_window.y < -1) {
+          _clipped_final_position.y = -1;
+        }
+        _visible = true;
+        return;
+      }
+    }
+  }
+
+  for (int i = 0; i < 4; i++)
+    r[i] = q[i]/p[i];
+
+  if ((p[0] <= 0) && (p[2] <= 0)){
+    max = std::max({(float)0, r[0], r[2]});
+    min = std::min({(float)1, r[1], r[3]});
+  } else if ((p[1] <= 0) && (p[2] <= 0)) {
+    max = std::max({(float)0, r[1], r[2]});
+    min = std::min({(float)1, r[0], r[3]});
+  } else if ((p[0] <= 0) && (p[3] <= 0)) {
+    max = std::max({(float)0, r[0], r[3]});
+    min = std::min({(float)1, r[1], r[2]});
+  } else if ((p[1] <= 0) && (p[3] <= 0)) {
+    max = std::max({(float)0, r[1], r[3]});
+    min = std::min({(float)1, r[0], r[2]});
+  }
+
+  if (max > min){
+    _visible = false;
+   return;
+ }
+
+  if (min < 1) {
+    _clipped_final_position.x = _position_window.x + (min*dx);
+    _clipped_final_position.y = _position_window.y + (min*dy);
+
+  }
+  if (max > 0) {
+    _clipped_position.x = _position_window.x + (max*dx);
+    _clipped_position.y = _position_window.y + (max*dy);
+  }
+  _visible = true;
+  return;
+}
 
 void Line::CSClip()
 {
@@ -162,7 +267,7 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 	{
 		ret.x = -1.f;
 		ret.y = coeficient*(-1.f - vector1.x) + vector1.y;
-		
+
 
 	}
 	if (region & CS_RIGHT)
@@ -173,12 +278,12 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 	if (region & CS_BOTTOM)
 	{
 		ret.y = -1.f;
-		ret.x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);		
+		ret.x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
 	}
 	if (region & CS_TOP)
 	{
 		ret.y = 1.f;
-		ret.x = vector1.x + 1.f / coeficient * (1.f - vector1.y);		
+		ret.x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
 	}
 	return ret;
 }

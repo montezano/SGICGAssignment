@@ -93,6 +93,8 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 	cairo_line_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));
 
 	cairo_stroke(cr);
+
+	cairo_set_source_rgb(cr, 0, 0, 0);
 }
 
 Vector * Windowport::getInitWindowPosition()
