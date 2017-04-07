@@ -158,27 +158,104 @@ unsigned int Line::getCSRegion(Vector &vector)
 Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 {
 	Vector ret = vector1;
-	if (region & CS_LEFT)
+	float x, y;
+	switch (region)
 	{
-		ret.x = -1.f;
-		ret.y = coeficient*(-1.f - vector1.x) + vector1.y;
-		
-
-	}
-	if (region & CS_RIGHT)
-	{
-		ret.x = 1.f;
-		ret.y = coeficient*(1.f - vector1.x) + vector1.y;
-	}
-	if (region & CS_BOTTOM)
-	{
-		ret.y = -1.f;
-		ret.x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);		
-	}
-	if (region & CS_TOP)
-	{
+	case CS_TOP:
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (x < -1 || x > 1)
+		{
+			return ret;
+		}
 		ret.y = 1.f;
-		ret.x = vector1.x + 1.f / coeficient * (1.f - vector1.y);		
+
+		ret.x = x;
+		break;
+	case CS_BOTTOM:
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (x < -1 || x > 1)
+		{
+			return ret;
+		}
+		ret.y = -1.f;
+
+		ret.x = x;
+		break;
+	case CS_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		if (y < -1 || y > 1)
+		{
+			return ret;
+		}
+		ret.x = 1.f;
+
+		ret.y = y;
+		break;
+	case CS_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		if (y < -1 || y > 1)
+		{
+			return ret;
+		}
+		ret.x = -1.f;
+		ret.y = y;
+		break;
+	case CS_TOP_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = -1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = 1;
+		}
+		break;
+	case CS_TOP_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = 1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = 1;
+		}
+		break;
+	case CS_BOTTOM_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = -1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = -1;
+		}
+		break;
+	case CS_BOTTOM_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = 1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = -1;
+		}
+		break;
 	}
 	return ret;
 }

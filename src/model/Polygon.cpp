@@ -94,6 +94,8 @@ void Polygon::updateWindow()
 
 void Polygon::clip()
 {
+	unsigned int outside = CS_MIDDLE;
+	Vector v_outside;
 	if (_coords.size() > 0)
 	{
 		_clipped_coords.clear();
@@ -103,34 +105,89 @@ void Polygon::clip()
 			Vector v_final = _coords_window[(i + 1) % _coords.size()];
 			unsigned int first_region = getCSRegion(_coords_window[i]);
 			unsigned int final_region = getCSRegion(_coords_window[(i + 1)%_coords.size()]);
+			CSClip(v_inicial, v_final);
+
 
 			if (!(first_region | final_region)) //both inside window
 			{
-				_clipped_coords.push_back(_coords_window[i]);
+				_clipped_coords.push_back(v_final);
 			}
-			else if (!(first_region & final_region)) // if they're not both completely outside
+			else
 			{
-				CSClip(v_inicial, v_final);
-
-				if (!first_region | !final_region) // if any inside
+				if (!(first_region & final_region)) // if they're not both completely outside
 				{
 
-					if (first_region)
+					if (!first_region | !final_region) // if any inside
+					{
+						if (first_region)
+						{
+							_clipped_coords.push_back(v_inicial);
+							_clipped_coords.push_back(v_final);
+
+							outside = CS_MIDDLE;
+						}
+						else
+						{
+							_clipped_coords.push_back(v_final);
+
+							outside = final_region;
+						}
+					}
+					else //if none inside but any passing through
 					{
 						_clipped_coords.push_back(v_inicial);
-					}
-					else
-					{
-						_clipped_coords.push_back(_coords_window[i]);
 						_clipped_coords.push_back(v_final);
+						outside = final_region;
+
 					}
 				}
-				else
+				else //both completely outside
 				{
-					_clipped_coords.push_back(v_inicial);
-					_clipped_coords.push_back(v_final);
-					
-				}
+					//outside = true;
+					//v_outside = v_final;
+					//CSClip(v_outside, _clipped_coords[0]);
+					//if(v_outside.x < -1)
+					switch (final_region)
+					{
+					case CS_BOTTOM_LEFT:
+						v_outside = Vector(-1, -1);
+						break;
+					case CS_BOTTOM_RIGHT:
+						v_outside = Vector(1, -1);
+
+						break;
+					case CS_TOP_LEFT:
+						v_outside = Vector(-1, 1);
+
+						break;
+					case CS_TOP_RIGHT:
+						v_outside = Vector(1, 1);
+
+						break;
+					case CS_BOTTOM:
+						v_outside = Vector(v_final.x, -1);
+
+						break;
+					case CS_TOP:
+						v_outside = Vector(v_final.x, 1);
+
+						break;
+					case CS_LEFT:
+						v_outside = Vector(-1, v_final.y);
+
+						break;
+					case CS_RIGHT:
+						v_outside = Vector(1, v_final.y);
+
+						break;
+
+					}
+					if (first_region)
+					{
+						_clipped_coords.push_back(v_outside);
+
+					}
+				}			
 			}
 		}
 	}
@@ -201,27 +258,105 @@ unsigned int Polygon::getCSRegion(Vector &vector)
 Vector Polygon::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 {
 	Vector ret = vector1;
-	if (region & CS_LEFT)
+	float x, y;
+	switch (region)
 	{
-		ret.x = -1.f;
-		ret.y = coeficient*(-1.f - vector1.x) + vector1.y;
-
-
-	}
-	if (region & CS_RIGHT)
-	{
-		ret.x = 1.f;
-		ret.y = coeficient*(1.f - vector1.x) + vector1.y;
-	}
-	if (region & CS_BOTTOM)
-	{
-		ret.y = -1.f;
-		ret.x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
-	}
-	if (region & CS_TOP)
-	{
+	case CS_TOP:
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (x < -1 || x > 1)
+		{
+			return ret;
+		}
 		ret.y = 1.f;
-		ret.x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+
+		ret.x = x;
+		break;
+	case CS_BOTTOM:
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (x < -1 || x > 1)
+		{
+			return ret;
+		}
+		ret.y = -1.f;
+
+		ret.x = x;
+		break;
+	case CS_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		if (y < -1 || y > 1)
+		{
+			return ret;
+		}
+		ret.x = 1.f;
+
+		ret.y = y;
+		break;
+	case CS_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		if (y < -1 || y > 1)
+		{
+			return ret;
+		}
+		ret.x = -1.f;
+		ret.y = y;
+		break;
+	case CS_TOP_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = -1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = 1;
+		}
+		break;
+	case CS_TOP_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = 1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = 1;
+		}
+		break;
+	case CS_BOTTOM_LEFT:
+		y = coeficient*(-1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = -1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = -1;
+		}
+		break;
+	case CS_BOTTOM_RIGHT:
+		y = coeficient*(1.f - vector1.x) + vector1.y;
+		x = vector1.x + 1.f / coeficient * (-1.f - vector1.y);
+		if (y > -1 && y < 1)
+		{
+			ret.x = 1;
+			ret.y = y;
+		}
+		else
+		{
+			ret.x = x;
+			ret.y = -1;
+		}
+		break;
 	}
+
 	return ret;
 }
