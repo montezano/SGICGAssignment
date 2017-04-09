@@ -94,7 +94,7 @@ void Polygon::updateWindow()
 
 void Polygon::clip()
 {
-	unsigned int outside = CS_MIDDLE;
+	std::vector<unsigned int> outside;
 	Vector v_outside;
 	if (_coords.size() > 0)
 	{
@@ -121,75 +121,145 @@ void Polygon::clip()
 					{
 						if (first_region)
 						{
+
+
+							//handle the outside vector
+							if (outside.size() > 0)
+							{
+								unsigned int clipped_region = getCSRegion(v_inicial);
+								for (int i =0; i < outside.size(); i++)
+								{
+									if (outside[i] != clipped_region) //region different from the point where the line enter the window
+									{
+										switch (outside[i])
+										{
+										case CS_BOTTOM_LEFT:
+											_clipped_coords.push_back(Vector(-1, -1));
+											break;
+										case CS_BOTTOM_RIGHT:
+											_clipped_coords.push_back(Vector(1, -1));
+
+											break;
+										case CS_TOP_LEFT:
+											_clipped_coords.push_back(Vector(-1, 1));
+
+											break;
+										case CS_TOP_RIGHT:
+											_clipped_coords.push_back(Vector(1, 1));
+
+											break;
+										}
+									}
+								}
+								outside.clear();
+
+							}
 							_clipped_coords.push_back(v_inicial);
 							_clipped_coords.push_back(v_final);
 
-							outside = CS_MIDDLE;
 						}
 						else
 						{
 							_clipped_coords.push_back(v_final);
 
-							outside = final_region;
+							outside.push_back(final_region);
 						}
 					}
 					else //if none inside but any passing through
 					{
-						_clipped_coords.push_back(v_inicial);
-						_clipped_coords.push_back(v_final);
-						outside = final_region;
+						unsigned int aux_init_region = getCSRegion(v_inicial);
+						unsigned int aux_final_region = getCSRegion(v_final);
+						if (aux_init_region | aux_final_region)
+						{
+							outside.push_back(aux_init_region | aux_final_region);
+
+						}
+						else
+						{
+							_clipped_coords.push_back(v_inicial);
+							_clipped_coords.push_back(v_final);
+							outside.push_back(final_region);
+						}
+						
 
 					}
 				}
 				else //both completely outside
 				{
+					outside.push_back(first_region);
+
+					outside.push_back(final_region);
 					//outside = true;
 					//v_outside = v_final;
 					//CSClip(v_outside, _clipped_coords[0]);
 					//if(v_outside.x < -1)
-					switch (final_region)
-					{
-					case CS_BOTTOM_LEFT:
-						v_outside = Vector(-1, -1);
-						break;
-					case CS_BOTTOM_RIGHT:
-						v_outside = Vector(1, -1);
+					//switch (final_region)
+					//{
+					//case CS_BOTTOM_LEFT:
+					//	v_outside = Vector(-1, -1);
+					//	break;
+					//case CS_BOTTOM_RIGHT:
+					//	v_outside = Vector(1, -1);
 
-						break;
-					case CS_TOP_LEFT:
-						v_outside = Vector(-1, 1);
+					//	break;
+					//case CS_TOP_LEFT:
+					//	v_outside = Vector(-1, 1);
 
-						break;
-					case CS_TOP_RIGHT:
-						v_outside = Vector(1, 1);
+					//	break;
+					//case CS_TOP_RIGHT:
+					//	v_outside = Vector(1, 1);
 
-						break;
-					case CS_BOTTOM:
-						v_outside = Vector(v_final.x, -1);
+					//	break;
+					//case CS_BOTTOM:
+					//	v_outside = Vector(v_final.x, -1);
 
-						break;
-					case CS_TOP:
-						v_outside = Vector(v_final.x, 1);
+					//	break;
+					//case CS_TOP:
+					//	v_outside = Vector(v_final.x, 1);
 
-						break;
-					case CS_LEFT:
-						v_outside = Vector(-1, v_final.y);
+					//	break;
+					//case CS_LEFT:
+					//	v_outside = Vector(-1, v_final.y);
 
-						break;
-					case CS_RIGHT:
-						v_outside = Vector(1, v_final.y);
+					//	break;
+					//case CS_RIGHT:
+					//	v_outside = Vector(1, v_final.y);
 
-						break;
+					//	break;
 
-					}
-					if (first_region)
-					{
-						_clipped_coords.push_back(v_outside);
+					//}
+					//if (first_region)
+					//{
+					//	_clipped_coords.push_back(v_outside);
 
-					}
+					//}
 				}			
 			}
 		}
+		for (int i = 0; i < outside.size(); i++)
+		{
+			{
+				switch (outside[i])
+				{
+				case CS_BOTTOM_LEFT:
+					_clipped_coords.push_back(Vector(-1, -1));
+					break;
+				case CS_BOTTOM_RIGHT:
+					_clipped_coords.push_back(Vector(1, -1));
+
+					break;
+				case CS_TOP_LEFT:
+					_clipped_coords.push_back(Vector(-1, 1));
+
+					break;
+				case CS_TOP_RIGHT:
+					_clipped_coords.push_back(Vector(1, 1));
+
+					break;
+				}
+			}
+		}
+		outside.clear();
 	}
 }
 
