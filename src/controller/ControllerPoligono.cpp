@@ -43,6 +43,7 @@ void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 {
 	WindowPoligono::WinPoligono w_pol = _window->add_poligono();
 	_canvas->addPolygon(w_pol.nome.c_str(), _coords[0], _coords);
+	_coords.clear();
 }
 
 WindowPoligono *ControllerPoligono::_window = NULL;
