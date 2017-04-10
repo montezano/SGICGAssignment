@@ -41,6 +41,7 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_position)), viewport->transformY(_window->unormalize_y(_clipped_position)));
 		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_final_position)), viewport->transformY(_window->unormalize_y(_clipped_final_position)));
 	}
+	cairo_stroke(_cr);
 }
 
 Vector Line::getCenter()
@@ -314,8 +315,17 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 		}
 		else
 		{
-			ret.x = x;
-			ret.y = 1;
+			if (x > -1 && x < 1)
+			{
+				ret.x = x;
+				ret.y = 1;
+			}
+			else
+			{
+				_visible = false;
+			}
+
+
 		}
 		break;
 	case CS_TOP_RIGHT:
@@ -328,8 +338,16 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 		}
 		else
 		{
-			ret.x = x;
-			ret.y = 1;
+			if (x > -1 && x < 1)
+			{
+				ret.x = x;
+				ret.y = 1;
+			}
+			else
+			{
+				_visible = false;
+			}
+
 		}
 		break;
 	case CS_BOTTOM_LEFT:
@@ -342,8 +360,16 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 		}
 		else
 		{
-			ret.x = x;
-			ret.y = -1;
+			if (x > -1 && x < 1)
+			{
+				ret.x = x;
+				ret.y = -1;
+			}
+			else
+			{
+				_visible = false;
+			}
+
 		}
 		break;
 	case CS_BOTTOM_RIGHT:
@@ -356,8 +382,15 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 		}
 		else
 		{
-			ret.x = x;
-			ret.y = -1;
+			if (x > -1 && x < 1)
+			{
+				ret.x = x;
+				ret.y = -1;
+			}
+			else
+			{
+				_visible = false;
+			}
 		}
 		break;
 	}

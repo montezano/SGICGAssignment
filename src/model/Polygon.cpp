@@ -56,7 +56,7 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 		//cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
 		////cairo_stroke(_cr);
 
-
+		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
 		for (size_t i = 0; i < _clipped_coords.size() - 1; i++)
 		{
 			
@@ -67,8 +67,8 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 		}
 		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
 		cairo_close_path(_cr);
-		cairo_stroke_preserve(_cr);
-		//cairo_fill(_cr);
+		/*cairo_stroke_preserve(_cr);*/
+		cairo_fill(_cr);
 
 
 

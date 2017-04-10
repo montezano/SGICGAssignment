@@ -26,6 +26,7 @@ void Point::draw(cairo_t *_cr, Viewport *viewport)
 		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 	}
+	cairo_stroke(_cr);
 }
 
 Vector Point::getCenter()
