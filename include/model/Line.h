@@ -4,15 +4,18 @@
 #include "Drawable.h"
 #include <algorithm>
 
-enum LineAlgorithm {
-	CS,
-	LB
-};
 
-extern LineAlgorithm _line_alg;
+
+
 
 class Line : public Drawable {
 public:
+	enum LineAlgorithm
+	{
+		CS,
+		LB
+	};
+
 	Line(const gchar *nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window);
 	Line(const gchar *nome, Vector init_position, Vector final_position, Windowport *window);
 	virtual ~Line();
@@ -22,6 +25,8 @@ public:
 	virtual void updateWindow();
 	Vector getFinalPosition();
 	Vector getFinalPositionWindow();
+
+	static void setClippingAlgorithm(LineAlgorithm alg);
 
 
 private:
@@ -35,6 +40,8 @@ private:
 	Vector _final_position_window;
 	Vector _clipped_position;
 	Vector _clipped_final_position;
+	static LineAlgorithm _line_alg;
 };
+
 
 #endif /* SRC_MODEL_LINE_H_ */

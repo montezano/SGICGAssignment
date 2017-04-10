@@ -16,6 +16,7 @@ class Controller;
 #include "Drawable.h"
 #include "Canvas.h"
 #include "Viewport.h"
+#include "Line.h"
 
 using namespace std;
 

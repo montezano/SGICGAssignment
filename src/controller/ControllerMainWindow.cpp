@@ -312,17 +312,14 @@ void ControllerMainWindow::line_algorithm_cb(GtkWidget * widget, GdkEvent * even
 
 	if (button_name == "Cohen Sutherland")
 	{
-		_line_alg = LineAlgorithm::CS;
+		Line::setClippingAlgorithm(Line::CS);
 
 	}
 	else
 	{
 		if (button_name == "Liang-Barsky")
 		{
-			_line_alg = LineAlgorithm::LB;
-		}
-		else
-		{
+			Line::setClippingAlgorithm(Line::LB);
 		}
 	}
 }

@@ -12,7 +12,6 @@
 #define CS_TOP_RIGHT	CS_TOP | CS_RIGHT
 #define CS_BOTTOM_LEFT	CS_BOTTOM | CS_LEFT
 #define CS_BOTTOM_RIGHT	CS_BOTTOM | CS_RIGHT
-LineAlgorithm _line_alg;
 
  Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window) :
 	 Drawable(nome, inicial_x, inicial_y, window),
@@ -71,6 +70,11 @@ Vector Line::getFinalPosition()
 Vector Line::getFinalPositionWindow()
 {
 	return _final_position_window;
+}
+
+void Line::setClippingAlgorithm(LineAlgorithm alg)
+{
+	_line_alg = alg;
 }
 
 void Line::clip()
@@ -396,3 +400,5 @@ Vector Line::clipCSLine(unsigned int &region, Vector &vector1, float coeficient)
 	}
 	return ret;
 }
+
+Line::LineAlgorithm Line::_line_alg = Line::LineAlgorithm::CS;
