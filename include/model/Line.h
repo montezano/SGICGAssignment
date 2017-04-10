@@ -2,7 +2,14 @@
 #define SRC_MODEL_LINE_H_
 
 #include "Drawable.h"
+#include <algorithm>
 
+enum LineAlgorithm {
+	CS,
+	LB
+};
+
+extern LineAlgorithm _line_alg;
 
 class Line : public Drawable {
 public:
@@ -20,9 +27,9 @@ public:
 private:
 	virtual void clip();
 	void CSClip();
+	void LBClip();
 	unsigned int getCSRegion(Vector &vector);
 	Vector clipCSLine(unsigned int &region, Vector &vector1, float coeficient);
-
 
 	Vector _final_position;
 	Vector _final_position_window;
