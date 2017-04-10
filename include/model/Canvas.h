@@ -23,7 +23,7 @@ public:
 	virtual ~Canvas();
 	void setWindow(Windowport *window);
 	void addLine(const gchar* nome, Vector inicial, Vector final);
-	void addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords);
+	void addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill);
 	void addPoint(const gchar *nome, Vector init_position);
 	void drawCanvas(cairo_surface_t *surfac);
 	void updateWindow();

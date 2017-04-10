@@ -37,8 +37,8 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
 
-void Canvas::addPolygon(const gchar *nome, Vector init_position, std::vector<Vector> coords){
-	Drawable* pol = new Polygon(nome,init_position,coords, _window);
+void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill){
+	Drawable* pol = new Polygon(nome, coords, _window, fill);
 	pol->setTipo("poligono");
 
 	_canvas.push_back(pol);
@@ -153,6 +153,7 @@ void Canvas::onNotify(void * data, Events event)
 	case WINDOW_ROTATE:
 	case WINDOW_ZOOM:
 		updateWindow();
+		break;
 	}
 }
 

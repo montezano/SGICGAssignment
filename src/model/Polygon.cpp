@@ -16,68 +16,41 @@
 
 
 
- Polygon::Polygon(const gchar * nome, double inicial_x, double inicial_y, std::vector<Vector> coords, Windowport *window) :
-	 Drawable(nome, inicial_x, inicial_y, window),
+ Polygon::Polygon(const gchar * nome, std::vector<Vector> coords, Windowport *window, bool fill) :
+	 Drawable(nome, coords[0], window),
 	 _coords(coords),
-	 _coords_window(coords)
+	 _coords_window(coords),
+	 _fill(fill)
  {
 	 updateWindow();
  }
-
- Polygon::Polygon(const gchar * nome, Vector init_position, std::vector<Vector> coords, Windowport *window) :
-	 Drawable(nome, init_position, window),
-	 _coords(coords),
-	 _coords_window(coords)
- {
-	 updateWindow();
- }
-
-Polygon::~Polygon()
-{
-	// TODO Auto-generated destructor stub
-}
 
 void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 
 {
-	//assert(surface);
-	//_cr = cairo_create(surface);
-	//cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 	if (_clipped_coords.size() > 0)
 	{
-		//for (size_t i = 0; i < _clipped_coords.size()-1; i++)
-		//{
-		//	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
 
-		//	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i + 1])), viewport->transformY(_window->unormalize_y(_clipped_coords[i + 1])));
-		//	//cairo_stroke(_cr);
-
-		//}
-		//cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
-		////cairo_stroke(_cr);
 
 		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
-		for (size_t i = 0; i < _clipped_coords.size() - 1; i++)
+		for (size_t i = 0; i < _clipped_coords.size(); i++)
 		{
-			
-
-			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i + 1])), viewport->transformY(_window->unormalize_y(_clipped_coords[i + 1])));
-			//cairo_stroke(_cr);
-
+			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
 		}
-		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
+		//cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
 		cairo_close_path(_cr);
-		/*cairo_stroke_preserve(_cr);*/
-		cairo_fill(_cr);
+		if (_fill)
+		{
+			cairo_fill(_cr);
+		}
+		cairo_stroke(_cr);
 
-
-
+		
 	}
 }
 
 Vector Polygon::getCenter()
 {
-	//Vector sum = _position;
 	Vector sum = Vector(0,0);
 	for (auto vector : _coords)
 	{
@@ -89,7 +62,6 @@ Vector Polygon::getCenter()
 
 void Polygon::transform(Transformation & transformation)
 {
-	//_position = transformation.transformPoint(_position);
 	for (size_t i = 0; i < _coords.size(); i++)
 	{
 		_coords[i] = transformation.transformPoint(_coords[i]);
@@ -100,7 +72,6 @@ void Polygon::transform(Transformation & transformation)
 
 void Polygon::updateWindow()
 {
-	//_position_window = _window->normalize(_position);
 	
 	for (size_t i = 0; i < _coords.size(); i++)
 	{
@@ -108,6 +79,7 @@ void Polygon::updateWindow()
 	}
 	clip();
 }
+
 
 void Polygon::clip()
 {
