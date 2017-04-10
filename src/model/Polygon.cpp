@@ -45,16 +45,33 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 	//cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_position_window)), viewport->transformY(_window->unormalize_y(_position_window)));
 	if (_clipped_coords.size() > 0)
 	{
-		for (size_t i = 0; i < _clipped_coords.size()-1; i++)
+		//for (size_t i = 0; i < _clipped_coords.size()-1; i++)
+		//{
+		//	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
+
+		//	cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i + 1])), viewport->transformY(_window->unormalize_y(_clipped_coords[i + 1])));
+		//	//cairo_stroke(_cr);
+
+		//}
+		//cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
+		////cairo_stroke(_cr);
+
+
+		for (size_t i = 0; i < _clipped_coords.size() - 1; i++)
 		{
-			cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
+			
 
 			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i + 1])), viewport->transformY(_window->unormalize_y(_clipped_coords[i + 1])));
 			//cairo_stroke(_cr);
 
 		}
 		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
-		//cairo_stroke(_cr);
+		cairo_close_path(_cr);
+		cairo_stroke_preserve(_cr);
+		//cairo_fill(_cr);
+
+
+
 	}
 }
 
@@ -96,6 +113,7 @@ void Polygon::clip()
 {
 	std::vector<unsigned int> outside;
 	Vector v_outside;
+	_clipped_coords.clear();
 	if (_coords.size() > 0)
 	{
 		_clipped_coords.clear();
@@ -189,50 +207,7 @@ void Polygon::clip()
 					outside.push_back(first_region);
 
 					outside.push_back(final_region);
-					//outside = true;
-					//v_outside = v_final;
-					//CSClip(v_outside, _clipped_coords[0]);
-					//if(v_outside.x < -1)
-					//switch (final_region)
-					//{
-					//case CS_BOTTOM_LEFT:
-					//	v_outside = Vector(-1, -1);
-					//	break;
-					//case CS_BOTTOM_RIGHT:
-					//	v_outside = Vector(1, -1);
 
-					//	break;
-					//case CS_TOP_LEFT:
-					//	v_outside = Vector(-1, 1);
-
-					//	break;
-					//case CS_TOP_RIGHT:
-					//	v_outside = Vector(1, 1);
-
-					//	break;
-					//case CS_BOTTOM:
-					//	v_outside = Vector(v_final.x, -1);
-
-					//	break;
-					//case CS_TOP:
-					//	v_outside = Vector(v_final.x, 1);
-
-					//	break;
-					//case CS_LEFT:
-					//	v_outside = Vector(-1, v_final.y);
-
-					//	break;
-					//case CS_RIGHT:
-					//	v_outside = Vector(1, v_final.y);
-
-					//	break;
-
-					//}
-					//if (first_region)
-					//{
-					//	_clipped_coords.push_back(v_outside);
-
-					//}
 				}			
 			}
 		}
