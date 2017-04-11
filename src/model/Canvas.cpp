@@ -28,8 +28,6 @@ void Canvas::setWindow(Windowport * window)
 
 void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 {
-	//this->notify(static_cast<void*>(d), Events::ADD_DRAWABLE);
-	//_canvas.push_back(static_cast<Drawable*>(d));
 	Drawable* line = new Line(nome,inicial,fim, _window);
 	line->setTipo("linha");
 
@@ -43,6 +41,14 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill
 
 	_canvas.push_back(pol);
 	this->notify(pol, Events::ADD_DRAWABLE);
+}
+
+void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points){
+	Drawable* curve = new Curve2(nome, points, _window);
+	curve->setTipo("curva");
+
+	_canvas.push_back(curve);
+	this->notify(curve, Events::ADD_DRAWABLE);
 }
 
 void Canvas::addPoint(const gchar *nome, Vector init_position){
@@ -61,7 +67,7 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	_window->draw(cr, _viewport);
 
 	for(auto drawable: _canvas)
-	{
+	{	
 		drawable->draw(cr, _viewport);
 	}
 	cairo_stroke(cr);

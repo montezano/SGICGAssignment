@@ -16,6 +16,7 @@ public:
 
 	Drawable(const gchar *nome, float inicial_x, float inicial_y, Windowport *window);
 	Drawable(const gchar *nome, Vector vector, Windowport *window);
+	Drawable(const gchar *nome, Windowport *window);
 	virtual ~Drawable();
 
 	virtual void draw(cairo_t *_cr, Viewport *viewport) = 0;

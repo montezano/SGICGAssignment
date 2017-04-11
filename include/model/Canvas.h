@@ -11,6 +11,7 @@
 #include "Line.h"
 #include "Point.h"
 #include "Polygon.h"
+#include "Curve2.h"
 #include "Transformation.h"
 #include "Windowport.h"
 
@@ -24,6 +25,7 @@ public:
 	void setWindow(Windowport *window);
 	void addLine(const gchar* nome, Vector inicial, Vector final);
 	void addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill);
+	void addCurve2(const gchar *nome, std::vector<Vector> points);
 	void addPoint(const gchar *nome, Vector init_position);
 	void drawCanvas(cairo_surface_t *surfac);
 	void updateWindow();

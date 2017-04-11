@@ -83,11 +83,9 @@ void Line::clip()
 	{
 	case CS:
 	 CSClip();
-  //  g_print("CS\n");
 		break;
 	case LB:
 	LBClip();
-	// g_print("LB\n");
 	break;
   default:
 	LBClip();

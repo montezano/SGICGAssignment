@@ -18,6 +18,13 @@ Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowp
 	 _window = window;
  }
 
+ Drawable::Drawable(const gchar * nome, Windowport *window) :
+	_nome(nome),
+	_visible(true)
+ {
+	 _window = window;
+ }
+
  Drawable::~Drawable()
 {
 }

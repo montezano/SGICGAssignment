@@ -25,6 +25,12 @@
 	 updateWindow();
  }
 
+  Polygon::Polygon(const gchar * nome, Windowport *window) :
+	 Drawable(nome, window)
+ {
+	 updateWindow();
+ }
+
 void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 
 {
