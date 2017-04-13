@@ -77,7 +77,7 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 {
 
-	cairo_set_source_rgb(cr, 255, 0, 0);
+	// cairo_set_source_rgb(cr, 255, 0, 0);
 
 
 	cairo_move_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));

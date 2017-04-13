@@ -32,6 +32,19 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 	line->setTipo("linha");
 
 	_canvas.push_back(line);
+
+	// //TESTE
+	// std::vector<Vector> points;
+	// points.push_back(Vector(0,0));
+	// points.push_back(Vector(30,-100));
+	// points.push_back(Vector(70,-150));
+	// points.push_back(Vector(500,0));
+	// Drawable* curve = new Curve2(nome, points, _window);
+	// curve->setTipo("curva");
+
+	// _canvas.push_back(curve);
+
+	// //TESTE
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
 

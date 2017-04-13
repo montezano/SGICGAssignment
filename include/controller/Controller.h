@@ -10,6 +10,7 @@ class ControllerMainWindow;
 class ControllerLinha;
 class ControllerPoligono;
 class ControllerPonto;
+class ControllerBesier;
 
 /////////////////////////////////
 /// HEADERS
@@ -22,6 +23,7 @@ class ControllerPonto;
 #include "ControllerLinha.h"
 #include "ControllerPonto.h"
 #include "ControllerPoligono.h"
+#include "ControllerBesier.h"
 #include "Canvas.h"
 #include "Observer.h"
 #include "Log.h"
@@ -58,6 +60,7 @@ private:
 	static ControllerLinha		*_window_linha_controller;
 	static ControllerPonto		*_window_ponto_controller;
 	static ControllerPoligono	*_window_poligono_controller;
+	static ControllerBesier		*_window_besier_controller;
 	static bool _initialized;
 	static Controller *_instance;
 	static Viewport _viewport;

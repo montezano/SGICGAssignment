@@ -40,6 +40,7 @@ void MainWindow::onNotify(void *data, Events event)
 	switch (event)
 	{
 	case Events::ADD_DRAWABLE:
+	g_print("add drawable\n");
 		gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
 		gtk_list_store_set(GTK_LIST_STORE(_model),
 			&_iter,

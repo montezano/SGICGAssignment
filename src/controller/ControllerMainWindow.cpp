@@ -57,6 +57,8 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	_radio_button_ponto = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
 
+	_radio_button_curve = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
+
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(add_object_cb), NULL);
 
@@ -452,7 +454,14 @@ void ControllerMainWindow::add_object_cb()
 		}
 		else
 		{
-			_controller->_window_ponto_controller->display();
+			if (button_name == "Ponto")
+			{
+				_controller->_window_ponto_controller->display();				
+			}  
+			else
+			{
+				_controller->_window_besier_controller->display();
+			}
 		}
 	}
 }
@@ -497,6 +506,7 @@ Windowport *ControllerMainWindow::_windowport = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_curve = NULL;
 
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;
