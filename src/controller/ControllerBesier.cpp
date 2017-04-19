@@ -6,7 +6,6 @@ ControllerBesier::ControllerBesier(GtkBuilder * builder, Canvas *canvas)
 	_window = new WindowBesier(GTK_WIDGET(gtk_builder_get_object(builder, "window_besier")));
 
 	GtkButton* button;
-	GtkRadioButton *radio_button;
 
 	button = GTK_BUTTON(gtk_builder_get_object(builder, "button_cancel_besier"));
 	assert(button);

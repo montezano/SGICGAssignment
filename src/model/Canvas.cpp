@@ -29,7 +29,6 @@ void Canvas::setWindow(Windowport * window)
 void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 {
 	Drawable* line = new Line(nome,inicial,fim, _window);
-	line->setTipo("linha");
 
 	_canvas.push_back(line);
 
@@ -50,7 +49,6 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 
 void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill){
 	Drawable* pol = new Polygon(nome, coords, _window, fill);
-	pol->setTipo("poligono");
 
 	_canvas.push_back(pol);
 	this->notify(pol, Events::ADD_DRAWABLE);
@@ -58,7 +56,6 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill
 
 void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points){
 	Drawable* curve = new Curve2(nome, points, _window);
-	curve->setTipo("curva");
 
 	_canvas.push_back(curve);
 	this->notify(curve, Events::ADD_DRAWABLE);
@@ -66,7 +63,6 @@ void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points){
 
 void Canvas::addPoint(const gchar *nome, Vector init_position){
 	Point* p = new Point(nome, init_position, _window);
-	p->setTipo("ponto");
 
 	this->_canvas.push_back(static_cast<Drawable*>(p));
 	this->notify(static_cast<void*>(p), Events::ADD_DRAWABLE);

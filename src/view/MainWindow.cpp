@@ -90,8 +90,8 @@ gboolean MainWindow::configure_event(GtkWidget *widget, GdkEventConfigure *event
 
 gboolean MainWindow::reconfigure(GtkWidget *widget)
 {
-	Vector *size = new Vector(gtk_widget_get_allocated_width(widget),
-		gtk_widget_get_allocated_height(widget));
+	Vector *size = new Vector(static_cast<float>(gtk_widget_get_allocated_width(widget)),
+		static_cast<float>(gtk_widget_get_allocated_height(widget)));
 
 	notify(static_cast<void*>(size), Events::MAINWINDOW_RECONFIGURE);
 

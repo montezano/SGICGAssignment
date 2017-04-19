@@ -13,14 +13,22 @@ public:
 	
 
 private:
-	void calculateCurve();
+	void calcBezierCurve();
+	void calcBSplineCurve();
+
+	void prepareInitialDiferences();
 
 
 	std::vector<Vector> _points;
-	float mb[4][4] = {{-1,3,-3,1}, {3,-6, 3, 0}, {-3, 3, 0, 0}, {1, 0, 0, 0}};
+	
 	std::vector<Vector> _curve_coords;
 	std::vector<Vector> _curve_coords_window;
 	std::vector<Vector> _clipped_curve;
+
+	float _rate;
+	static const float _mb[4][4];
+	static const float _mbs[16];
+	static float _e[16];
 
 };
 

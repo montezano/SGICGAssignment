@@ -9,6 +9,7 @@ Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport
 Point::Point(const gchar *nome, Vector init_position, Windowport *window) :
 	Drawable (nome, init_position, window)
 {
+	_tipo = "ponto";
 	updateWindow();
 }
 

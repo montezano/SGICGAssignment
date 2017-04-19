@@ -26,6 +26,7 @@
 	 _final_position(final_position),
 	 _final_position_window(final_position)
  {
+	 _tipo = "linha";
 	 updateWindow();
  }
 
