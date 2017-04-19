@@ -118,13 +118,13 @@ void Curve2::draw(cairo_t *_cr, Viewport *viewport) {
 	if (_clipped_coords.size() > 0)
 	{
 
-	cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
-	for (size_t i = 0; i < _clipped_coords.size()-1; i++)
-	{
-		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
-	}
-	cairo_stroke(_cr);
-}	
+		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[0])), viewport->transformY(_window->unormalize_y(_clipped_coords[0])));
+		for (size_t i = 0; i < _clipped_coords.size()-1; i++)
+		{
+			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
+		}
+		cairo_stroke(_cr);
+	}	
 }
 
 const float Curve2::_mb[4][4] = {	{ -1,  3, -3, 1 },

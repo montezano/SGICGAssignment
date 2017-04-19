@@ -15,17 +15,11 @@ public:
 private:
 	void calcBezierCurve();
 	void calcBSplineCurve();
-
 	void prepareInitialDiferences();
-
-
-	std::vector<Vector> _points;
 	
-	std::vector<Vector> _curve_coords;
-	std::vector<Vector> _curve_coords_window;
-	std::vector<Vector> _clipped_curve;
-
+	std::vector<Vector> _points;
 	float _rate;
+
 	static const float _mb[4][4];
 	static const float _mbs[16];
 	static float _e[16];
