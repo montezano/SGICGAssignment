@@ -7,16 +7,16 @@
 
 class Curve2 : public Polygon {
 public:
-	Curve2(const gchar *nome, std::vector<Vector> points, Windowport *window);
+	Curve2(const gchar *nome, std::vector<Vector> points, Windowport *window, bool type);
 	virtual ~Curve2() {}
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
-	
+
 
 private:
 	void calcBezierCurve();
 	void calcBSplineCurve();
 	void prepareInitialDiferences();
-	
+
 	std::vector<Vector> _points;
 	float _rate;
 

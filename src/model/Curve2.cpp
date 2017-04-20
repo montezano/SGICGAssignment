@@ -1,14 +1,16 @@
 #include "Curve2.h"
 #include "Viewport.h"
 
- Curve2::Curve2(const gchar * nome, std::vector<Vector> points, Windowport *window) :
+ Curve2::Curve2(const gchar * nome, std::vector<Vector> points, Windowport *window, bool type) :
 	 Polygon(nome,window),
 	 _points(points)
- {	 
+ {
 	_rate = (float)0.01;
 	_tipo = "curva";
-	//calcBezierCurve();
-	calcBSplineCurve();
+  if(type)
+  calcBSplineCurve();
+  else
+	calcBezierCurve();
 	_coords_window.resize(_coords.size());
 	updateWindow();
  }
@@ -24,7 +26,7 @@ void Curve2::calcBezierCurve() {
 	t[3] = 1;
 
 	float tMb[4];
-   
+
 	for (int jb = 0; jb < 4; jb++) {
 	  tMb[jb] = 0;
 	  for (int ja = 0; ja < 4; ja++) {
@@ -48,13 +50,14 @@ void Curve2::calcBezierCurve() {
 void Curve2::calcBSplineCurve()
 {
 
+
 	int sub_curves_count = _points.size() - 3;
 
 	float aux_x[4];
 	float aux_y[4];
 
 	prepareInitialDiferences();
-	
+
 
 
 	for (int i = 0; i < sub_curves_count; i++)
@@ -102,7 +105,7 @@ void Curve2::calcBSplineCurve()
 			}
 
 			_coords.push_back(Vector(fx[0], fy[0]));
-			
+
 		}
 	}
 }
@@ -125,7 +128,7 @@ void Curve2::draw(cairo_t *_cr, Viewport *viewport) {
 			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
 		}
 		cairo_stroke(_cr);
-	}	
+	}
 }
 
 const float Curve2::_mb[4][4] = {	{ -1,  3, -3, 1 },

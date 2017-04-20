@@ -54,8 +54,8 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill
 	this->notify(pol, Events::ADD_DRAWABLE);
 }
 
-void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points){
-	Drawable* curve = new Curve2(nome, points, _window);
+void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points, bool type){
+	Drawable* curve = new Curve2(nome, points, _window,type);
 
 	_canvas.push_back(curve);
 	this->notify(curve, Events::ADD_DRAWABLE);
@@ -76,7 +76,7 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	_window->draw(cr, _viewport);
 
 	for(auto drawable: _canvas)
-	{	
+	{
 		drawable->draw(cr, _viewport);
 	}
 	cairo_stroke(cr);
