@@ -7,7 +7,8 @@
  {	 
 	_rate = (float)0.01;
 	_tipo = "curva";
-	calcBezierCurve();
+	//calcBezierCurve();
+	calcBSplineCurve();
 	_coords_window.resize(_coords.size());
 	updateWindow();
  }
@@ -132,8 +133,8 @@ const float Curve2::_mb[4][4] = {	{ -1,  3, -3, 1 },
 									{ -3,  3,  0, 0 },
 									{  1,  0,  0, 0 }};
 
-const float Curve2::_mbs[16] = {   -1/6,  1/2, -1/2, 1/6,
-									1/2,   -1,  1/2,   0,
-								   -1/2,    0,  1/2,   0,
-									1/6,  2/3,  1/6,   0 };
+const float Curve2::_mbs[16] = {   (-1/6.f),  (1/2.f), (-1/2.f), (1/6.f),
+									(1/2.f),   (-1.f),  (1/2.f),   (0.f),
+								   (-1/2.f),    (0.f),  (1/2.f),   (0.f),
+									(1/6.f),  (2/3.f),  (1/6.f),   (0.f) };
 float Curve2::_e[16];
