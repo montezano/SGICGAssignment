@@ -53,24 +53,24 @@ Transformation Windowport::getTransformation()
   return _transformation;
 }
 
-Vector Windowport::normalize(Vector & vector)
+Vector *Windowport::normalize(Vector *vector)
 {
-	return (_transformation.transformPoint(vector) - _center) / _size;
+	return new Vector((*_transformation.transformPoint(*vector) - _center) / _size);
 }
 
-float Windowport::unormalize_x(Vector & vector)
+float Windowport::unormalize_x(Vector *vector)
 {
-	return vector.x *_size.x;
+	return vector->x *_size.x;
 }
 
-float Windowport::unormalize_y(Vector & vector)
+float Windowport::unormalize_y(Vector *vector)
 {
-	return vector.y *_size.y;
+	return vector->y *_size.y;
 }
 
-Vector Windowport::unormalize(Vector & vector)
+Vector Windowport::unormalize(Vector *vector)
 {
-	return Vector(vector.x * _size.x, vector.y * _size.y);
+	return Vector(vector->x * _size.x, vector->y * _size.y);
 }
 
 void Windowport::draw(cairo_t *cr, Viewport *viewport)

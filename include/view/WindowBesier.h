@@ -22,7 +22,7 @@ public:
 	WindowBesier(GtkWidget *window);
 	void initialize();
 
-	Vector add_coords();
+	Vector *add_coords();
 	WinBesier add_besier();
 
 	virtual void onNotify(void *data, Events event);

@@ -22,7 +22,7 @@ public:
 	WindowPoligono(GtkWidget *window);
 	void initialize();
 
-	Vector add_coords();
+	Vector *add_coords();
 	WinPoligono add_poligono();
 
 	virtual void onNotify(void *data, Events event);

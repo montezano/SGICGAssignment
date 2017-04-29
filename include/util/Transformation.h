@@ -20,10 +20,10 @@ public:
 	Transformation getInverse() const;
 
 	/// \brief Transform a 2D point
-	Vector transformPoint(float x, float y) const;
+	Vector *transformPoint(float x, float y) const;
 
 	/// \brief Transform a 2D point
-	Vector transformPoint(const Vector& point) const;
+	Vector *transformPoint(const Vector& point) const;
 
 
 	/// \brief Combine the current transform with another one
@@ -59,7 +59,7 @@ Transformation operator *(const Transformation& left, const Transformation& righ
 Transformation& operator *=(Transformation& left, const Transformation& right);
 
 /// \brief Overload of binary operator * to transform a point
-Vector operator *(const Transformation& left, const Vector& right);
+Vector* operator *(const Transformation& left, const Vector& right);
 
 
 #endif // __TRANSFORMATION_H__

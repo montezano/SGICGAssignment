@@ -84,7 +84,7 @@ void ControllerBesier::add_besier_cb(GtkWidget *window)
 }
 
 WindowBesier *ControllerBesier::_window = NULL;
-std::vector<Vector> ControllerBesier::_coords;
+std::vector<Vector*> ControllerBesier::_coords;
 Controller *ControllerBesier::_controller = NULL;
 Canvas *ControllerBesier::_canvas = NULL;
 GtkRadioButton *ControllerBesier::_radio_group = NULL;

@@ -17,7 +17,7 @@
 
 
 
- Polygon::Polygon(const gchar * nome, std::vector<Vector> coords, Windowport *window, bool fill) :
+ Polygon::Polygon(const gchar * nome, std::vector<Vector*> coords, Windowport *window, bool fill) :
 	 Drawable(nome, coords[0], window),
 	 _coords(coords),
 	 _coords_window(coords),
@@ -63,7 +63,7 @@ Vector Polygon::getCenter()
 	Vector sum = Vector(0,0);
 	for (auto vector : _coords)
 	{
-		sum += vector;
+		sum += *vector;
 	}
 
 	return sum / static_cast<float>(_coords.size());
@@ -73,7 +73,7 @@ void Polygon::transform(Transformation & transformation)
 {
 	for (size_t i = 0; i < _coords.size(); i++)
 	{
-		_coords[i] = transformation.transformPoint(_coords[i]);
+		_coords[i] = transformation.transformPoint(*_coords[i]);
 	}
 
 	updateWindow();
@@ -106,11 +106,11 @@ void Polygon::clip()
 		}
 		for (unsigned int i = 0; i < pol_size; i++)
 		{
-			Vector v_inicial = _coords_window[i];
-			Vector v_final = _coords_window[(i + 1) % _coords.size()];
-			unsigned int first_region = getCSRegion(_coords_window[i]);
-			unsigned int final_region = getCSRegion(_coords_window[(i + 1) % _coords.size()]);
-			CSClip(v_inicial, v_final);
+			Vector *v_inicial = _coords_window[i];
+			Vector *v_final = _coords_window[(i + 1) % _coords.size()];
+			unsigned int first_region = getCSRegion(*_coords_window[i]);
+			unsigned int final_region = getCSRegion(*_coords_window[(i + 1) % _coords.size()]);
+			CSClip(*v_inicial, *v_final);
 
 
 			if (!(first_region | final_region)) //both inside window
@@ -131,7 +131,7 @@ void Polygon::clip()
 							//handle the outside vector
 							if (outside.size() > 0)
 							{
-								unsigned int clipped_region = getCSRegion(v_inicial);
+								unsigned int clipped_region = getCSRegion(*v_inicial);
 								for (unsigned int i = 0; i < outside.size(); i++)
 								{
 									if (outside[i] != clipped_region) //region different from the point where the line enter the window
@@ -139,18 +139,18 @@ void Polygon::clip()
 										switch (outside[i])
 										{
 										case CS_BOTTOM_LEFT:
-											_clipped_coords.push_back(Vector(-1, -1));
+											_clipped_coords.push_back(new Vector(-1, -1));
 											break;
 										case CS_BOTTOM_RIGHT:
-											_clipped_coords.push_back(Vector(1, -1));
+											_clipped_coords.push_back(new Vector(1, -1));
 
 											break;
 										case CS_TOP_LEFT:
-											_clipped_coords.push_back(Vector(-1, 1));
+											_clipped_coords.push_back(new Vector(-1, 1));
 
 											break;
 										case CS_TOP_RIGHT:
-											_clipped_coords.push_back(Vector(1, 1));
+											_clipped_coords.push_back(new Vector(1, 1));
 
 											break;
 										}
@@ -172,8 +172,8 @@ void Polygon::clip()
 					}
 					else //if none inside but any passing through
 					{
-						unsigned int aux_init_region = getCSRegion(v_inicial);
-						unsigned int aux_final_region = getCSRegion(v_final);
+						unsigned int aux_init_region = getCSRegion(*v_inicial);
+						unsigned int aux_final_region = getCSRegion(*v_final);
 						if (aux_init_region | aux_final_region)
 						{
 							outside.push_back(aux_init_region | aux_final_region);
@@ -203,18 +203,18 @@ void Polygon::clip()
 					switch (outside[i])
 					{
 					case CS_BOTTOM_LEFT:
-						_clipped_coords.push_back(Vector(-1, -1));
+						_clipped_coords.push_back(new Vector(-1, -1));
 						break;
 					case CS_BOTTOM_RIGHT:
-						_clipped_coords.push_back(Vector(1, -1));
+						_clipped_coords.push_back(new Vector(1, -1));
 
 						break;
 					case CS_TOP_LEFT:
-						_clipped_coords.push_back(Vector(-1, 1));
+						_clipped_coords.push_back(new Vector(-1, 1));
 
 						break;
 					case CS_TOP_RIGHT:
-						_clipped_coords.push_back(Vector(1, 1));
+						_clipped_coords.push_back(new Vector(1, 1));
 
 						break;
 					}

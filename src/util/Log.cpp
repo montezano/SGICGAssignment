@@ -15,15 +15,15 @@ void Log::onNotify(void * data, Events event)
 		g_print("ADD %s, name: %s - position x: %f |y: %f\n",
 			static_cast<Drawable*>(data)->getTipo(),
 			static_cast<Drawable*>(data)->getNome(),
-			static_cast<Drawable*>(data)->getPosition().x,
-			static_cast<Drawable*>(data)->getPosition().y);
+			static_cast<Drawable*>(data)->getPosition()->x,
+			static_cast<Drawable*>(data)->getPosition()->y);
 		break;
 	case REMOVE_DRAWABLE:
 		g_print("REMOVE %s, name: %s - position x: %f |y: %f\n",
 			static_cast<Drawable*>(data)->getTipo(),
 			static_cast<Drawable*>(data)->getNome(),
-			static_cast<Drawable*>(data)->getPosition().x,
-			static_cast<Drawable*>(data)->getPosition().y);
+			static_cast<Drawable*>(data)->getPosition()->x,
+			static_cast<Drawable*>(data)->getPosition()->y);
 		break;
 	case WINDOW_MOVE:
 		g_print("WINDOW move.\n");

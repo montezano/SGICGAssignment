@@ -6,7 +6,7 @@ Point::Point(const gchar *nome, gdouble inicial_x, gdouble inicial_y, Windowport
 {
 	updateWindow();
 }
-Point::Point(const gchar *nome, Vector init_position, Windowport *window) :
+Point::Point(const gchar *nome, Vector *init_position, Windowport *window) :
 	Drawable (nome, init_position, window)
 {
 	_tipo = "ponto";
@@ -32,12 +32,12 @@ void Point::draw(cairo_t *_cr, Viewport *viewport)
 
 Vector Point::getCenter()
 {
-	return _position;
+	return *_position;
 }
 
 void Point::transform(Transformation & transformation)
 {
-	_position = transformation.transformPoint(_position);
+	_position = transformation.transformPoint(*_position);
 	updateWindow();
 }
 
@@ -55,8 +55,7 @@ void Point::clip()
 
 void Point::pointClip()
 {
-	Vector vector = _position_window;
-	if (vector.x > -1.f && vector.y > -1.f && vector.x < 1.f && vector.y < 1.f)
+	if (_position_window->x > -1.f && _position_window->y > -1.f && _position_window->x < 1.f && _position_window->y < 1.f)
 	{
 		_visible = true;
 	}

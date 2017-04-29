@@ -15,17 +15,22 @@
 
  Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window) :
 	 Drawable(nome, inicial_x, inicial_y, window),
-	 _final_position(Vector(final_x, final_y)),
-	 _final_position_window(Vector(final_x, final_y))
+	 _final_position(new Vector(final_x, final_y)),
+	 _final_position_window(new Vector(final_x, final_y))
  {
+	 _clipped_position = new Vector();
+	 _clipped_final_position = new Vector();
+	 _tipo = "linha";
 	 updateWindow();
  }
 
- Line::Line(const gchar * nome, Vector init_position, Vector final_position, Windowport *window) :
+ Line::Line(const gchar * nome, Vector *init_position, Vector *final_position, Windowport *window) :
 	 Drawable(nome, init_position, window),
 	 _final_position(final_position),
 	 _final_position_window(final_position)
  {
+	 _clipped_position = new Vector();
+	 _clipped_final_position = new Vector();
 	 _tipo = "linha";
 	 updateWindow();
  }
@@ -46,13 +51,13 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 
 Vector Line::getCenter()
 {
-	return (_position + _final_position) / 2.f;
+	return (*_position + *_final_position) / 2.f;
 }
 
 void Line::transform(Transformation & transformation)
 {
-	_position = transformation.transformPoint(_position);
-	_final_position = transformation.transformPoint(_final_position);
+	_position = transformation.transformPoint(*_position);
+	_final_position = transformation.transformPoint(*_final_position);
 	updateWindow();
 }
 
@@ -63,12 +68,12 @@ void Line::updateWindow()
 	clip();
 }
 
-Vector Line::getFinalPosition()
+Vector *Line::getFinalPosition()
 {
 	return _final_position;
 }
 
-Vector Line::getFinalPositionWindow()
+Vector *Line::getFinalPositionWindow()
 {
 	return _final_position_window;
 }
@@ -103,55 +108,55 @@ void Line::LBClip()
 	_clipped_position = _position_window;
 	_clipped_final_position = _final_position_window;
 
-	dx = _final_position_window.x - _position_window.x;
-	dy = _final_position_window.y - _position_window.y;
+	dx = _final_position_window->x - _position_window->x;
+	dy = _final_position_window->y - _position_window->y;
 
 	p[0] = -dx;
 	p[1] = dx;
 	p[2] = -dy;
 	p[3] = dy;
 
-	q[0] = (_position_window.x - (-1));
-	q[1] = (1 - _position_window.x);
-	q[2] = (_position_window.y - (-1));
-	q[3] = (1 - _position_window.y);
+	q[0] = (_position_window->x - (-1));
+	q[1] = (1 - _position_window->x);
+	q[2] = (_position_window->y - (-1));
+	q[3] = (1 - _position_window->y);
 
   for (int i = 0; i < 4; i++) {
 	if (p[i] == 0) {
 	  if (i & 0x02) { // dy == 0
-		if ((_position_window.y > 1) || (_position_window.y < -1)) { // outside window
+		if ((_position_window->y > 1) || (_position_window->y < -1)) { // outside window
 		  _visible = false;
 		  return;
 		}
-		if (_position_window.x > 1) {
-		  _clipped_position.x = 1;
+		if (_position_window->x > 1) {
+		  _clipped_position->x = 1;
 		}
-		else if (_position_window.x < -1) {
-		  _clipped_position.x = -1;
+		else if (_position_window->x < -1) {
+		  _clipped_position->x = -1;
 		}
-		if (_final_position_window.x > 1) {
-		  _clipped_final_position.x = 1;
+		if (_final_position_window->x > 1) {
+		  _clipped_final_position->x = 1;
 		}
-		else if (_final_position_window.x < -1) {
-		  _clipped_final_position.x = -1;
+		else if (_final_position_window->x < -1) {
+		  _clipped_final_position->x = -1;
 		}
 		return;
 	  } else { // dx == 0
-		if ((_position_window.x > 1) || (_position_window.x < -1)) { // outside window
+		if ((_position_window->x > 1) || (_position_window->x < -1)) { // outside window
 		  _visible = false;
 		  return;
 		}
-		if (_position_window.y > 1) {
-		  _clipped_position.y = 1;
+		if (_position_window->y > 1) {
+		  _clipped_position->y = 1;
 		}
-		else if (_position_window.y < -1) {
-		  _clipped_position.y = -1;
+		else if (_position_window->y < -1) {
+		  _clipped_position->y = -1;
 		}
-		if (_final_position_window.y > 1) {
-		  _clipped_final_position.y = 1;
+		if (_final_position_window->y > 1) {
+		  _clipped_final_position->y = 1;
 		}
-		else if (_final_position_window.y < -1) {
-		  _clipped_final_position.y = -1;
+		else if (_final_position_window->y < -1) {
+		  _clipped_final_position->y = -1;
 		}
 		_visible = true;
 		return;
@@ -182,13 +187,13 @@ void Line::LBClip()
  }
 
   if (min < 1) {
-	_clipped_final_position.x = _position_window.x + (min*dx);
-	_clipped_final_position.y = _position_window.y + (min*dy);
+	_clipped_final_position->x = _position_window->x + (min*dx);
+	_clipped_final_position->y = _position_window->y + (min*dy);
 
   }
   if (max > 0) {
-	_clipped_position.x = _position_window.x + (max*dx);
-	_clipped_position.y = _position_window.y + (max*dy);
+	_clipped_position->x = _position_window->x + (max*dx);
+	_clipped_position->y = _position_window->y + (max*dy);
   }
   _visible = true;
   return;
@@ -196,8 +201,8 @@ void Line::LBClip()
 
 void Line::CSClip()
 {
-	Vector v_initial = _position_window;
-	Vector v_final = _final_position_window;
+	Vector v_initial = *_position_window;
+	Vector v_final = *_final_position_window;
 	unsigned int region_initial = getCSRegion(v_initial);
 	unsigned int region_final = getCSRegion(v_final);
 	unsigned int region = region_initial | region_final;
@@ -205,8 +210,8 @@ void Line::CSClip()
 
 	if (!region)
 	{
-		_clipped_position = v_initial;
-		_clipped_final_position = v_final;
+		*_clipped_position = v_initial;
+		*_clipped_final_position = v_final;
 	}
 	else
 	{
@@ -225,8 +230,8 @@ void Line::CSClip()
 			{
 				v_final = clipCSLine(region_final, v_final, m);
 			}
-			_clipped_position = v_initial;
-			_clipped_final_position = v_final;
+			*_clipped_position = v_initial;
+			*_clipped_final_position = v_final;
 		}
 	}
 }

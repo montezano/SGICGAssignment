@@ -26,7 +26,7 @@ void Canvas::setWindow(Windowport * window)
 	_window = window;
 }
 
-void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
+void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
 {
 	Drawable* line = new Line(nome,inicial,fim, _window);
 
@@ -47,21 +47,21 @@ void Canvas::addLine(const gchar* nome, Vector inicial, Vector fim)
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
 
-void Canvas::addPolygon(const gchar *nome, std::vector<Vector> coords, bool fill){
+void Canvas::addPolygon(const gchar *nome, std::vector<Vector*> coords, bool fill){
 	Drawable* pol = new Polygon(nome, coords, _window, fill);
 
 	_canvas.push_back(pol);
 	this->notify(pol, Events::ADD_DRAWABLE);
 }
 
-void Canvas::addCurve2(const gchar *nome, std::vector<Vector> points, bool type){
+void Canvas::addCurve2(const gchar *nome, std::vector<Vector*> points, bool type){
 	Drawable* curve = new Curve2(nome, points, _window,type);
 
 	_canvas.push_back(curve);
 	this->notify(curve, Events::ADD_DRAWABLE);
 }
 
-void Canvas::addPoint(const gchar *nome, Vector init_position){
+void Canvas::addPoint(const gchar *nome, Vector *init_position){
 	Point* p = new Point(nome, init_position, _window);
 
 	this->_canvas.push_back(static_cast<Drawable*>(p));

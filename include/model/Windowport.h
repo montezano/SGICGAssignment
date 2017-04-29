@@ -18,10 +18,10 @@ public:
 	void rotate(float angle);
 	void zoom(float factor);
 	Transformation getTransformation();
-	Vector normalize(Vector &vector);
-	float unormalize_x(Vector &vector);
-	float unormalize_y(Vector &vector);
-	Vector unormalize(Vector &vector);
+	Vector *normalize(Vector *vector);
+	float unormalize_x(Vector *vector);
+	float unormalize_y(Vector *vector);
+	Vector unormalize(Vector *vector);
 	void draw(cairo_t *_cr, Viewport *viewport);
 
 	Vector *getInitWindowPosition();

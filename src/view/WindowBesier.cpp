@@ -30,7 +30,7 @@ void WindowBesier::initialize()
 {
 }
 
-Vector WindowBesier::add_coords()
+Vector *WindowBesier::add_coords()
 {	
 	_cont--;
 	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
@@ -55,7 +55,7 @@ Vector WindowBesier::add_coords()
 	} else {
 		gtk_widget_set_sensitive(GTK_WIDGET(_ok), FALSE);
 	}
-	return Vector(inicial_x, inicial_y);
+	return new Vector(inicial_x, inicial_y);
 }
 
 WindowBesier::WinBesier WindowBesier::add_besier()

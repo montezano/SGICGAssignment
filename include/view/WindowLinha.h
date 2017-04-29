@@ -24,9 +24,9 @@ public:
 	struct WinLinha
 	{
 		std::string nome;
-		Vector v_inicial;
-		Vector v_final;
-		WinLinha(const gchar *nome, Vector inicial, Vector final) :
+		Vector *v_inicial;
+		Vector *v_final;
+		WinLinha(const gchar *nome, Vector *inicial, Vector *final) :
 			nome(nome),
 			v_inicial(inicial),
 			v_final(final) {}

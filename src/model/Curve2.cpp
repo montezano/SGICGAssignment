@@ -1,7 +1,7 @@
 #include "Curve2.h"
 #include "Viewport.h"
 
- Curve2::Curve2(const gchar * nome, std::vector<Vector> points, Windowport *window, bool type) :
+ Curve2::Curve2(const gchar * nome, std::vector<Vector*> points, Windowport *window, bool type) :
 	 Polygon(nome,window),
 	 _points(points)
  {
@@ -36,36 +36,32 @@ void Curve2::calcBezierCurve() {
 
 	float x = 0;
 	for (int i = 0; i < 4; i++) {
-	  x += tMb[i] * _points.at(i).x;
+	  x += tMb[i] * _points.at(i)->x;
 	}
 	float y = 0;
 	for (int i = 0; i < 4; i++) {
-	  y += tMb[i] * _points.at(i).y;
+	  y += tMb[i] * _points.at(i)->y;
 	}
 
-	_coords.push_back(Vector(x,y));
+	_coords.push_back(new Vector(x,y));
   }
 }
 
 void Curve2::calcBSplineCurve()
 {
-
-
 	int sub_curves_count = _points.size() - 3;
 
 	float aux_x[4];
 	float aux_y[4];
 
 	prepareInitialDiferences();
-
-
-
+	
 	for (int i = 0; i < sub_curves_count; i++)
 	{
-		aux_x[0] = _points[i].x;	aux_y[0] = _points[i].y;
-		aux_x[1] = _points[i+1].x;	aux_y[1] = _points[i+1].y;
-		aux_x[2] = _points[i+2].x;	aux_y[2] = _points[i+2].y;
-		aux_x[3] = _points[i+3].x;	aux_y[3] = _points[i+3].y;
+		aux_x[0] = _points[i]->x;	aux_y[0] = _points[i]->y;
+		aux_x[1] = _points[i+1]->x;	aux_y[1] = _points[i+1]->y;
+		aux_x[2] = _points[i+2]->x;	aux_y[2] = _points[i+2]->y;
+		aux_x[3] = _points[i+3]->x;	aux_y[3] = _points[i+3]->y;
 
 		//Calculating the coeficients
 		float cx[4], cy[4], fx[4], fy[4];
@@ -94,7 +90,7 @@ void Curve2::calcBSplineCurve()
 
 		int n = static_cast<int>(1 / _rate + 1);
 
-		_coords.push_back(Vector(fx[0], fy[0]));
+		_coords.push_back(new Vector(fx[0], fy[0]));
 
 		for (int j = 0; j < n; j++)
 		{
@@ -104,7 +100,7 @@ void Curve2::calcBSplineCurve()
 				fy[k] = fy[k] + fy[k + 1];
 			}
 
-			_coords.push_back(Vector(fx[0], fy[0]));
+			_coords.push_back(new Vector(fx[0], fy[0]));
 
 		}
 	}

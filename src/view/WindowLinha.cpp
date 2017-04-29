@@ -32,7 +32,7 @@ WindowLinha::WinLinha WindowLinha::add_linha()
 	gfloat final_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_final_x));
 	gfloat final_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_final_y));
 	gtk_widget_hide(_window);
-	WinLinha linha = WinLinha(nome, Vector(inicial_x, inicial_y), Vector(final_x, final_y));
+	WinLinha linha = WinLinha(nome, new Vector(inicial_x, inicial_y), new Vector(final_x, final_y));
 	gtk_entry_set_text(_entry_nome,"" );
 	gtk_spin_button_set_value (_spinbutton_inicial_x, 0.0);
 	gtk_spin_button_set_value (_spinbutton_inicial_y, 0.0);

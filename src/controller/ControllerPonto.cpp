@@ -31,7 +31,7 @@ void ControllerPonto::display()
 void ControllerPonto::add_ponto_cb(GtkWidget *window)
 {
 	WindowPonto::WinPonto w_ponto = _window->add_ponto();
-	_canvas->addPoint(w_ponto.nome.c_str(),w_ponto.v_inicial);
+	_canvas->addPoint(w_ponto.nome.c_str(), w_ponto.v_inicial);
 
 }
 

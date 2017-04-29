@@ -25,7 +25,7 @@ void WindowPoligono::initialize()
 {
 }
 
-Vector WindowPoligono::add_coords()
+Vector *WindowPoligono::add_coords()
 {
 	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
 	gfloat inicial_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_y));
@@ -42,7 +42,7 @@ Vector WindowPoligono::add_coords()
 												-1);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 											 _model);
-	return Vector(inicial_x, inicial_y);
+	return new Vector(inicial_x, inicial_y);
 }
 
 WindowPoligono::WinPoligono WindowPoligono::add_poligono()

@@ -85,7 +85,7 @@ void ControllerPoligono::add_poligono_cb(GtkWidget *window)
 }
 
 WindowPoligono *ControllerPoligono::_window = NULL;
-std::vector<Vector> ControllerPoligono::_coords;
+std::vector<Vector*> ControllerPoligono::_coords;
 Controller *ControllerPoligono::_controller = NULL;
 Canvas *ControllerPoligono::_canvas = NULL;
 GtkRadioButton *ControllerPoligono::_radio_group = NULL;

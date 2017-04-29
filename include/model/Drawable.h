@@ -15,13 +15,13 @@ class Drawable
 public:
 
 	Drawable(const gchar *nome, float inicial_x, float inicial_y, Windowport *window);
-	Drawable(const gchar *nome, Vector vector, Windowport *window);
+	Drawable(const gchar *nome, Vector *vector, Windowport *window);
 	Drawable(const gchar *nome, Windowport *window);
 	virtual ~Drawable();
 
 	virtual void draw(cairo_t *_cr, Viewport *viewport) = 0;
-	Vector getPosition();
-	Vector getPositionWindow();
+	Vector *getPosition();
+	Vector *getPositionWindow();
 	void setTipo(const gchar* tipo);
 	const gchar* getTipo();
 	const gchar* getNome();
@@ -35,8 +35,8 @@ protected:
 
 	std::string _nome;
 	const gchar *_tipo;
-	Vector _position;
-	Vector _position_window;
+	Vector *_position;
+	Vector *_position_window;
 	Windowport *_window;
 	bool _visible;
 	//cairo_t *_cr;

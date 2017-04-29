@@ -53,13 +53,13 @@ Transformation Transformation::getInverse() const
 	}
 }
 
-Vector Transformation::transformPoint(float x, float y) const
+Vector *Transformation::transformPoint(float x, float y) const
 {
-	return Vector(m_matrix[0] * x + m_matrix[4] * y + m_matrix[12],
+	return new Vector(m_matrix[0] * x + m_matrix[4] * y + m_matrix[12],
 		m_matrix[1] * x + m_matrix[5] * y + m_matrix[13]);
 }
 
-Vector Transformation::transformPoint(const Vector& point) const
+Vector *Transformation::transformPoint(const Vector& point) const
 {
 	return transformPoint(point.x, point.y);
 }
@@ -133,7 +133,7 @@ Transformation& operator *=(Transformation& left, const Transformation& right)
 	return left.combine(right);
 }
 
-Vector operator *(const Transformation& left, const Vector& right)
+Vector* operator *(const Transformation& left, const Vector& right)
 {
 	return left.transformPoint(right);
 }
