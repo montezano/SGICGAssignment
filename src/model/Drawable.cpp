@@ -11,8 +11,8 @@ Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowp
 
  Drawable::Drawable(const gchar * nome, Vector *vector, Windowport *window) :
 	_nome(nome),
-	_position(vector),
-	_position_window(vector),
+	_position(new Vector(*vector)),
+	_position_window(new Vector(*vector)),
 	_visible(true)
  {
 	 _window = window;
@@ -27,6 +27,8 @@ Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowp
 
  Drawable::~Drawable()
 {
+	 delete _position;
+	 delete _position_window;
 }
 
  Vector *Drawable::getPosition()

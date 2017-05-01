@@ -17,6 +17,11 @@ Canvas::Canvas()
 
 Canvas::~Canvas()
 {
+	for (Drawable *it : _canvas)
+	{
+		delete (it);
+	}
+	_canvas.clear();
 
 }
 
@@ -80,6 +85,8 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 		drawable->draw(cr, _viewport);
 	}
 	cairo_stroke(cr);
+
+	cairo_destroy(cr);
 }
 
 void Canvas::updateWindow()

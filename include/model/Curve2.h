@@ -8,7 +8,7 @@
 class Curve2 : public Polygon {
 public:
 	Curve2(const gchar *nome, std::vector<Vector*> points, Windowport *window, bool type);
-	virtual ~Curve2() {}
+	virtual ~Curve2();  
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 
 

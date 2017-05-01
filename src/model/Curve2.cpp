@@ -7,12 +7,23 @@
  {
 	_rate = (float)0.01;
 	_tipo = "curva";
-  if(type)
-  calcBSplineCurve();
-  else
-	calcBezierCurve();
+	if(type)
+		calcBSplineCurve();
+	else
+		calcBezierCurve();
 	_coords_window.resize(_coords.size());
 	updateWindow();
+
+	_position = new Vector(*points[0]);
+ }
+
+ Curve2::~Curve2()
+ {
+	 for (Vector *it : _points)
+	 {
+		 delete (it);
+	 }
+	 _points.clear();
  }
 
 void Curve2::calcBezierCurve() {
@@ -123,7 +134,6 @@ void Curve2::draw(cairo_t *_cr, Viewport *viewport) {
 		{
 			cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_coords[i])), viewport->transformY(_window->unormalize_y(_clipped_coords[i])));
 		}
-		cairo_stroke(_cr);
 	}
 }
 

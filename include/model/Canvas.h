@@ -41,8 +41,8 @@ private:
 
 	Drawable *findDrawable(const gchar *name);
 	std::vector<Drawable*> _canvas;
-	Viewport *_viewport;
-	Windowport *_window;
+	Viewport *_viewport;	// DO NOT FREE
+	Windowport *_window;	// DO NOT FREE
 
 };
 

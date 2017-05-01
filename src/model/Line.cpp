@@ -37,6 +37,10 @@
 
 Line::~Line()
 {
+	delete _final_position;
+	delete _final_position_window;
+	delete _clipped_position;
+	delete _clipped_final_position;
 }
 
 void Line::draw(cairo_t *_cr, Viewport *viewport)
@@ -46,7 +50,6 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 		cairo_move_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_position)), viewport->transformY(_window->unormalize_y(_clipped_position)));
 		cairo_line_to(_cr, viewport->transformX(_window->unormalize_x(_clipped_final_position)), viewport->transformY(_window->unormalize_y(_clipped_final_position)));
 	}
-	cairo_stroke(_cr);
 }
 
 Vector Line::getCenter()

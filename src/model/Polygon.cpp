@@ -18,12 +18,16 @@
 
 
  Polygon::Polygon(const gchar * nome, std::vector<Vector*> coords, Windowport *window, bool fill) :
-	 Drawable(nome, coords[0], window),
+	 Drawable(nome, new Vector(*coords[0]), window),
 	 _coords(coords),
-	 _coords_window(coords),
 	 _fill(fill)
  {
 	 _tipo = "poligono";
+
+	 for (Vector *v : coords)
+	 {
+		 _coords_window.push_back(new Vector(*v));
+	 }
 
 	 updateWindow();
  }
@@ -35,6 +39,28 @@
 
 	 updateWindow();
  }
+
+Polygon::~Polygon()
+{
+	for (Vector *it : _coords)
+	{
+		delete (it);
+	}
+
+	for (Vector *it : _coords_window)
+	{
+		delete (it);
+	}
+
+	for (Vector *it : _clipped_coords)
+	{
+		delete (it);
+	}
+
+	_coords.clear();
+	_coords_window.clear();
+	_clipped_coords.clear();
+}
 
 void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 
@@ -54,7 +80,6 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 		{
 			cairo_fill(_cr);
 		}
-		cairo_stroke(_cr);
 	}
 }
 
@@ -115,7 +140,7 @@ void Polygon::clip()
 
 			if (!(first_region | final_region)) //both inside window
 			{
-				_clipped_coords.push_back(v_final);
+				_clipped_coords.push_back(new Vector(*v_final));
 			}
 			else
 			{
@@ -159,13 +184,13 @@ void Polygon::clip()
 								outside.clear();
 
 							}
-							_clipped_coords.push_back(v_inicial);
-							_clipped_coords.push_back(v_final);
+							_clipped_coords.push_back(new Vector(*v_inicial));
+							_clipped_coords.push_back(new Vector(*v_final));
 
 						}
 						else
 						{
-							_clipped_coords.push_back(v_final);
+							_clipped_coords.push_back(new Vector(*v_final));
 
 							outside.push_back(final_region);
 						}
@@ -181,8 +206,8 @@ void Polygon::clip()
 						}
 						else
 						{
-							_clipped_coords.push_back(v_inicial);
-							_clipped_coords.push_back(v_final);
+							_clipped_coords.push_back(new Vector(*v_inicial));
+							_clipped_coords.push_back(new Vector(*v_final));
 							outside.push_back(final_region);
 						}
 

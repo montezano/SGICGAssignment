@@ -8,7 +8,7 @@ class Polygon : public Drawable {
 public:
 	Polygon(const gchar *nome, std::vector<Vector*> coords, Windowport *window, bool fill);
 	Polygon(const gchar *nome, Windowport *window);
-	virtual ~Polygon() {}
+	virtual ~Polygon();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 	virtual Vector getCenter();
 	virtual void transform(Transformation &transformation);
