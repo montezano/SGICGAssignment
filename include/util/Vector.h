@@ -8,13 +8,13 @@ public:
 	Vector();
 
 
-	Vector(float X, float Y);
-
+	Vector(float X, float Y, float z);
 
 	Vector(const Vector& vector);
 
 	float x; ///< X coordinate of the vector
 	float y; ///< Y coordinate of the vector
+  float z; ///< Z coordinate of the vector
 };
 
 Vector operator -(const Vector& right);

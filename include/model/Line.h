@@ -28,6 +28,8 @@ public:
 
 	static void setClippingAlgorithm(LineAlgorithm alg);
 
+protected:
+
 
 private:
 	virtual void clip();
