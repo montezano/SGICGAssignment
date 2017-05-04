@@ -16,7 +16,6 @@ public:
 		LB
 	};
 
-	Line(const gchar *nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window);
 	Line(const gchar *nome, Vector *init_position, Vector *final_position, Windowport *window);
 	virtual ~Line();
 	virtual void draw(cairo_t *_cr, Viewport *viewport);

@@ -13,17 +13,6 @@
 #define CS_BOTTOM_LEFT	CS_BOTTOM | CS_LEFT
 #define CS_BOTTOM_RIGHT	CS_BOTTOM | CS_RIGHT
 
- Line::Line(const gchar * nome, float inicial_x, float inicial_y, float final_x, float final_y, Windowport *window) :
-	 Drawable(nome, inicial_x, inicial_y, window),
-	 _final_position(new Vector(final_x, final_y)),
-	 _final_position_window(new Vector(final_x, final_y))
- {
-	 _clipped_position = new Vector();
-	 _clipped_final_position = new Vector();
-	 _tipo = "linha";
-	 updateWindow();
- }
-
  Line::Line(const gchar * nome, Vector *init_position, Vector *final_position, Windowport *window) :
 	 Drawable(nome, init_position, window),
 	 _final_position(final_position),

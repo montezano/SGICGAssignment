@@ -23,6 +23,17 @@ Transformation::Transformation(float a00, float a01, float a02,
 	m_matrix[3] = 0.f; m_matrix[7] = 0.f; m_matrix[11] = 0.f; m_matrix[15] = 1.f;
 }
 
+Transformation::Transformation(float a00, float a01, float a02, float a03,
+	float a10, float a11, float a12, float a13,
+	float a20, float a21, float a22, float a23,
+	float a30, float a31, float a32, float a33)
+{
+	m_matrix[0] = a00; m_matrix[4] = a01; m_matrix[8] = a02; m_matrix[12] = a03;
+	m_matrix[1] = a10; m_matrix[5] = a11; m_matrix[9] = a12; m_matrix[13] = a13;
+	m_matrix[2] = a20; m_matrix[6] = a21; m_matrix[10] = a22; m_matrix[14] = a23;
+	m_matrix[3] = a30; m_matrix[7] = a31; m_matrix[11] = a32; m_matrix[15] = a33;
+}
+
 const float* Transformation::getMatrix() const
 {
 	return m_matrix;
@@ -53,15 +64,16 @@ Transformation Transformation::getInverse() const
 	}
 }
 
-Vector *Transformation::transformPoint(float x, float y) const
+Vector *Transformation::transformPoint(float x, float y, float z) const
 {
-	return new Vector(m_matrix[0] * x + m_matrix[4] * y + m_matrix[12],
-		m_matrix[1] * x + m_matrix[5] * y + m_matrix[13]);
+	return new Vector(m_matrix[0] * x + m_matrix[1] * y + m_matrix[2] * z,
+		m_matrix[5] * x + m_matrix[6] * y + m_matrix[7] * z,
+		m_matrix[10] * x + m_matrix[11] * y + m_matrix[12] * z);
 }
 
 Vector *Transformation::transformPoint(const Vector& point) const
 {
-	return transformPoint(point.x, point.y);
+	return transformPoint(point.x, point.y, point.z);
 }
 
 Transformation& Transformation::combine(const Transformation& transformation)
@@ -82,45 +94,72 @@ Transformation& Transformation::combine(const Transformation& transformation)
 	return *this;
 }
 
-Transformation& Transformation::translate(float x, float y)
+Transformation& Transformation::translate(float x, float y, float z)
 {
-	Transformation translation(1, 0, x,
-		0, 1, y,
-		0, 0, 1);
+	Transformation translation(1.f, 0.f, 0.f, 0.f,
+		0.f, 1.f, 0.f, 0.f,
+		0.f, 0.f, 1.f, 0.f,
+		x, y, z, 1.f);
 
 	return combine(translation);
 }
 
 Transformation& Transformation::translate(const Vector& offset)
 {
-	return translate(offset.x, offset.y);
+	return translate(offset.x, offset.y, offset.z);
 }
 
-Transformation& Transformation::rotate(float angle)
+Transformation& Transformation::rotateX(float angle)
 {
 	float rad = angle * 3.141592654f / 180.f;
 	float cos = std::cos(rad);
 	float sin = std::sin(rad);
 
-	Transformation rotation(cos, -sin, 0,
-		sin, cos, 0,
-		0, 0, 1);
+	Transformation rotation(1.f, 0.f, 0.f,
+		0.f, cos, sin,
+		0.f, -sin, cos);
 
 	return combine(rotation);
 }
 
-Transformation& Transformation::scale(float scaleX, float scaleY)
+Transformation& Transformation::rotateY(float angle)
 {
-	Transformation scaling(scaleX, 0, 0,
-		0, scaleY, 0,
-		0, 0, 1);
+	float rad = angle * 3.141592654f / 180.f;
+	float cos = std::cos(rad);
+	float sin = std::sin(rad);
+
+	Transformation rotation(cos, 0.f, -sin,
+		0.f, 1.f, 0.f,
+		sin, 0.f, cos);
+
+	return combine(rotation);
+}
+
+Transformation& Transformation::rotateZ(float angle)
+{
+	float rad = angle * 3.141592654f / 180.f;
+	float cos = std::cos(rad);
+	float sin = std::sin(rad);
+
+	Transformation rotation(cos, sin, 0.f,
+		-sin, cos, 0.f,
+		0.f, 0.f, 1.f);
+
+	return combine(rotation);
+}
+
+Transformation& Transformation::scale(float scaleX, float scaleY, float scaleZ)
+{
+	Transformation scaling(scaleX, 0.f, 0.f,
+		0.f, scaleY, 0.f,
+		0.f, 0.f, scaleZ);
 
 	return combine(scaling);
 }
 
 Transformation& Transformation::scale(const Vector& factors)
 {
-	return scale(factors.x, factors.y);
+	return scale(factors.x, factors.y, factors.z);
 }
 
 Transformation operator *(const Transformation& left, const Transformation& right)
