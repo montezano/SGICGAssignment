@@ -20,6 +20,8 @@ private:
 
 	GtkSpinButton *_spinbutton_coordinates_x;
 	GtkSpinButton *_spinbutton_coordinates_y;
+	GtkSpinButton *_spinbutton_coordinates_z;
+
 
 };
 #endif // !__WINDOWCOORDINATES_H__

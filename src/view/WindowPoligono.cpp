@@ -13,6 +13,9 @@ WindowPoligono::WindowPoligono(GtkWidget * window) :
 	_spinbutton_inicial_y = GTK_SPIN_BUTTON(find_child(_window, "spinbutton_poligono_y"));
 	assert(_spinbutton_inicial_y);
 
+	_spinbutton_inicial_z = GTK_SPIN_BUTTON(find_child(_window, "spinbutton_poligono_z"));
+	assert(_spinbutton_inicial_z);
+
 	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_poligono"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
 
@@ -29,7 +32,7 @@ Vector *WindowPoligono::add_coords()
 {
 	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
 	gfloat inicial_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_y));
-	g_print("x: %f, y: %f\n", inicial_x, inicial_y);
+	gfloat inicial_z = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_z));
 
 	//_v.push_back(Vector(inicial_x, inicial_y));
 	gtk_list_store_append(GTK_LIST_STORE(_model), &_iter);
@@ -39,10 +42,12 @@ Vector *WindowPoligono::add_coords()
 												inicial_x,
 												1,
 												inicial_y,
+												2,
+												inicial_z,
 												-1);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 											 _model);
-	return new Vector(inicial_x, inicial_y);
+	return new Vector(inicial_x, inicial_y, inicial_z);
 }
 
 WindowPoligono::WinPoligono WindowPoligono::add_poligono()
@@ -53,6 +58,8 @@ WindowPoligono::WinPoligono WindowPoligono::add_poligono()
 	gtk_entry_set_text(_entry_nome,"" );
 	gtk_spin_button_set_value (_spinbutton_inicial_x, 0.0);
 	gtk_spin_button_set_value (_spinbutton_inicial_y, 0.0);
+	gtk_spin_button_set_value(_spinbutton_inicial_z, 0.0);
+
 	gtk_list_store_clear(GTK_LIST_STORE(_model));
 	return pol;
 }

@@ -1,6 +1,8 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
+#define DUMMY 0
+
 class Vector
 {
 public:

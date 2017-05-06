@@ -41,6 +41,9 @@ public:
 	Transformation& translate(const Vector& offset);
 
 	/// \brief Combine the current transform with a rotation around z axis
+	Transformation& rotate(Vector &angles);
+
+	/// \brief Combine the current transform with a rotation around z axis
 	Transformation& rotateX(float angle);
 
 	/// \brief Combine the current transform with a rotation around y axis
@@ -58,6 +61,10 @@ public:
 	static const Transformation Identity;
 
 private:
+
+	float angleBetweenVectors3(Vector &vec_a, Vector &vec_b);
+
+	float angleBetweenVectors(float ax, float ay, float bx, float by);
 
 	float m_matrix[16];
 };

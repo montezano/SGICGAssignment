@@ -33,7 +33,7 @@ void Windowport::move(Vector offset)
 
 void Windowport::rotate(float angle)
 {
-  _transformation = _transformation.rotate(-angle);
+  _transformation = _transformation.rotateZ(-angle);
 
   notify(this, Events::WINDOW_ROTATE);
 }
@@ -43,7 +43,7 @@ void Windowport::zoom(float factor)
   /*_size.x = _size.x * factor;
   _size.y = _size.y * factor;*/
 
-	_transformation = _transformation.scale(Vector(factor, factor));
+	_transformation = _transformation.scale(Vector(factor, factor, factor));
 
 	notify(this, Events::WINDOW_ZOOM);
 }
@@ -70,7 +70,7 @@ float Windowport::unormalize_y(Vector *vector)
 
 Vector Windowport::unormalize(Vector *vector)
 {
-	return Vector(vector->x * _size.x, vector->y * _size.y);
+	return Vector(vector->x * _size.x, vector->y * _size.y, vector->z * _size.z);
 }
 
 void Windowport::draw(cairo_t *cr, Viewport *viewport)

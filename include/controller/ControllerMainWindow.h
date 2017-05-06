@@ -78,6 +78,9 @@ private:
 	static GtkRadioButton *_radio_button_rotation_world;
 	static GtkRadioButton *_radio_button_rotation_self;
 	static GtkRadioButton *_radio_button_rotation_specific;
+	static GtkRadioButton *_radio_button_rotation_x;
+	static GtkRadioButton *_radio_button_rotation_y;
+	static GtkRadioButton *_radio_button_rotation_z;
 
 	static GtkRadioMenuItem *_radio_menu_line;
 	static GtkRadioMenuItem *_radio_menu_polygon;

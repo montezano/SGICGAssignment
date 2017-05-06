@@ -134,6 +134,47 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkBox" id="box_z_linha6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="label20">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">6</property>
+                    <property name="label" translatable="yes">Z:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="spinbutton_coordinates_z">
+                    <property name="name">spinbutton_coordinates_z</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="text" translatable="yes">0,00</property>
+                    <property name="adjustment">adj_spin_li_in_y</property>
+                    <property name="climb_rate">0.5</property>
+                    <property name="digits">2</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -271,6 +312,7 @@
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">X:</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -339,6 +381,46 @@
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="box_y_linha6">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label21">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_left">6</property>
+                            <property name="label" translatable="yes">Z:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="spinbutton_linha_inicial_z">
+                            <property name="name">spinbutton_inicial_z</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="text" translatable="yes">0,00</property>
+                            <property name="adjustment">adj_spin_li_in_y</property>
+                            <property name="climb_rate">0.5</property>
+                            <property name="digits">2</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -459,6 +541,46 @@
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="box_y_linha7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label22">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_left">6</property>
+                            <property name="label" translatable="yes">Z:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="spinbutton_linha_final_z">
+                            <property name="name">spinbutton_final_z</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="text" translatable="yes">0,00</property>
+                            <property name="adjustment">adj_spin_li_fin_y</property>
+                            <property name="climb_rate">0.5</property>
+                            <property name="digits">2</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -670,6 +792,47 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkBox" id="box_y_linha8">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="label23">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">6</property>
+                    <property name="label" translatable="yes">Z:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="spin_button_ponto_z">
+                    <property name="name">spin_button_ponto_z</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="text" translatable="yes">0,00</property>
+                    <property name="adjustment">adj_spin_li_in_y</property>
+                    <property name="climb_rate">0.5</property>
+                    <property name="digits">2</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -752,6 +915,22 @@
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkScale" id="scale_rotation_y">
+    <property name="name">scale_rotation_y</property>
+    <property name="height_request">100</property>
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="no_show_all">True</property>
+    <property name="halign">end</property>
+    <property name="margin_left">4</property>
+    <property name="margin_top">3</property>
+    <property name="margin_bottom">3</property>
+    <property name="orientation">vertical</property>
+    <property name="adjustment">adjustment_scale_2</property>
+    <property name="show_fill_level">True</property>
+    <property name="round_digits">1</property>
+    <property name="value_pos">right</property>
   </object>
   <object class="GtkListStore" id="object_list">
     <columns>
@@ -1597,7 +1776,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="margin_left">8</property>
                                         <property name="margin_right">10</property>
-                                        <property name="margin_top">12</property>
+                                        <property name="margin_top">3</property>
                                         <property name="adjustment">adjustment_rotation</property>
                                         <property name="show_fill_level">True</property>
                                         <property name="round_digits">1</property>
@@ -1611,21 +1790,22 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkButtonBox" id="buttonbox1">
+                                      <object class="GtkButtonBox" id="buttonbox10">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="halign">center</property>
                                         <property name="valign">center</property>
                                         <property name="layout_style">start</property>
                                         <child>
-                                          <object class="GtkRadioButton" id="radiobutton_rotation_center">
-                                            <property name="label" translatable="yes">Centro</property>
+                                          <object class="GtkRadioButton" id="radiobutton_rotation_x">
+                                            <property name="label" translatable="yes">X</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
                                             <property name="halign">center</property>
                                             <property name="valign">center</property>
-                                            <property name="xalign">0.5</property>
+                                            <property name="margin_left">40</property>
+                                            <property name="xalign">0</property>
                                             <property name="active">True</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1636,17 +1816,16 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkRadioButton" id="radiobutton_rotation_object">
-                                            <property name="label" translatable="yes">Objeto</property>
+                                          <object class="GtkRadioButton" id="radiobutton_rotation_y">
+                                            <property name="label" translatable="yes">Y</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
                                             <property name="halign">center</property>
                                             <property name="valign">center</property>
-                                            <property name="xalign">0.5</property>
-                                            <property name="active">True</property>
+                                            <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <property name="group">radiobutton_rotation_center</property>
+                                            <property name="group">radiobutton_rotation_x</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1655,17 +1834,17 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkRadioButton" id="radiobutton_rotation_other">
-                                            <property name="label" translatable="yes">Outro</property>
+                                          <object class="GtkRadioButton" id="radiobutton_rotation_z">
+                                            <property name="label" translatable="yes">Z</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
                                             <property name="halign">center</property>
                                             <property name="valign">center</property>
-                                            <property name="xalign">0.5</property>
-                                            <property name="active">True</property>
+                                            <property name="margin_right">40</property>
+                                            <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <property name="group">radiobutton_rotation_center</property>
+                                            <property name="group">radiobutton_rotation_x</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1688,21 +1867,67 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkScale" id="scale_rotation_y">
-                                    <property name="name">scale_rotation_y</property>
-                                    <property name="height_request">100</property>
+                                  <object class="GtkButtonBox" id="buttonbox1">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="no_show_all">True</property>
-                                    <property name="halign">end</property>
-                                    <property name="margin_left">4</property>
-                                    <property name="margin_top">3</property>
-                                    <property name="margin_bottom">3</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
                                     <property name="orientation">vertical</property>
-                                    <property name="adjustment">adjustment_scale_2</property>
-                                    <property name="show_fill_level">True</property>
-                                    <property name="round_digits">1</property>
-                                    <property name="value_pos">right</property>
+                                    <property name="layout_style">start</property>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton_rotation_center">
+                                        <property name="label" translatable="yes">Centro</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="halign">center</property>
+                                        <property name="valign">center</property>
+                                        <property name="xalign">0</property>
+                                        <property name="active">True</property>
+                                        <property name="draw_indicator">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton_rotation_object">
+                                        <property name="label" translatable="yes">Objeto</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="halign">center</property>
+                                        <property name="valign">center</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton_rotation_center</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton_rotation_other">
+                                        <property name="label" translatable="yes">Outro</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="halign">center</property>
+                                        <property name="valign">center</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton_rotation_center</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1933,6 +2158,8 @@
       <column type="gdouble"/>
       <!-- column-name Y -->
       <column type="gdouble"/>
+      <!-- column-name Z -->
+      <column type="gdouble"/>
     </columns>
   </object>
   <object class="GtkWindow" id="window_besier">
@@ -1966,8 +2193,8 @@
                       <object class="GtkTreeSelection" id="treeview-selection7"/>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                        <property name="fixed_width">48</property>
+                      <object class="GtkTreeViewColumn" id="X1">
+                        <property name="fixed_width">39</property>
                         <property name="title" translatable="yes">X</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrendererspinner5"/>
@@ -1980,12 +2207,26 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="Y1">
+                        <property name="fixed_width">39</property>
                         <property name="title" translatable="yes">Y</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrendererspinner6"/>
                           <attributes>
                             <attribute name="visible">1</attribute>
                             <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="Z1">
+                        <property name="fixed_width">39</property>
+                        <property name="title" translatable="yes">Z</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cellrendererspinner7"/>
+                          <attributes>
+                            <attribute name="visible">2</attribute>
+                            <attribute name="text">2</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -2145,6 +2386,47 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkBox" id="box_y_linha9">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="label24">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">6</property>
+                        <property name="label" translatable="yes">Z:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="spinbutton_besier_z">
+                        <property name="name">spinbutton_besier_z</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="text" translatable="yes">0,00</property>
+                        <property name="adjustment">adj_spin_li_in_y1</property>
+                        <property name="climb_rate">0.5</property>
+                        <property name="digits">2</property>
+                        <property name="numeric">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkButton" id="button_add_points">
                     <property name="label" translatable="yes">ADD</property>
                     <property name="name">button_add_points</property>
@@ -2157,7 +2439,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -2278,6 +2560,8 @@
       <column type="gdouble"/>
       <!-- column-name Y -->
       <column type="gdouble"/>
+      <!-- column-name Z -->
+      <column type="gdouble"/>
     </columns>
   </object>
   <object class="GtkWindow" id="window_poligono">
@@ -2309,8 +2593,8 @@
                       <object class="GtkTreeSelection" id="treeview-selection2"/>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                        <property name="fixed_width">48</property>
+                      <object class="GtkTreeViewColumn" id="X">
+                        <property name="fixed_width">39</property>
                         <property name="title" translatable="yes">X</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrendererspinner3"/>
@@ -2323,9 +2607,23 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="Y">
+                        <property name="fixed_width">39</property>
                         <property name="title" translatable="yes">Y</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrendererspinner4"/>
+                          <attributes>
+                            <attribute name="visible">1</attribute>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="Z">
+                        <property name="fixed_width">39</property>
+                        <property name="title" translatable="yes">Z</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cellrendererspinner8"/>
                           <attributes>
                             <attribute name="visible">1</attribute>
                             <attribute name="text">1</attribute>
@@ -2486,6 +2784,47 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkBox" id="box_y_linha10">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="label27">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">6</property>
+                        <property name="label" translatable="yes">Z:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="spinbutton_poligono_z">
+                        <property name="name">spinbutton_poligono_z</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="text" translatable="yes">0,00</property>
+                        <property name="adjustment">adj_spin_li_in_y</property>
+                        <property name="climb_rate">0.5</property>
+                        <property name="digits">2</property>
+                        <property name="numeric">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkButton" id="button_add_coordinates">
                     <property name="label" translatable="yes">ADD</property>
                     <property name="name">button_add_coordinates</property>
@@ -2498,7 +2837,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>

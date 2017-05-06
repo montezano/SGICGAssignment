@@ -85,7 +85,7 @@ void Polygon::draw(cairo_t *_cr, Viewport *viewport)
 
 Vector Polygon::getCenter()
 {
-	Vector sum = Vector(0,0);
+	Vector sum = Vector(0, 0, 0);
 	for (auto vector : _coords)
 	{
 		sum += *vector;
@@ -164,18 +164,18 @@ void Polygon::clip()
 										switch (outside[i])
 										{
 										case CS_BOTTOM_LEFT:
-											_clipped_coords.push_back(new Vector(-1, -1));
+											_clipped_coords.push_back(new Vector(-1, -1, DUMMY));
 											break;
 										case CS_BOTTOM_RIGHT:
-											_clipped_coords.push_back(new Vector(1, -1));
+											_clipped_coords.push_back(new Vector(1, -1, DUMMY));
 
 											break;
 										case CS_TOP_LEFT:
-											_clipped_coords.push_back(new Vector(-1, 1));
+											_clipped_coords.push_back(new Vector(-1, 1, DUMMY));
 
 											break;
 										case CS_TOP_RIGHT:
-											_clipped_coords.push_back(new Vector(1, 1));
+											_clipped_coords.push_back(new Vector(1, 1, DUMMY));
 
 											break;
 										}
@@ -228,18 +228,18 @@ void Polygon::clip()
 					switch (outside[i])
 					{
 					case CS_BOTTOM_LEFT:
-						_clipped_coords.push_back(new Vector(-1, -1));
+						_clipped_coords.push_back(new Vector(-1, -1, DUMMY));
 						break;
 					case CS_BOTTOM_RIGHT:
-						_clipped_coords.push_back(new Vector(1, -1));
+						_clipped_coords.push_back(new Vector(1, -1, DUMMY));
 
 						break;
 					case CS_TOP_LEFT:
-						_clipped_coords.push_back(new Vector(-1, 1));
+						_clipped_coords.push_back(new Vector(-1, 1, DUMMY));
 
 						break;
 					case CS_TOP_RIGHT:
-						_clipped_coords.push_back(new Vector(1, 1));
+						_clipped_coords.push_back(new Vector(1, 1, DUMMY));
 
 						break;
 					}

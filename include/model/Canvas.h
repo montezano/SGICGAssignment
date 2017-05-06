@@ -32,9 +32,9 @@ public:
 	void deleteDrawable(const gchar *nome);
 	void translateDrawable(const gchar* name, Vector &offset);
 	void scaleDrawable(const gchar *name, Vector factor);
-	void rotateDrawableOwnCenter(const gchar *name, float angle);
-	void rotateDrawableSpecificCenter(const gchar *name, float angle, Vector center);
-	void rotateDrawableWorldCenter(const gchar *name, float angle);
+	void rotateDrawableOwnCenter(const gchar *name, Vector &angle);
+	void rotateDrawableSpecificCenter(const gchar *name, Vector &angle, Vector center);
+	void rotateDrawableWorldCenter(const gchar *name, Vector &angle);
 
 	virtual void onNotify(void *data, Events event);
 private:

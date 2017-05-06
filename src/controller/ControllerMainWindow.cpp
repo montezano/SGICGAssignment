@@ -111,13 +111,15 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_x"));
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(rotate_object_cb), NULL);
 
-	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_rotation_y"));
-	gtk_widget_hide(GTK_WIDGET(_scale));
 
 	_radio_button_rotation_world = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_center"));
 	_radio_button_rotation_self = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_object"));
 	_radio_button_rotation_specific = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_other"));
 	g_signal_connect(_radio_button_rotation_specific, "clicked", G_CALLBACK(rotate_specific_cb), NULL);
+
+	_radio_button_rotation_x = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_x"));
+	_radio_button_rotation_y = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_y"));
+	_radio_button_rotation_z = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_rotation_z"));
 
 	_scale = GTK_SCALE(gtk_builder_get_object(builder, "scale_scaling"));
 	g_signal_connect(_scale, "button-release-event", G_CALLBACK(scale_cb), NULL);
@@ -176,25 +178,25 @@ void ControllerMainWindow::move_cb(GtkWidget *widget, GdkEvent *event, gpointer 
 
 	if (button_name == "Cima")
 	{
-		_windowport->move(Vector(0,10.f));
+		_windowport->move(Vector(0.f ,10.f , 0.f));
 	}
 	else
 	{
 		if (button_name == "Direita")
 		{
-			_windowport->move(Vector(10.f , 0));
+			_windowport->move(Vector(10.f , 0.f, 0.f));
 		}
 		else
 		{
 			if (button_name == "Baixo")
 			{
-				_windowport->move(Vector(0, -10.f));
+				_windowport->move(Vector(0.f, -10.f, 0.f));
 			}
 			else
 			{
 				if (button_name == "Esquerda")
 				{
-					_windowport->move(Vector(-10.f, 0));
+					_windowport->move(Vector(-10.f, 0.f, 0.f));
 				}
 				else
 				{
@@ -247,7 +249,7 @@ void ControllerMainWindow::rotate_cb(GtkWidget * widget, GdkEvent * event, gpoin
 
 void ControllerMainWindow::translate_cb(GtkWidget *widget)
 {
-	Vector factor = Vector(0,0);
+	Vector factor = Vector(0, 0, 0);
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
 	const char *drawable_name = getObjectSelected();
 	if (drawable_name)
@@ -360,8 +362,8 @@ gboolean ControllerMainWindow::rotate_object_cb(GtkWidget *widget, GdkEvent *eve
 	const gchar *nome = getObjectSelected();
 	if (nome)
 	{
+		//Get the rotation center type
 		GSList *toggle_button = gtk_radio_button_get_group(_radio_button_rotation_world);
-		//int index = -1;
 		if (toggle_button)
 		{
 			do
@@ -376,19 +378,55 @@ gboolean ControllerMainWindow::rotate_object_cb(GtkWidget *widget, GdkEvent *eve
 		GtkButton *button = GTK_BUTTON(toggle_button->data);
 		std::string button_name = gtk_button_get_label(button);
 
+		//Get the rotation axis
+		GSList *toggle_button_axis = gtk_radio_button_get_group(_radio_button_rotation_x);
+		if (toggle_button_axis)
+		{
+			do
+			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button_axis->data)))
+				{
+					break;
+				}
+			} while ((toggle_button_axis = g_slist_next(toggle_button_axis)) != NULL);
+		}
+
+		GtkButton *button_axis = GTK_BUTTON(toggle_button_axis->data);
+		std::string button_name_axis = gtk_button_get_label(button_axis);
+
+		Vector rotation_vector = Vector(0, 0, 0);
+
+		float rot_value = static_cast<float>(gtk_range_get_value(GTK_RANGE(widget)));
+
+		if (button_name_axis == "X:")
+		{
+			rotation_vector.x = rot_value;
+		}
+		else
+		{
+			if (button_name_axis == "Y:")
+			{
+				rotation_vector.y = rot_value;
+			}
+			else
+			{
+				rotation_vector.z = rot_value;
+			}
+		}
+
 		if (button_name == "Centro")
 		{
-			_canvas->rotateDrawableWorldCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+			_canvas->rotateDrawableWorldCenter(nome, rotation_vector);
 		}
 		else
 		{
 			if (button_name == "Objeto")
 			{
-				_canvas->rotateDrawableOwnCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))));
+				_canvas->rotateDrawableOwnCenter(nome, rotation_vector);
 			}
 			else
 			{
-				_canvas->rotateDrawableSpecificCenter(nome, static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))), _window_coordinates->getCoordinates());
+				_canvas->rotateDrawableSpecificCenter(nome, rotation_vector, _window_coordinates->getCoordinates());
 			}
 		}
 	}
@@ -407,6 +445,7 @@ gboolean ControllerMainWindow::scale_cb(GtkWidget * widget, GdkEvent * event, gp
 	{
 		_canvas->scaleDrawable(nome,
 			Vector(static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))),
+					static_cast<float>(gtk_range_get_value(GTK_RANGE(widget))),
 					static_cast<float>(gtk_range_get_value(GTK_RANGE(widget)))));
 	}
 	return FALSE;
@@ -511,6 +550,9 @@ GtkRadioButton *ControllerMainWindow::_radio_button_curve = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_specific = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_x = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_y = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_rotation_z = NULL;
 
 GtkRadioMenuItem *ControllerMainWindow::_radio_menu_line = NULL;
 GtkRadioMenuItem *ControllerMainWindow::_radio_menu_polygon = NULL;

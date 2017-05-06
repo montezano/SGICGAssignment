@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller(int argc, char *argv[]) :
-	_windowport(Vector(-300, -300), Vector(600, 600), &_viewport)
+	_windowport(Vector(-300, -300, DUMMY), Vector(600, 600, DUMMY), &_viewport)
 {
 	gtk_init(&argc, &argv);
 

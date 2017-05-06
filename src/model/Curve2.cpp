@@ -53,8 +53,12 @@ void Curve2::calcBezierCurve() {
 	for (int i = 0; i < 4; i++) {
 	  y += tMb[i] * _points.at(i)->y;
 	}
+	float z = 0;
+	for (int i = 0; i < 4; i++) {
+		z += tMb[i] * _points.at(i)->z;
+	}
 
-	_coords.push_back(new Vector(x,y));
+	_coords.push_back(new Vector(x, y, z));
   }
 }
 
@@ -64,18 +68,20 @@ void Curve2::calcBSplineCurve()
 
 	float aux_x[4];
 	float aux_y[4];
+	float aux_z[4];
+
 
 	prepareInitialDiferences();
 	
 	for (int i = 0; i < sub_curves_count; i++)
 	{
-		aux_x[0] = _points[i]->x;	aux_y[0] = _points[i]->y;
-		aux_x[1] = _points[i+1]->x;	aux_y[1] = _points[i+1]->y;
-		aux_x[2] = _points[i+2]->x;	aux_y[2] = _points[i+2]->y;
-		aux_x[3] = _points[i+3]->x;	aux_y[3] = _points[i+3]->y;
+		aux_x[0] = _points[i]->x;	aux_y[0] = _points[i]->y;	aux_z[0] = _points[i]->z;
+		aux_x[1] = _points[i+1]->x;	aux_y[1] = _points[i+1]->y;	aux_z[1] = _points[i+1]->z;
+		aux_x[2] = _points[i+2]->x;	aux_y[2] = _points[i+2]->y; aux_z[2] = _points[i+2]->z;
+		aux_x[3] = _points[i+3]->x;	aux_y[3] = _points[i+3]->y; aux_z[3] = _points[i+3]->z;
 
 		//Calculating the coeficients
-		float cx[4], cy[4], fx[4], fy[4];
+		float cx[4], cy[4], cz[4], fx[4], fy[4], fz[4];
 
 		cx[0] = _mbs[0] * aux_x[0] + _mbs[1] * aux_x[1] + _mbs[2] * aux_x[2] + _mbs[3] * aux_x[3];
 		cx[1] = _mbs[4] * aux_x[0] + _mbs[5] * aux_x[1] + _mbs[6] * aux_x[2] + _mbs[7] * aux_x[3];
@@ -86,6 +92,11 @@ void Curve2::calcBSplineCurve()
 		cy[1] = _mbs[4] * aux_y[0] + _mbs[5] * aux_y[1] + _mbs[6] * aux_y[2] + _mbs[7] * aux_y[3];
 		cy[2] = _mbs[8] * aux_y[0] + _mbs[9] * aux_y[1] + _mbs[10] * aux_y[2] + _mbs[11] * aux_y[3];
 		cy[3] = _mbs[12] * aux_y[0] + _mbs[13] * aux_y[1] + _mbs[14] * aux_y[2] + _mbs[15] * aux_y[3];
+
+		cz[0] = _mbs[0] * aux_z[0] + _mbs[1] * aux_z[1] + _mbs[2] * aux_z[2] + _mbs[3] * aux_z[3];
+		cz[1] = _mbs[4] * aux_z[0] + _mbs[5] * aux_z[1] + _mbs[6] * aux_z[2] + _mbs[7] * aux_z[3];
+		cz[2] = _mbs[8] * aux_z[0] + _mbs[9] * aux_z[1] + _mbs[10] * aux_z[2] + _mbs[11] * aux_z[3];
+		cz[3] = _mbs[12] * aux_z[0] + _mbs[13] * aux_z[1] + _mbs[14] * aux_z[2] + _mbs[15] * aux_z[3];
 
 
 		fx[0] = _e[0] * cx[0] + _e[1] * cx[1] + _e[2] * cx[2] + _e[3] * cx[3];
@@ -98,10 +109,15 @@ void Curve2::calcBSplineCurve()
 		fy[2] = _e[8] * cy[0] + _e[9] * cy[1] + _e[10] * cy[2] + _e[11] * cy[3];
 		fy[3] = _e[12] * cy[0] + _e[13] * cy[1] + _e[14] * cy[2] + _e[15] * cy[3];
 
+		fz[0] = _e[0] * cz[0] + _e[1] * cz[1] + _e[2] * cz[2] + _e[3] * cz[3];
+		fz[1] = _e[4] * cz[0] + _e[5] * cz[1] + _e[6] * cz[2] + _e[7] * cz[3];
+		fz[2] = _e[8] * cz[0] + _e[9] * cz[1] + _e[10] * cz[2] + _e[11] * cz[3];
+		fz[3] = _e[12] * cz[0] + _e[13] * cz[1] + _e[14] * cz[2] + _e[15] * cz[3];
+
 
 		int n = static_cast<int>(1 / _rate + 1);
 
-		_coords.push_back(new Vector(fx[0], fy[0]));
+		_coords.push_back(new Vector(fx[0], fy[0], fz[0]));
 
 		for (int j = 0; j < n; j++)
 		{
@@ -109,9 +125,11 @@ void Curve2::calcBSplineCurve()
 			{
 				fx[k] = fx[k] + fx[k + 1];
 				fy[k] = fy[k] + fy[k + 1];
+				fz[k] = fz[k] + fz[k + 1];
+
 			}
 
-			_coords.push_back(new Vector(fx[0], fy[0]));
+			_coords.push_back(new Vector(fx[0], fy[0], fz[0]));
 
 		}
 	}

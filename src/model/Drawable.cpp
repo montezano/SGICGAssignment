@@ -1,13 +1,13 @@
 #include "Drawable.h"
 
-Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowport *window) :
-	_nome(nome),
-	_position(new Vector(inicial_x, inicial_y)),
-	_position_window(new Vector(inicial_x, inicial_y)),
-	_visible(true)
- {
-	 _window = window;
- }
+//Drawable::Drawable(const gchar * nome, float inicial_x, float inicial_y, Windowport *window) :
+//	_nome(nome),
+//	_position(new Vector(inicial_x, inicial_y)),
+//	_position_window(new Vector(inicial_x, inicial_y)),
+//	_visible(true)
+// {
+//	 _window = window;
+// }
 
  Drawable::Drawable(const gchar * nome, Vector *vector, Windowport *window) :
 	_nome(nome),

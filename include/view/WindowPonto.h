@@ -38,6 +38,8 @@ private:
 	GtkEntry *_entry_nome;
 	GtkSpinButton *_spinbutton_inicial_x;
 	GtkSpinButton *_spinbutton_inicial_y;
+	GtkSpinButton *_spinbutton_inicial_z;
+
 
 };
 

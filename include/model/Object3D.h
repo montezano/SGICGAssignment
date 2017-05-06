@@ -12,7 +12,7 @@ class Object3D : public Polygon
   public:
     Object3D(const gchar *nome, std::vector<Line*> object, Windowport *window);
     virtual ~Object3D();
-    virtual void draw(cairo_t *_cr, Viewport *viewport);
+    //virtual void draw(cairo_t *_cr, Viewport *viewport);
     virtual Vector getCenter();
     virtual void transform(Transformation &transformation);
     virtual void updateWindow();

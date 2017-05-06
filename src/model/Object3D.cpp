@@ -13,12 +13,12 @@ Object3D::~Object3D()
 
 }
 
-Object3D::getCenter()
+Vector Object3D::getCenter()
 {
   	Vector sum = Vector(0, 0, 0);
   	for (auto line : _object)
   	{
-  		sum += *line.getCenter();
+  		sum += line->getCenter();
   	}
 
   	return sum / static_cast<float>(_object.size());
@@ -32,7 +32,7 @@ void Object3D::transform(Transformation &transformation)
     updateWindow();
 }
 
-void Polygon::updateWindow()
+void Object3D::updateWindow()
 {
     for (size_t i = 0; i < _object.size(); i++)
     {
