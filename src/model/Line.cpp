@@ -43,7 +43,7 @@ void Line::draw(cairo_t *_cr, Viewport *viewport)
 
 Vector Line::getCenter()
 {
-	return (*_position + *_final_position) / 2.f;
+	return Vector((*_position + *_final_position) / 2.f);
 }
 
 void Line::transform(Transformation & transformation)

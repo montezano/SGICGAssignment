@@ -398,13 +398,13 @@ gboolean ControllerMainWindow::rotate_object_cb(GtkWidget *widget, GdkEvent *eve
 
 		float rot_value = static_cast<float>(gtk_range_get_value(GTK_RANGE(widget)));
 
-		if (button_name_axis == "X:")
+		if (button_name_axis == "X")
 		{
 			rotation_vector.x = rot_value;
 		}
 		else
 		{
-			if (button_name_axis == "Y:")
+			if (button_name_axis == "Y")
 			{
 				rotation_vector.y = rot_value;
 			}
