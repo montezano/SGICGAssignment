@@ -8,6 +8,10 @@ Canvas::Canvas(Viewport *viewport, Windowport *window)
 	assert(window);
 	_viewport = viewport;
 	_window = window;
+
+	_guideline_z = new Line("Guideline Z", new Vector(0.f, 0.f, -5000.f), new Vector(0.f, 0.f, 5000.f), _window);
+	_guideline_x = new Line("Guideline X", new Vector(-5000.f, 0.f, 0.f), new Vector(5000.f, 0.f, 0.f), _window);
+	_guideline_y = new Line("Guideline Y", new Vector(0.f, -5000.f, 0.f), new Vector(0.f, 5000.f, 0.f), _window);
 }
 
 Canvas::Canvas()
@@ -23,6 +27,9 @@ Canvas::~Canvas()
 	}
 	_canvas.clear();
 
+	//delete(_guideline_z);
+	//delete(_guideline_x);
+	//delete(_guideline_y);
 }
 
 void Canvas::setWindow(Windowport * window)
@@ -78,6 +85,10 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	assert(surface);
 	cairo_t *cr = cairo_create(surface);
 
+	_guideline_x->draw(cr, _viewport);
+	_guideline_y->draw(cr, _viewport);
+	_guideline_z->draw(cr, _viewport);
+
 	_window->draw(cr, _viewport);
 
 	for(auto drawable: _canvas)
@@ -91,6 +102,9 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 
 void Canvas::updateWindow()
 {
+	_guideline_x->updateWindow();
+	_guideline_y->updateWindow();
+	_guideline_z->updateWindow();
 	for (auto drawable : _canvas)
 	{
 		drawable->updateWindow();
