@@ -27,7 +27,10 @@ void Windowport::setCenter(Vector position)
 
 void Windowport::move(Vector offset)
 {
-	_transformation = _transformation.translate(offset);
+	_transformation.translate(offset);
+	_transformation.transformPoint(_vrp);
+	_transformation.transformPoint(_vpn);
+
 	notify(this, Events::WINDOW_MOVE);
 }
 
@@ -35,6 +38,9 @@ void Windowport::rotate(Vector angles)
 {
 
 	_transformation.rotate(angles);
+	_transformation.transformPoint(_vrp);
+	_transformation.transformPoint(_vpn);
+
 
 	notify(this, Events::WINDOW_ROTATE);
 
@@ -43,7 +49,8 @@ void Windowport::rotate(Vector angles)
 
 void Windowport::zoom(float factor)
 {
-	_transformation = _transformation.scale(Vector(factor, factor, factor));
+	_transformation.scale(Vector(factor, factor, factor));
+	_transformation.transformPoint(_vrp);
 
 	notify(this, Events::WINDOW_ZOOM);
 }
@@ -105,4 +112,9 @@ Vector * Windowport::getInitWindowPosition()
 Vector * Windowport::getFinalWindowPosition()
 {
 	return &_final_position;
+}
+
+Vector Windowport::getNormal()
+{
+	return _vpn;
 }

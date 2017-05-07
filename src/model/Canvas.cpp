@@ -85,9 +85,16 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 	assert(surface);
 	cairo_t *cr = cairo_create(surface);
 
+	cairo_set_source_rgb(cr, 255, 255, 0);
+
 	_guideline_x->draw(cr, _viewport);
 	_guideline_y->draw(cr, _viewport);
 	_guideline_z->draw(cr, _viewport);
+
+	cairo_stroke(cr);
+
+	cairo_set_source_rgb(cr, 0, 0, 0);
+
 
 	_window->draw(cr, _viewport);
 
@@ -165,7 +172,17 @@ void Canvas::rotateDrawableSpecificCenter(const gchar * name, Vector &angle, Vec
 	Drawable *ret = findDrawable(name);
 	Transformation transformation = Transformation();
 
-	transformation.translate(center).rotate(angle).translate(-center);
+	Vector plane_normal = _window->getNormal();
+	Vector aux_plane_normal_x = Vector(plane_normal.x, 0.f, plane_normal.z);
+	Vector aux_plane_normal_y = Vector(0.f, plane_normal.y, plane_normal.z);
+	Vector rot_angle = Vector(0, 0, 0);
+	
+	rot_angle.x = aux_plane_normal_x.angleBetwenVectors(Vector(0, 0, 1));
+	rot_angle.y = aux_plane_normal_y.angleBetwenVectors(Vector(0, 0, 1));
+
+	Vector neg_rot_angle = -rot_angle;
+
+	transformation.translate(center).rotate(rot_angle).rotate(angle).rotate(neg_rot_angle).translate(-center);
 
 	ret->transform(transformation);
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);

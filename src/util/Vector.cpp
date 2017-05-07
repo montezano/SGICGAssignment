@@ -25,6 +25,25 @@ Vector::Vector(const Vector & vector)
 
 }
 
+Vector Vector::crossProduct(Vector & vec_b)
+{
+	return Vector(y * vec_b.z - z * vec_b.y,
+		z * vec_b.x - x * vec_b.z,
+		x * vec_b.y - y * vec_b.x);
+}
+
+float Vector::dotProduct(Vector & vec_a)
+{
+	return x * vec_a.x + y * vec_a.y + z * vec_a.z;
+}
+
+float Vector::angleBetwenVectors(Vector vec_a)
+{
+	return std::acos(this->dotProduct(vec_a)) /
+		sqrt(this->dotProduct(*this))*
+		sqrt(vec_a.dotProduct(vec_a));
+}
+
 
 Vector operator -(const Vector& right)
 {

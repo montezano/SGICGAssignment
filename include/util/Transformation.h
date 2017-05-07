@@ -52,9 +52,6 @@ public:
 	/// \brief Combine the current transform with a rotation around z axis
 	Transformation& rotateZ(float angle);
 
-	/// \brief Combine the current transform with a rotation to vector (0, 0, 1)
-	Transformation& rotateToCenter(Vector &vec_a);
-
 	/// \brief Combine the current transform with a scaling
 	Transformation& scale(float scaleX, float scaleY, float scaleZ);
 
@@ -64,10 +61,6 @@ public:
 	static const Transformation Identity;
 
 private:
-
-	float angleBetweenVectors3(Vector vec_a, Vector vec_b);
-
-	float angleBetweenVectors(float ax, float ay, float bx, float by);
 
 	float m_matrix[16];
 };

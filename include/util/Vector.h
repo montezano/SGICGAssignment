@@ -3,6 +3,8 @@
 
 #define DUMMY 0
 
+#include <cmath>
+
 class Vector
 {
 public:
@@ -13,6 +15,12 @@ public:
 	Vector(float X, float Y, float z);
 
 	Vector(const Vector& vector);
+
+	Vector crossProduct(Vector &vec_b);
+
+	float dotProduct(Vector &vec_a);
+
+	float angleBetwenVectors(Vector vec_a);
 
 	float x; ///< X coordinate of the vector
 	float y; ///< Y coordinate of the vector

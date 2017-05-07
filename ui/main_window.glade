@@ -2504,7 +2504,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="text" translatable="yes">0,00</property>
-                        <property name="adjustment">adj_spin_li_in_z</property>
+                        <property name="adjustment">adj_spin_li_in_x</property>
                         <property name="climb_rate">0.5</property>
                         <property name="digits">2</property>
                         <property name="numeric">True</property>
@@ -2545,7 +2545,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="text" translatable="yes">0,00</property>
-                        <property name="adjustment">adj_spin_li_in_</property>
+                        <property name="adjustment">adj_spin_li_in_y</property>
                         <property name="climb_rate">0.5</property>
                         <property name="digits">2</property>
                         <property name="numeric">True</property>
@@ -2586,7 +2586,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="text" translatable="yes">0,00</property>
-                        <property name="adjustment">adj_spin_li_in_</property>
+                        <property name="adjustment">adj_spin_li_in_z</property>
                         <property name="climb_rate">0.5</property>
                         <property name="digits">2</property>
                         <property name="numeric">True</property>

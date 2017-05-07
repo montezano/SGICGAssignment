@@ -474,7 +474,6 @@ void ControllerMainWindow::remove_object()
 void ControllerMainWindow::add_object_cb()
 {
 	GSList *toggle_button = gtk_radio_button_get_group(_radio_button_linha);
-	int index = -1;
 	if (toggle_button)
 	{
 		do

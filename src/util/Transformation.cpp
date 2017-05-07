@@ -5,7 +5,7 @@ const Transformation Transformation::Identity;
 Transformation::Transformation()
 {
 	// Identity matrix
-	m_matrix[0] = 1.f; m_matrix[2] = 0.f; m_matrix[3] = 0.f; m_matrix[4] = 0.f;
+	m_matrix[0] = 1.f; m_matrix[1] = 0.f; m_matrix[2] = 0.f; m_matrix[3] = 0.f;
 	m_matrix[4] = 0.f; m_matrix[5] = 1.f; m_matrix[6] = 0.f; m_matrix[7] = 0.f;
 	m_matrix[8] = 0.f; m_matrix[9] = 0.f; m_matrix[10] = 1.f; m_matrix[11] = 0.f;
 	m_matrix[12] = 0.f; m_matrix[13] = 0.f; m_matrix[14] = 0.f; m_matrix[15] = 1.f;
@@ -192,15 +192,6 @@ Transformation& Transformation::rotateZ(float angle)
 	return combine(rotation);
 }
 
-Transformation & Transformation::rotateToCenter(Vector & vec_a)
-{
-
-	float angle_x = angleBetweenVectors3(vec_a, Vector(vec_a.x, 0.f, vec_a.z));
-	float angle_y = angleBetweenVectors3(Vector(vec_a.x, 0.f, vec_a.z), Vector(0.f, 0.f, 1.f));
-
-	return rotateX(angle_x).rotateY(angle_y);
-}
-
 Transformation& Transformation::scale(float scaleX, float scaleY, float scaleZ)
 {
 	Transformation scaling(scaleX, 0.f, 0.f,
@@ -213,20 +204,6 @@ Transformation& Transformation::scale(float scaleX, float scaleY, float scaleZ)
 Transformation& Transformation::scale(const Vector& factors)
 {
 	return scale(factors.x, factors.y, factors.z);
-}
-
-float Transformation::angleBetweenVectors3(Vector vec_a, Vector vec_b)
-{
-	return std::acos(vec_a.x * vec_b.x + vec_a.y * vec_b.y + vec_a.z * vec_b.z) /
-		sqrt(vec_a.x*vec_a.x + vec_a.y*vec_a.y + vec_a.z*vec_a.z)*
-		sqrt(vec_b.x*vec_b.x + vec_b.y*vec_b.y + vec_b.z*vec_b.z);
-}
-
-float Transformation::angleBetweenVectors(float ax, float ay, float bx, float by)
-{
-	return std::acos(ax * bx + ay *by) /
-		sqrt(ax*ax + ay*ay)*
-		sqrt(bx*bx + by*by);
 }
 
 Transformation operator *(const Transformation& left, const Transformation& right)

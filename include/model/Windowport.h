@@ -26,6 +26,7 @@ public:
 
 	Vector *getInitWindowPosition();
 	Vector *getFinalWindowPosition();
+	Vector getNormal();
 
 private:
 	Vector _center;
