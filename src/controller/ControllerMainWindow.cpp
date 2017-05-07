@@ -68,16 +68,16 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/////////////////////////////////
 	/// WINDOW BUTTONS
 	/////////////////////////////////
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_cima"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_move_up"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_baixo"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_move_down"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_esquerda"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_move_left"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_direita"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_move_right"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(move_cb), toolButton);
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_in"));
@@ -86,10 +86,22 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_zoom_out"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(zoom_cb), toolButton);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotation_right"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewdown_z"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
 
-	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotation_left"));
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewup_z"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewdown_y"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewup_y"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewdown_x"));
+	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
+
+	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_rotate_viewup_x"));
 	g_signal_connect_swapped(toolButton, "clicked", G_CALLBACK(rotate_cb), toolButton);
 
 	/////////////////////////////////
@@ -176,25 +188,25 @@ void ControllerMainWindow::move_cb(GtkWidget *widget, GdkEvent *event, gpointer 
 {
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
 
-	if (button_name == "Cima")
+	if (button_name == "Move Cima")
 	{
 		_windowport->move(Vector(0.f ,10.f , 0.f));
 	}
 	else
 	{
-		if (button_name == "Direita")
+		if (button_name == "Move Direita")
 		{
 			_windowport->move(Vector(10.f , 0.f, 0.f));
 		}
 		else
 		{
-			if (button_name == "Baixo")
+			if (button_name == "Move Baixo")
 			{
 				_windowport->move(Vector(0.f, -10.f, 0.f));
 			}
 			else
 			{
-				if (button_name == "Esquerda")
+				if (button_name == "Move Esquerda")
 				{
 					_windowport->move(Vector(-10.f, 0.f, 0.f));
 				}
@@ -230,21 +242,17 @@ void ControllerMainWindow::zoom_cb(GtkWidget *widget, GdkEvent *event, gpointer 
 void ControllerMainWindow::rotate_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data)
 {
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
-	if (button_name == "Rotaciona direita")
-	{
-		_windowport->rotate(10.f);
-	}
-	else
-	{
-		if (button_name == "Rotaciona esquerda")
-		{
-			_windowport->rotate(-10.f);
-		}
-		else
-		{
-			assert(false);
-		}
-	}
+
+	Vector rotation(0, 0, 0);
+
+	if (button_name == "X Cima")		rotation.x =  10.f;
+	if (button_name == "X Baixo")		rotation.x = -10.f;
+	if (button_name == "Y Esquerda")	rotation.y =  10.f;
+	if (button_name == "Y Direita")		rotation.y = -10.f;
+	if (button_name == "Z Esquerda")	rotation.z =  10.f;
+	if (button_name == "Z Direita")		rotation.z = -10.f;
+
+	_windowport->rotate(rotation);
 }
 
 void ControllerMainWindow::translate_cb(GtkWidget *widget)

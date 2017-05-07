@@ -15,7 +15,7 @@ public:
 	void setSize(Vector vector);
 	void setCenter(Vector position);
 	void move(Vector offset);
-	void rotate(float angle);
+	void rotate(Vector angles);
 	void zoom(float factor);
 	Transformation getTransformation();
 	Vector *normalize(Vector *vector);
@@ -32,7 +32,7 @@ private:
 	Vector _size;
 	Vector _initial_position;
 	Vector _final_position;
-	float _angle;
+	Vector _vrp, _vpn;
 	Viewport *_viewport;
 	Transformation _transformation;
 };

@@ -192,6 +192,15 @@ Transformation& Transformation::rotateZ(float angle)
 	return combine(rotation);
 }
 
+Transformation & Transformation::rotateToCenter(Vector & vec_a)
+{
+
+	float angle_x = angleBetweenVectors3(vec_a, Vector(vec_a.x, 0.f, vec_a.z));
+	float angle_y = angleBetweenVectors3(Vector(vec_a.x, 0.f, vec_a.z), Vector(0.f, 0.f, 1.f));
+
+	return rotateX(angle_x).rotateY(angle_y);
+}
+
 Transformation& Transformation::scale(float scaleX, float scaleY, float scaleZ)
 {
 	Transformation scaling(scaleX, 0.f, 0.f,
@@ -206,16 +215,16 @@ Transformation& Transformation::scale(const Vector& factors)
 	return scale(factors.x, factors.y, factors.z);
 }
 
-float Transformation::angleBetweenVectors3(Vector & vec_a, Vector & vec_b)
+float Transformation::angleBetweenVectors3(Vector vec_a, Vector vec_b)
 {
-	return (vec_a.x * vec_b.x + vec_a.y * vec_b.y + vec_a.z * vec_b.z) /
+	return std::acos(vec_a.x * vec_b.x + vec_a.y * vec_b.y + vec_a.z * vec_b.z) /
 		sqrt(vec_a.x*vec_a.x + vec_a.y*vec_a.y + vec_a.z*vec_a.z)*
 		sqrt(vec_b.x*vec_b.x + vec_b.y*vec_b.y + vec_b.z*vec_b.z);
 }
 
 float Transformation::angleBetweenVectors(float ax, float ay, float bx, float by)
 {
-	return (ax * bx + ay *by) /
+	return std::acos(ax * bx + ay *by) /
 		sqrt(ax*ax + ay*ay)*
 		sqrt(bx*bx + by*by);
 }

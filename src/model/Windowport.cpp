@@ -2,10 +2,11 @@
 
 Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 	_transformation(),
-	_size((size / 2.f) - 10)
+	_size((size / 2.f) - 10),
+	_vrp(0.f, 0.f, 0.f),
+	_vpn(0.f, 0.f, 1.f)
 {
 	_center = Vector(position + (size / 2.f));
-	_angle = 0.f;
 
 	_initial_position = _center - _size;
 	_final_position = _center + _size;
@@ -26,23 +27,22 @@ void Windowport::setCenter(Vector position)
 
 void Windowport::move(Vector offset)
 {
-  //setCenter(_center + offset);
 	_transformation = _transformation.translate(offset);
 	notify(this, Events::WINDOW_MOVE);
 }
 
-void Windowport::rotate(float angle)
+void Windowport::rotate(Vector angles)
 {
-  _transformation = _transformation.rotateZ(-angle);
 
-  notify(this, Events::WINDOW_ROTATE);
+	_transformation.rotate(angles);
+
+	notify(this, Events::WINDOW_ROTATE);
+
+
 }
 
 void Windowport::zoom(float factor)
 {
-  /*_size.x = _size.x * factor;
-  _size.y = _size.y * factor;*/
-
 	_transformation = _transformation.scale(Vector(factor, factor, factor));
 
 	notify(this, Events::WINDOW_ZOOM);
@@ -77,7 +77,7 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 {
 
-	// cairo_set_source_rgb(cr, 255, 0, 0);
+	 cairo_set_source_rgb(cr, 255, 0, 0);
 
 
 	cairo_move_to(cr, viewport->transformX(_center.x - _size.x), viewport->transformY(_center.y - _size.y));
