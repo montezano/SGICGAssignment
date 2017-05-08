@@ -14,6 +14,7 @@
 #include "Curve2.h"
 #include "Transformation.h"
 #include "Windowport.h"
+#include "Object3D.h"
 
 
 class Canvas : public Subject, public Observer
