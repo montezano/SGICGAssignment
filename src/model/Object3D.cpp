@@ -1,11 +1,11 @@
 #include "Object3D.h"
 
 Object3D::Object3D(const gchar *nome, std::vector<Line*> object, Windowport *window) :
-  Polygon(nome, window),
+  Drawable(nome, window),
   _object(object)
 {
-    _tipo = "objeto3d";
-    updateWindow();
+	_tipo = "objeto3d";
+	updateWindow();
 }
 
 Object3D::~Object3D()
@@ -13,30 +13,41 @@ Object3D::~Object3D()
 
 }
 
+void Object3D::draw(cairo_t * cr, Viewport * viewport)
+{
+	for (auto line : _object)
+	{
+		line->draw(cr, viewport);
+	}
+}
+
 Vector Object3D::getCenter()
 {
-  	Vector sum = Vector(0, 0, 0);
-  	for (auto line : _object)
-  	{
-  		sum += line->getCenter();
-  	}
+	Vector sum = Vector(0, 0, 0);
+	for (auto line : _object)
+	{
+		sum += line->getCenter();
+	}
 
-  	return sum / static_cast<float>(_object.size());
+	return sum / static_cast<float>(_object.size());
 }
 void Object3D::transform(Transformation &transformation)
 {
-    for(Line *line : _object)
-    {
-        line->transform(transformation);
-    }
-    updateWindow();
+	for(Line *line : _object)
+	{
+		line->transform(transformation);
+	}
+	updateWindow();
 }
 
 void Object3D::updateWindow()
 {
-    for (size_t i = 0; i < _object.size(); i++)
-    {
-  	     _coords_window[i] = _window->normalize(_coords[i]);
-    }
-    clip();
+	for (auto line : _object)
+	{
+		 line->updateWindow();
+	}
+}
+
+void Object3D::clip()
+{
 }

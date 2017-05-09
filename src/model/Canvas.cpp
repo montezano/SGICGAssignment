@@ -44,7 +44,7 @@ void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
 
 	_canvas.push_back(line);
 
-	// //TESTE
+	// //TESTE POLIGONO
 	// std::vector<Vector> points;
 	// points.push_back(Vector(0,0));
 	// points.push_back(Vector(30,-100));
@@ -55,30 +55,29 @@ void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
 
 	// _canvas.push_back(curve);
 
-	// //TESTE
+	// //FIM TESTE POLIGONO
 
-	// //TESTE
-	 std::vector<Line*> lines;
-	 lines.push_back(new Line("linha11", new Vector(0, 0, 0),		new Vector(100, 0, 0), _window));
-	 lines.push_back(new Line("linha12", new Vector(100, 0, 0),		new Vector(100, 0, 100), _window));
-	 lines.push_back(new Line("linha13", new Vector(100, 0, 100),	new Vector(0, 0, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 0, 100),		new Vector(0, 0, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 0, 0),		new Vector(0, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(100, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 0),	new Vector(100, 0, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(0, 100, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(100, 100, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 0, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(0, 0, 100), _window));
+	// //TESTE OBJETO 3D
+	 //std::vector<Line*> lines;
+	 //lines.push_back(new Line("linha11", new Vector(0, 0, 0),		new Vector(100, 0, 0), _window));
+	 //lines.push_back(new Line("linha12", new Vector(100, 0, 0),		new Vector(100, 0, 100), _window));
+	 //lines.push_back(new Line("linha13", new Vector(100, 0, 100),	new Vector(0, 0, 100), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 0, 100),		new Vector(0, 0, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 0, 0),		new Vector(0, 100, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(100, 100, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 0),	new Vector(100, 0, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(0, 100, 100), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(100, 100, 100), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 100, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 0, 100), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(0, 0, 100), _window));
 
 
-	 Drawable* object3d = new Object3D(nome, lines, _window);
-	 //curve->setTipo("curva");
+	 //Drawable* object3d = new Object3D(nome, lines, _window);
 
-	 _canvas.push_back(object3d);
+	 //_canvas.push_back(object3d);
 
-	// //TESTE
+	// //FIM TESTE OBJETO 3D
 
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
