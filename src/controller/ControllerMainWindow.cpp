@@ -219,7 +219,6 @@ if (res == GTK_RESPONSE_ACCEPT)
     _obj = new DescriptorOBJ(filename,_windowport);
     std::vector<Drawable*>* objects = _obj->load();
     _canvas->addObject3D(*objects);
-//    open_file(filename);
     g_free (filename);
   }
 
