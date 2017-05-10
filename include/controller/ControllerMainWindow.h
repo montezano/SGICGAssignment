@@ -11,6 +11,7 @@ class Controller;
 
 #include "Window.h"
 #include "MainWindow.h"
+#include "DescriptorOBJ.h"
 #include "WindowCoordinates.h"
 #include "Controller.h"
 #include "Drawable.h"
@@ -48,7 +49,7 @@ private:
 	static void point_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void line_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void polygon_algorithm_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
-
+        static void open_file(GtkWidget *widget);
 	static gboolean rotate_object_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 	static void rotate_specific_cb();
 	static gboolean scale_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -67,6 +68,7 @@ private:
 	static const Controller *_controller;
 	static Canvas *_canvas;
 	static Viewport *_viewport;
+        static DescriptorOBJ* _obj;
 	static Windowport *_windowport;
 
 	static GtkRadioButton *_radio_button_linha;

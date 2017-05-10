@@ -89,6 +89,16 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector*> coords, bool fil
 	this->notify(pol, Events::ADD_DRAWABLE);
 }
 
+void Canvas::addObject3D(std::vector<Drawable*> objects){
+    g_print("addobject3d\n");
+    for(size_t i = 0; i< objects.size(); i++){
+        g_print(objects.at(i)->getNome());
+        _canvas.push_back(objects.at(i));
+        this->notify(objects.at(i), Events::ADD_DRAWABLE);
+
+    }
+}
+
 void Canvas::addCurve2(const gchar *nome, std::vector<Vector*> points, bool type){
 	Drawable* curve = new Curve2(nome, points, _window,type);
 

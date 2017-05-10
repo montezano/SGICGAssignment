@@ -1,4 +1,5 @@
 #include "ControllerMainWindow.h"
+#include "DescriptorOBJ.h"
 
 ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controller *controller, Canvas *canvas, Viewport *viewport, Windowport *windowport)
 {
@@ -23,6 +24,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controlle
 	_treeView = GTK_TREE_VIEW(gtk_builder_get_object(builder, "object_list_treeview"));
 
 	_canvas = canvas;
+        
 }
 
 ControllerMainWindow::~ControllerMainWindow()
@@ -47,7 +49,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 {
 	GtkButton* button;
 	GtkToolButton* toolButton;
-
+        GtkImageMenuItem* file_options;
 	/////////////////////////////////
 	/// ADD/REMOVE BUTTONS
 	/////////////////////////////////
@@ -175,6 +177,16 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_polweil"));
 	assert(item);
 	g_signal_connect(item, "toggled", G_CALLBACK(polygon_algorithm_cb), NULL);
+        
+        
+	/////////////////////////////////
+	/// FILE OPTIONS
+	/////////////////////////////////
+        
+        file_options = GTK_IMAGE_MENU_ITEM(gtk_builder_get_object(builder, "file_open"));
+        assert(file_options);
+        g_signal_connect(file_options, "activate", G_CALLBACK(open_file), _window->getWindow());
+        
 }
 
 
@@ -184,6 +196,36 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 ///////////////////////////////////////////////////////////////////////
 //	CALLBACK FUNCTIONS
 ///////////////////////////////////////////////////////////////////////
+void ControllerMainWindow::open_file(GtkWidget *widget) {
+    GtkWidget *dialog;
+GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+gint res;
+
+dialog = gtk_file_chooser_dialog_new ("Open File",
+                                      GTK_WINDOW(widget),
+                                      action,
+                                      "_Cancel",
+                                      GTK_RESPONSE_CANCEL,
+                                      "_Open",
+                                      GTK_RESPONSE_ACCEPT,
+                                      NULL);
+
+res = gtk_dialog_run (GTK_DIALOG (dialog));
+if (res == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+    filename = gtk_file_chooser_get_filename (chooser);
+    _obj = new DescriptorOBJ(filename,_windowport);
+    std::vector<Drawable*>* objects = _obj->load();
+    _canvas->addObject3D(*objects);
+//    open_file(filename);
+    g_free (filename);
+  }
+
+gtk_widget_destroy (dialog);
+}
+
 void ControllerMainWindow::move_cb(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	std::string button_name = gtk_tool_button_get_label(GTK_TOOL_BUTTON(widget));
@@ -547,6 +589,7 @@ Viewport *ControllerMainWindow::_viewport = NULL;
 Canvas *ControllerMainWindow::_canvas = NULL;
 GtkTreeView* ControllerMainWindow::_treeView = NULL;
 Windowport *ControllerMainWindow::_windowport = NULL;
+DescriptorOBJ * ControllerMainWindow::_obj = NULL;
 
 
 GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;

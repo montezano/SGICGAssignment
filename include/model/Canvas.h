@@ -28,6 +28,7 @@ public:
 	void addPolygon(const gchar *nome, std::vector<Vector*> coords, bool fill);
 	void addCurve2(const gchar *nome, std::vector<Vector*> points, bool type);
 	void addPoint(const gchar *nome, Vector *init_position);
+        void addObject3D(std::vector<Drawable*> objects);
 	void drawCanvas(cairo_surface_t *surfac);
 	void updateWindow();
 	void deleteDrawable(const gchar *nome);
