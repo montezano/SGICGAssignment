@@ -23,6 +23,8 @@ Controller::Controller(int argc, char *argv[]) :
 	assert(_window_poligono_controller);
 	_window_besier_controller = new ControllerBesier(_builder, &_canvas);
 	assert(_window_besier_controller);
+	_window_object3d_controller = new ControllerObject3d(_builder, &_canvas);
+	assert(_window_object3d_controller);
 
 
 	gtk_builder_connect_signals(_builder, NULL);
@@ -94,6 +96,7 @@ ControllerLinha		*Controller::_window_linha_controller = NULL;
 ControllerPonto		*Controller::_window_ponto_controller = NULL;
 ControllerPoligono	*Controller::_window_poligono_controller = NULL;
 ControllerBesier     *Controller::_window_besier_controller = NULL;
+ControllerObject3d   *Controller::_window_object3d_controller = NULL;
 
 bool Controller::_initialized = false;
 Controller *Controller::_instance = NULL;

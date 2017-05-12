@@ -22,6 +22,7 @@
 	_nome(nome),
 	_visible(true)
  {
+	 _position = new Vector(0, 0, 0);
 	 _window = window;
  }
 

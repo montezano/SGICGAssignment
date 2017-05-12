@@ -90,13 +90,24 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector*> coords, bool fil
 }
 
 void Canvas::addObject3D(std::vector<Drawable*> objects){
-    g_print("addobject3d\n");
-    for(size_t i = 0; i< objects.size(); i++){
-        g_print(objects.at(i)->getNome());
-        _canvas.push_back(objects.at(i));
-        this->notify(objects.at(i), Events::ADD_DRAWABLE);
+	for(size_t i = 0; i< objects.size(); i++){
+		_canvas.push_back(objects.at(i));
+		this->notify(objects.at(i), Events::ADD_DRAWABLE);
+	}
+}
 
-    }
+void Canvas::addObject3D(const gchar * name, std::vector<std::pair<Vector*, Vector*>> edges)
+{
+	Drawable *obj3d;
+	std::vector<Line*> lines;
+
+	for (auto line : edges)
+	{
+		lines.push_back(new Line("", line.first, line.second, _window));
+	}
+	obj3d = new Object3D(name, lines, _window);
+	_canvas.push_back(obj3d);
+	this->notify(obj3d, Events::ADD_DRAWABLE);
 }
 
 void Canvas::addCurve2(const gchar *nome, std::vector<Vector*> points, bool type){
@@ -155,10 +166,10 @@ void Canvas::deleteDrawable(const gchar* nome) {
 
 	Drawable *ret = NULL;
 	 for(size_t i = 0; i< this->_canvas.size(); i++){
-	 	if(strcmp(_canvas.at(i)->getNome(),nome) == 0) {
+		if(strcmp(_canvas.at(i)->getNome(),nome) == 0) {
 			ret = _canvas[i];
-	 		_canvas.erase(_canvas.begin()+i);
-	 	}
+			_canvas.erase(_canvas.begin()+i);
+		}
 	 }
 
 	 notify(static_cast<void*>(ret), Events::REMOVE_DRAWABLE);

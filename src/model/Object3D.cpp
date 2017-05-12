@@ -5,7 +5,6 @@ Object3D::Object3D(const gchar *nome, std::vector<Line*> object, Windowport *win
   _object(object)
 {
 	_tipo = "objeto3d";
-        g_print("size -------------%d",_object.size());
 	updateWindow();
 }
 

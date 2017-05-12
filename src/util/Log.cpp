@@ -14,8 +14,7 @@ void Log::onNotify(void * data, Events event)
 		//message = "ADD " + draw->getTipo() + " : |x\t|y\n|";
 		g_print("ADD %s, name: %s \n",
 			static_cast<Drawable*>(data)->getTipo(),
-			static_cast<Drawable*>(data)->getNome()),
-                g_print("done log\n");
+			static_cast<Drawable*>(data)->getNome());
 		break;
 	case REMOVE_DRAWABLE:
 		g_print("REMOVE %s, name: %s - position x: %f |y: %f\n",

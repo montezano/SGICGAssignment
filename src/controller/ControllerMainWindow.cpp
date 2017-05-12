@@ -24,7 +24,7 @@ ControllerMainWindow::ControllerMainWindow(GtkBuilder * builder, const Controlle
 	_treeView = GTK_TREE_VIEW(gtk_builder_get_object(builder, "object_list_treeview"));
 
 	_canvas = canvas;
-        
+		
 }
 
 ControllerMainWindow::~ControllerMainWindow()
@@ -49,7 +49,7 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 {
 	GtkButton* button;
 	GtkToolButton* toolButton;
-        GtkImageMenuItem* file_options;
+		GtkImageMenuItem* file_options;
 	/////////////////////////////////
 	/// ADD/REMOVE BUTTONS
 	/////////////////////////////////
@@ -60,6 +60,8 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	_radio_button_ponto = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
 
 	_radio_button_curve = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_point"));
+
+	_radio_button_object3d = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_object3d"));
 
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(add_object_cb), NULL);
@@ -177,16 +179,16 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_polweil"));
 	assert(item);
 	g_signal_connect(item, "toggled", G_CALLBACK(polygon_algorithm_cb), NULL);
-        
-        
+		
+		
 	/////////////////////////////////
 	/// FILE OPTIONS
 	/////////////////////////////////
-        
-        file_options = GTK_IMAGE_MENU_ITEM(gtk_builder_get_object(builder, "file_open"));
-        assert(file_options);
-        g_signal_connect(file_options, "activate", G_CALLBACK(open_file), _window->getWindow());
-        
+		
+		file_options = GTK_IMAGE_MENU_ITEM(gtk_builder_get_object(builder, "file_open"));
+		assert(file_options);
+		g_signal_connect(file_options, "activate", G_CALLBACK(open_file), _window->getWindow());
+		
 }
 
 
@@ -197,29 +199,29 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 //	CALLBACK FUNCTIONS
 ///////////////////////////////////////////////////////////////////////
 void ControllerMainWindow::open_file(GtkWidget *widget) {
-    GtkWidget *dialog;
-GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
-gint res;
+	GtkWidget *dialog;
+	GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+	gint res;
 
-dialog = gtk_file_chooser_dialog_new ("Open File",
-                                      GTK_WINDOW(widget),
-                                      action,
-                                      "_Cancel",
-                                      GTK_RESPONSE_CANCEL,
-                                      "_Open",
-                                      GTK_RESPONSE_ACCEPT,
-                                      NULL);
+	dialog = gtk_file_chooser_dialog_new ("Open File",
+										  GTK_WINDOW(widget),
+										  action,
+										  "_Cancel",
+										  GTK_RESPONSE_CANCEL,
+										  "_Open",
+										  GTK_RESPONSE_ACCEPT,
+										  NULL);
 
-res = gtk_dialog_run (GTK_DIALOG (dialog));
-if (res == GTK_RESPONSE_ACCEPT)
-  {
-    char *filename;
-    GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
-    filename = gtk_file_chooser_get_filename (chooser);
-    _obj = new DescriptorOBJ(filename,_windowport);
-    std::vector<Drawable*>* objects = _obj->load();
-    _canvas->addObject3D(*objects);
-    g_free (filename);
+	res = gtk_dialog_run (GTK_DIALOG (dialog));
+	if (res == GTK_RESPONSE_ACCEPT)
+	  {
+		char *filename;
+		GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+		filename = gtk_file_chooser_get_filename (chooser);
+		_obj = new DescriptorOBJ(filename,_windowport);
+		std::vector<Drawable*>* objects = _obj->load();
+		_canvas->addObject3D(*objects);
+		g_free (filename);
   }
 
 gtk_widget_destroy (dialog);
@@ -547,7 +549,15 @@ void ControllerMainWindow::add_object_cb()
 			}  
 			else
 			{
-				_controller->_window_besier_controller->display();
+				if (button_name == "Curva")
+				{
+					_controller->_window_besier_controller->display();
+				}
+				else
+				{
+					_controller->_window_object3d_controller->display();
+				}
+				
 			}
 		}
 	}
@@ -595,6 +605,7 @@ GtkRadioButton *ControllerMainWindow::_radio_button_linha = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_curve = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_object3d = NULL;
 
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;
