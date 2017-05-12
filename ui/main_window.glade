@@ -1140,29 +1140,13 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkRadioMenuItem" id="radiomenu_point">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Ponto</property>
-                        <property name="use_underline">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_as_radio">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem" id="separator_point">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkRadioMenuItem" id="radiomenu_linecs">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Cohen Sutherland</property>
                         <property name="use_underline">True</property>
-                        <property name="active">True</property>
                         <property name="draw_as_radio">True</property>
+                        <property name="group">radiomenu_linelb</property>
                       </object>
                     </child>
                     <child>
@@ -1171,17 +1155,8 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Liang-Barsky</property>
                         <property name="use_underline">True</property>
+                        <property name="active">True</property>
                         <property name="draw_as_radio">True</property>
-                        <property name="group">radiomenu_linecs</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkRadioMenuItem" id="radiomenu_linenicholl">
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Nicholl Lee Nicholl</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_as_radio">True</property>
-                        <property name="group">radiomenu_linecs</property>
                       </object>
                     </child>
                     <child>
@@ -2285,6 +2260,13 @@
     <property name="active">True</property>
     <property name="draw_indicator">True</property>
     <property name="group">radiobutton_add_line</property>
+  </object>
+  <object class="GtkRadioMenuItem" id="radiomenu_linenicholl">
+    <property name="can_focus">False</property>
+    <property name="label" translatable="yes">Nicholl Lee Nicholl</property>
+    <property name="use_underline">True</property>
+    <property name="draw_as_radio">True</property>
+    <property name="group">radiomenu_linecs</property>
   </object>
   <object class="GtkTreeView" id="object_list_treeview1">
     <property name="width_request">250</property>

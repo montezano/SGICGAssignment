@@ -156,19 +156,11 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 	/////////////////////////////////
 	GtkRadioMenuItem *item;
 
-	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_point"));
-	assert(item);
-	g_signal_connect(item, "toggled", G_CALLBACK(point_algorithm_cb), NULL);
-
 	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linecs"));
 	assert(item);
 	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
 
 	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linelb"));
-	assert(item);
-	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
-
-	item = GTK_RADIO_MENU_ITEM(gtk_builder_get_object(builder, "radiomenu_linenicholl"));
 	assert(item);
 	g_signal_connect(item, "toggled", G_CALLBACK(line_algorithm_cb), NULL);
 
