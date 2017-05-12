@@ -10,7 +10,10 @@ Object3D::Object3D(const gchar *nome, std::vector<Line*> object, Windowport *win
 
 Object3D::~Object3D()
 {
-
+	for (auto line : _object)
+	{
+		delete (line);
+	}
 }
 
 void Object3D::draw(cairo_t * cr, Viewport * viewport)

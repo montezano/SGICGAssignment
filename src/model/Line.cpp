@@ -97,8 +97,8 @@ void Line::LBClip()
 	float p[4], q[4], r[4];
 	float max, min;
 	float dx, dy;
-	_clipped_position = _position_window;
-	_clipped_final_position = _final_position_window;
+	_clipped_position = new Vector(*_position_window);
+	_clipped_final_position = new Vector(* _final_position_window);
 
 	dx = _final_position_window->x - _position_window->x;
 	dy = _final_position_window->y - _position_window->y;
