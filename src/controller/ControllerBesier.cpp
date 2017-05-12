@@ -3,7 +3,7 @@
 ControllerBesier::ControllerBesier(GtkBuilder * builder, Canvas *canvas)
 
 {
-	_window = new WindowBesier(GTK_WIDGET(gtk_builder_get_object(builder, "window_besier")));
+	_window = new WindowBesier(GTK_WIDGET(gtk_builder_get_object(builder, "window_besier")), &bspline);
 
 	GtkButton* button;
 	GtkRadioButton *radio_button;
@@ -45,14 +45,6 @@ void ControllerBesier::display()
 
 void ControllerBesier::add_coords_cb(GtkWidget *window)
 {
-	_coords.push_back(_window->add_coords());
-}
-
-
-void ControllerBesier::add_besier_cb(GtkWidget *window)
-{
-	WindowBesier::WinBesier w_besier = _window->add_besier();
-
 	GSList *toggle_button = gtk_radio_button_get_group(_radio_group);
 	if (toggle_button)
 	{
@@ -67,19 +59,27 @@ void ControllerBesier::add_besier_cb(GtkWidget *window)
 
 	std::string button_name = gtk_button_get_label(GTK_BUTTON(toggle_button->data));
 
-	bool type = false;
 	if (button_name == "Bézier")
 	{
-		type = false;
+		bspline = false;
 	}
 	else
 	{
 		if (button_name == "B-Spline")
 		{
-			type = true;
+			bspline = true;
 		}
 	}
-	_canvas->addCurve2(w_besier.nome.c_str(), _coords,type);
+
+	_coords.push_back(_window->add_coords());
+}
+
+
+void ControllerBesier::add_besier_cb(GtkWidget *window)
+{
+	WindowBesier::WinBesier w_besier = _window->add_besier();
+
+	_canvas->addCurve2(w_besier.nome.c_str(), _coords,bspline);
 	_coords.clear();
 }
 
@@ -88,3 +88,5 @@ std::vector<Vector*> ControllerBesier::_coords;
 Controller *ControllerBesier::_controller = NULL;
 Canvas *ControllerBesier::_canvas = NULL;
 GtkRadioButton *ControllerBesier::_radio_group = NULL;
+bool ControllerBesier::bspline = true;
+

@@ -34,6 +34,7 @@ private:
 	static std::vector<Vector*> _coords;
 	static Canvas *_canvas;
 	static GtkRadioButton *_radio_group;
+	static bool bspline;
 
 
 };

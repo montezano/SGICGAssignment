@@ -19,7 +19,7 @@ public:
 
 	};
 
-	WindowBesier(GtkWidget *window);
+	WindowBesier(GtkWidget *window, bool *curve_type);
 	void initialize();
 
 	Vector *add_coords();
@@ -41,6 +41,7 @@ private:
 	int _cont;
 	GtkLabel* _cont_label;
 	GtkTreeModel *_model;
+	bool *_bspline_curve;
 
 };
 #endif // !__WINDOWPOLIGONO_H__

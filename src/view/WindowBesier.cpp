@@ -1,6 +1,6 @@
 #include "WindowBesier.h"
 
-WindowBesier::WindowBesier(GtkWidget * window) :
+WindowBesier::WindowBesier(GtkWidget * window, bool *bspline_curve) :
 	Window(window)
 {
 	g_print("teste\n");
@@ -20,11 +20,14 @@ WindowBesier::WindowBesier(GtkWidget * window) :
 	_treeView = GTK_TREE_VIEW(find_child(_window, "treeview_besier"));
 	_model = gtk_tree_view_get_model(GTK_TREE_VIEW(_treeView));
 	_cont_label = GTK_LABEL(find_child(_window, "label_contador"));
-	_cont = 4;
+	_cont = 0;
 	_ok = GTK_BUTTON(find_child(_window, "button_ok_besier"));
 	gtk_widget_set_sensitive(GTK_WIDGET(_ok), FALSE);
 
 	_v = std::vector<Vector>();
+
+	assert(bspline_curve);
+	_bspline_curve = bspline_curve;
 
 
 }
@@ -35,7 +38,7 @@ void WindowBesier::initialize()
 
 Vector *WindowBesier::add_coords()
 {	
-	_cont--;
+	_cont++;
 	gfloat inicial_x = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_x));
 	gfloat inicial_y = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_y));
 	gfloat inicial_z = static_cast<float>(gtk_spin_button_get_value(_spinbutton_inicial_z));
@@ -54,12 +57,29 @@ Vector *WindowBesier::add_coords()
 	gtk_tree_view_set_model(GTK_TREE_VIEW(_treeView),
 										 _model);
 	gtk_label_set_text(_cont_label, std::to_string(_cont).c_str());
-	if(_cont == 0) {
-		_cont = 3;
-		gtk_widget_set_sensitive(GTK_WIDGET(_ok), TRUE);
-	} else {
-		gtk_widget_set_sensitive(GTK_WIDGET(_ok), FALSE);
+
+	if (*_bspline_curve)
+	{
+		if (_cont > 3) {
+			gtk_widget_set_sensitive(GTK_WIDGET(_ok), TRUE);
+		}
+		else
+		{
+			gtk_widget_set_sensitive(GTK_WIDGET(_ok), FALSE);
+		}
 	}
+	else
+	{
+		if (_cont > 3 && !((_cont - 4) % 3)) {
+			gtk_widget_set_sensitive(GTK_WIDGET(_ok), TRUE);
+		}
+		else
+		{
+			gtk_widget_set_sensitive(GTK_WIDGET(_ok), FALSE);
+		}
+	}
+
+	
 	return new Vector(inicial_x, inicial_y, inicial_z);
 }
 
