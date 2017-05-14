@@ -23,10 +23,12 @@ public:
 	float unormalize_y(Vector *vector);
 	Vector unormalize(Vector *vector);
 	void draw(cairo_t *_cr, Viewport *viewport);
+	Vector * project(Vector *vec_orig);
 
 	Vector *getInitWindowPosition();
 	Vector *getFinalWindowPosition();
 	Vector getNormal();
+	Vector getCenter();
 
 private:
 	Transformation _transformation;

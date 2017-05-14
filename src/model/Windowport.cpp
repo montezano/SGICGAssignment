@@ -30,18 +30,30 @@ void Windowport::setCenter(Vector position)
 void Windowport::move(Vector offset)
 {
 	_transformation.translate(offset);
-	_transformation.transformPoint(_cop);
-	_transformation.transformPoint(_vpn);
+
+
+	Transformation transformation = Transformation();
+
+	transformation.translate(offset);
+	_cop = *transformation.transformPoint(_cop);
+	_vpn = *transformation.transformPoint(_vpn);
 
 	notify(this, Events::WINDOW_MOVE);
 }
 
 void Windowport::rotate(Vector angles)
 {
+	_transformation.translate(_cop).rotate(angles).translate(-_cop);
 
-	_transformation.rotate(angles);
-	_transformation.transformPoint(_cop);
-	_transformation.transformPoint(_vpn);
+
+	Transformation transformation = Transformation();
+
+
+	transformation.translate(-_cop).rotate(angles).translate(_cop);
+	_cop = *transformation.transformPoint(_cop);
+	_vpn = *transformation.transformPoint(_vpn);
+
+	
 
 
 	notify(this, Events::WINDOW_ROTATE);
@@ -51,8 +63,10 @@ void Windowport::rotate(Vector angles)
 
 void Windowport::zoom(float factor)
 {
-	_transformation.scale(Vector(factor, factor, factor));
-	_transformation.transformPoint(_cop);
+	_transformation.translate(_cop).scale(Vector(factor, factor, factor)).translate(-_cop);
+	//_cop = *_transformation.transformPoint(_cop);
+	//_vpn = *_transformation.transformPoint(_vpn);
+
 
 	notify(this, Events::WINDOW_ZOOM);
 }
@@ -106,6 +120,14 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 	cairo_set_source_rgb(cr, 0, 0, 0);
 }
 
+Vector * Windowport::project(Vector *vec)
+{
+	Vector veco = *vec;
+	Vector *vec_orig = _transformation.transformPoint(veco);
+	if (vec_orig->z == 0) return new Vector( *vec_orig);
+	return new Vector(vec_orig->x / (vec_orig->z /(vec_orig->z - _cop.z)), vec_orig->y / (vec_orig->z / (vec_orig->z - _cop.z)), _cop.z);
+}
+
 Vector * Windowport::getInitWindowPosition()
 {
 	return &_initial_position;
@@ -118,5 +140,10 @@ Vector * Windowport::getFinalWindowPosition()
 
 Vector Windowport::getNormal()
 {
-	return _vpn;
+	return _cop;
+}
+
+Vector Windowport::getCenter()
+{
+	return _cop;
 }

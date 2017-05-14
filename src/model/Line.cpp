@@ -20,6 +20,8 @@
  {
 	 _clipped_position = new Vector();
 	 _clipped_final_position = new Vector();
+	 _initial_proj = _window->project(_position);
+	 _final_proj = _window->project(_final_position);
 	 _tipo = "linha";
 	 updateWindow();
  }
@@ -55,8 +57,10 @@ void Line::transform(Transformation & transformation)
 
 void Line::updateWindow()
 {
-	_position_window = _window->normalize(_position);
-	_final_position_window = _window->normalize(_final_position);
+	_initial_proj = _window->project(_position);
+	_final_proj = _window->project(_final_position);
+	_position_window = _window->normalize(_initial_proj);
+	_final_position_window = _window->normalize(_final_proj);
 	clip();
 }
 
