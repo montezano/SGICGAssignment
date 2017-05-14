@@ -1,15 +1,17 @@
 #include "Windowport.h"
 
+#define D 50.f
+
 Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 	_transformation(),
-	_size((size / 2.f) - 10),
-	_vrp(0.f, 0.f, 0.f),
-	_vpn(0.f, 0.f, 1.f)
+	_size(size.x / 2.f, size.y / 2.f, 0.f),
+	_center(position + (_size)),
+	_initial_position(_center - _size),
+	_final_position(_center + _size),
+	_cop(_center.x, _center.y, _center.z - D),
+	_vpn(0.f, 0.f, 1.f),
+	_viewport(viewport)
 {
-	_center = Vector(position + (size / 2.f));
-
-	_initial_position = _center - _size;
-	_final_position = _center + _size;
 }
 
 void Windowport::setSize(Vector vector)
@@ -28,7 +30,7 @@ void Windowport::setCenter(Vector position)
 void Windowport::move(Vector offset)
 {
 	_transformation.translate(offset);
-	_transformation.transformPoint(_vrp);
+	_transformation.transformPoint(_cop);
 	_transformation.transformPoint(_vpn);
 
 	notify(this, Events::WINDOW_MOVE);
@@ -38,7 +40,7 @@ void Windowport::rotate(Vector angles)
 {
 
 	_transformation.rotate(angles);
-	_transformation.transformPoint(_vrp);
+	_transformation.transformPoint(_cop);
 	_transformation.transformPoint(_vpn);
 
 
@@ -50,7 +52,7 @@ void Windowport::rotate(Vector angles)
 void Windowport::zoom(float factor)
 {
 	_transformation.scale(Vector(factor, factor, factor));
-	_transformation.transformPoint(_vrp);
+	_transformation.transformPoint(_cop);
 
 	notify(this, Events::WINDOW_ZOOM);
 }

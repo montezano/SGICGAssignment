@@ -29,13 +29,13 @@ public:
 	Vector getNormal();
 
 private:
-	Vector _center;
+	Transformation _transformation;
 	Vector _size;
+	Vector _center;
 	Vector _initial_position;
 	Vector _final_position;
-	Vector _vrp, _vpn;
+	Vector _cop, _vpn;
 	Viewport *_viewport;
-	Transformation _transformation;
 };
 
 #endif //__WINDOWPORT_H__
