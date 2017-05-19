@@ -46,8 +46,6 @@ private:
 	std::vector<Drawable*> _canvas;
 	Viewport *_viewport;	// DO NOT FREE
 	Windowport *_window;	// DO NOT FREE
-
-	Line *_guideline_z, *_guideline_y, *_guideline_x;
 };
 
 #endif //__CANVAS_H__

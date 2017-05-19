@@ -9,9 +9,6 @@ Canvas::Canvas(Viewport *viewport, Windowport *window)
 	_viewport = viewport;
 	_window = window;
 
-	_guideline_z = new Line("Guideline Z", new Vector(0.f, 0.f, -5000.f), new Vector(0.f, 0.f, 5000.f), _window);
-	_guideline_x = new Line("Guideline X", new Vector(-5000.f, 0.f, 0.f), new Vector(5000.f, 0.f, 0.f), _window);
-	_guideline_y = new Line("Guideline Y", new Vector(0.f, -5000.f, 0.f), new Vector(0.f, 5000.f, 0.f), _window);
 }
 
 Canvas::Canvas()
@@ -27,9 +24,6 @@ Canvas::~Canvas()
 	}
 	_canvas.clear();
 
-	//delete(_guideline_z);
-	//delete(_guideline_x);
-	//delete(_guideline_y);
 }
 
 void Canvas::setWindow(Windowport * window)
@@ -58,24 +52,24 @@ void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
 	// //FIM TESTE POLIGONO
 
 	// //TESTE OBJETO 3D
-	 std::vector<Line*> lines;
-	 lines.push_back(new Line("linha11", new Vector(0, 0, 0),		new Vector(100, 0, 0), _window));
-	 lines.push_back(new Line("linha12", new Vector(100, 0, 0),		new Vector(100, 0, 100), _window));
-	 lines.push_back(new Line("linha13", new Vector(100, 0, 100),	new Vector(0, 0, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 0, 100),		new Vector(0, 0, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 0, 0),		new Vector(0, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(100, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 0),	new Vector(100, 0, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 0),		new Vector(0, 100, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(100, 100, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 100, 0), _window));
-	 lines.push_back(new Line("linha14", new Vector(100, 100, 100),	new Vector(100, 0, 100), _window));
-	 lines.push_back(new Line("linha14", new Vector(0, 100, 100),	new Vector(0, 0, 100), _window));
+	 //std::vector<Line*> lines;
+	 //lines.push_back(new Line("linha11", new Vector(0.f, 0.f, 400.f),		new Vector(100, 0, 400.f), _window));
+	 //lines.push_back(new Line("linha12", new Vector(100.f, 0.f, 400.f),		new Vector(100, 0, 500.f), _window));
+	 //lines.push_back(new Line("linha13", new Vector(100.f, 0.f, 500.f),		new Vector(0, 0, 500.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0.f, 0.f, 500.f),		new Vector(0, 0, 0), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 0, 400.f),		new Vector(0, 100, 400.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 400.f),		new Vector(100, 100, 400.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 400.f),	new Vector(100, 0, 400.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 400.f),		new Vector(0, 100, 500.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 500.f),	new Vector(100, 100, 500.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 500.f),	new Vector(100, 100, 400.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(100, 100, 500.f),	new Vector(100, 0, 500.f), _window));
+	 //lines.push_back(new Line("linha14", new Vector(0, 100, 500.f),	new Vector(0, 0, 500.f), _window));
 
 
-	 Drawable* object3d = new Object3D(nome, lines, _window);
+	 //Drawable* object3d = new Object3D(nome, lines, _window);
 
-	 _canvas.push_back(object3d);
+	 //_canvas.push_back(object3d);
 
 	// //FIM TESTE OBJETO 3D
 
@@ -131,10 +125,6 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 
 	cairo_set_source_rgb(cr, 255, 255, 0);
 
-	_guideline_x->draw(cr, _viewport);
-	_guideline_y->draw(cr, _viewport);
-	_guideline_z->draw(cr, _viewport);
-
 	cairo_stroke(cr);
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
@@ -153,9 +143,6 @@ void Canvas::drawCanvas(cairo_surface_t *surface)
 
 void Canvas::updateWindow()
 {
-	_guideline_x->updateWindow();
-	_guideline_y->updateWindow();
-	_guideline_z->updateWindow();
 	for (auto drawable : _canvas)
 	{
 		drawable->updateWindow();
@@ -226,7 +213,7 @@ void Canvas::rotateDrawableSpecificCenter(const gchar * name, Vector &angle, Vec
 
 	Vector neg_rot_angle = -rot_angle;
 
-	transformation.translate(center).rotate(rot_angle).rotate(angle).rotate(neg_rot_angle).translate(-center);
+	transformation.translate(-center).rotate(angle).translate(center);
 
 	ret->transform(transformation);
 	notify(static_cast<void*>(ret), Events::TRANSFORMATION_ROTATE);

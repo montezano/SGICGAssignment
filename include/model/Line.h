@@ -4,10 +4,6 @@
 #include "Drawable.h"
 #include <algorithm>
 
-
-
-
-
 class Line : public Drawable {
 public:
 	enum LineAlgorithm
@@ -41,8 +37,6 @@ private:
 	Vector *_final_position_window;
 	Vector *_clipped_position;
 	Vector *_clipped_final_position;
-	Vector *_initial_proj;
-	Vector *_final_proj;
 	static LineAlgorithm _line_alg;
 };
 

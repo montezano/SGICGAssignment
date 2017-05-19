@@ -20,8 +20,6 @@
  {
 	 _clipped_position = new Vector();
 	 _clipped_final_position = new Vector();
-	 _initial_proj = _window->project(_position);
-	 _final_proj = _window->project(_final_position);
 	 _tipo = "linha";
 	 updateWindow();
  }
@@ -50,17 +48,15 @@ Vector Line::getCenter()
 
 void Line::transform(Transformation & transformation)
 {
-	_position = transformation.transformPoint(*_position);
-	_final_position = transformation.transformPoint(*_final_position);
+	*_position = transformation.transformPoint(*_position);
+	*_final_position = transformation.transformPoint(*_final_position);
 	updateWindow();
 }
 
 void Line::updateWindow()
 {
-	_initial_proj = _window->project(_position);
-	_final_proj = _window->project(_final_position);
-	_position_window = _window->normalize(_initial_proj);
-	_final_position_window = _window->normalize(_final_proj);
+	_position_window = _window->project(_position);
+	_final_position_window = _window->project(_final_position);
 	clip();
 }
 

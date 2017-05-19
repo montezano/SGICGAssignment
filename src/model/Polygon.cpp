@@ -98,7 +98,7 @@ void Polygon::transform(Transformation & transformation)
 {
 	for (size_t i = 0; i < _coords.size(); i++)
 	{
-		_coords[i] = transformation.transformPoint(*_coords[i]);
+		*_coords[i] = transformation.transformPoint(*_coords[i]);
 	}
 
 	updateWindow();
@@ -109,7 +109,7 @@ void Polygon::updateWindow()
 	
 	for (size_t i = 0; i < _coords.size(); i++)
 	{
-		_coords_window[i] = _window->normalize(_coords[i]);
+		_coords_window[i] = _window->project(_coords[i]);
 	}
 	clip();
 }

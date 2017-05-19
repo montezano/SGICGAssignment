@@ -8,7 +8,7 @@ Windowport::Windowport(Vector position, Vector size, Viewport *viewport) :
 	_center(position + (_size)),
 	_initial_position(_center - _size),
 	_final_position(_center + _size),
-	_cop(_center.x, _center.y, _center.z - D),
+	_cop(_center.x, _center.y, -D),
 	_vpn(0.f, 0.f, 1.f),
 	_viewport(viewport)
 {
@@ -31,42 +31,19 @@ void Windowport::move(Vector offset)
 {
 	_transformation.translate(offset);
 
-
-	Transformation transformation = Transformation();
-
-	transformation.translate(offset);
-	_cop = *transformation.transformPoint(_cop);
-	_vpn = *transformation.transformPoint(_vpn);
-
 	notify(this, Events::WINDOW_MOVE);
 }
 
 void Windowport::rotate(Vector angles)
 {
-	_transformation.translate(_cop).rotate(angles).translate(-_cop);
-
-
-	Transformation transformation = Transformation();
-
-
-	transformation.translate(-_cop).rotate(angles).translate(_cop);
-	_cop = *transformation.transformPoint(_cop);
-	_vpn = *transformation.transformPoint(_vpn);
-
-	
-
+	_transformation.translate(-_cop).rotate(angles).translate(_cop);
 
 	notify(this, Events::WINDOW_ROTATE);
-
-
 }
 
 void Windowport::zoom(float factor)
 {
-	_transformation.translate(_cop).scale(Vector(factor, factor, factor)).translate(-_cop);
-	//_cop = *_transformation.transformPoint(_cop);
-	//_vpn = *_transformation.transformPoint(_vpn);
-
+	_transformation.translate(-_cop).scale(Vector(factor, factor, factor)).translate(_cop);
 
 	notify(this, Events::WINDOW_ZOOM);
 }
@@ -78,7 +55,7 @@ Transformation Windowport::getTransformation()
 
 Vector *Windowport::normalize(Vector *vector)
 {
-	return new Vector((*_transformation.transformPoint(*vector) - _center) / _size);
+	return new Vector((*vector - _center) / _size);
 }
 
 float Windowport::unormalize_x(Vector *vector)
@@ -99,7 +76,6 @@ Vector Windowport::unormalize(Vector *vector)
 void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 {
-
 	 cairo_set_source_rgb(cr, 255, 0, 0);
 
 
@@ -122,10 +98,11 @@ void Windowport::draw(cairo_t *cr, Viewport *viewport)
 
 Vector * Windowport::project(Vector *vec)
 {
-	Vector veco = *vec;
-	Vector *vec_orig = _transformation.transformPoint(veco);
-	if (vec_orig->z == 0) return new Vector( *vec_orig);
-	return new Vector(vec_orig->x / (vec_orig->z /(vec_orig->z - _cop.z)), vec_orig->y / (vec_orig->z / (vec_orig->z - _cop.z)), _cop.z);
+	Vector vec_orig = _transformation.transformPoint(*vec);
+	float d =-_cop.z;
+	if (vec_orig.z == 0) vec_orig.z = 0.00001f;
+	Vector * teste = new Vector(vec_orig.x / (vec_orig.z / (d)), vec_orig.y / (vec_orig.z / (d)), d);
+	return normalize(teste);
 }
 
 Vector * Windowport::getInitWindowPosition()

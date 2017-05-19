@@ -39,10 +39,6 @@ protected:
 	Vector *_position_window;
 	Windowport *_window;
 	bool _visible;
-	//cairo_t *_cr;
-
-
-
 };
 
 #endif /* SRC_MODEL_DRAWABLE_H_ */

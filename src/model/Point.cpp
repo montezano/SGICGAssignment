@@ -31,13 +31,13 @@ Vector Point::getCenter()
 
 void Point::transform(Transformation & transformation)
 {
-	_position = transformation.transformPoint(*_position);
+	*_position_window = transformation.transformPoint(*_position);
 	updateWindow();
 }
 
 void Point::updateWindow()
 {
-	_position_window = _window->normalize(_position);
+	_position_window = _window->project(_position);
 
 	clip();
 }
