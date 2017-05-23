@@ -72,6 +72,46 @@ void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
 	 //_canvas.push_back(object3d);
 
 	// //FIM TESTE OBJETO 3D
+        
+        //TESTE SURFACE
+        
+//         float mX[4][4] = {
+//{-100, 0, 100, 200},
+//                  {-100, 0, 100, 200},
+//                  {-100, 0, 100, 200},
+//                  {-100, 0, 100, 200}
+//  };
+//  float mY[4][4] = {
+//{300, 300, 300, 300},
+//                  {300, -200, -200, 300},
+//                  {300, -200, -200, 300},
+//                  {300, 300, 300, 300}
+//  };
+//  float mZ[4][4] = {
+//{100, 100, 100, 100},
+//                  {200, 200, 200, 200},
+//                  {300, 300, 300, 300},
+//                  {400, 400, 400, 400} 
+//  };
+//  std::vector<std::vector<Vector*>> matrix;
+//  std::vector<Vector*> vector;
+//  Vector *point;
+//
+//  matrix = std::vector<std::vector<Vector*>>();
+//  for (int i = 0; i < 4; i++) {
+//    vector = std::vector<Vector*>();
+//    for (int j = 0; j < 4; j++) {
+//      point = new Vector(mX[i][j], mY[i][j], mZ[i][j]);
+//      g_print("vector: %f, %f, %f\n",mX[i][j], mY[i][j], mZ[i][j]);
+//      vector.push_back(point);
+//    }
+//    matrix.push_back(vector);
+//  }
+//  Drawable *s = new Surface("kkk", matrix,_window);
+//  _canvas.push_back(s);
+//  	this->notify(static_cast<void*>(s), Events::ADD_DRAWABLE);
+       
+        //FIM TESTE SURFACE
 
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
 }
@@ -159,7 +199,7 @@ void Canvas::deleteDrawable(const gchar* nome) {
 		}
 	 }
 
-	 notify(static_cast<void*>(ret), Events::REMOVE_DRAWABLE);
+	notify(static_cast<void*>(ret), Events::REMOVE_DRAWABLE);
 	delete ret;
 }
 

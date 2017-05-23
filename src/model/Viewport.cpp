@@ -2,8 +2,6 @@
 
 //#define PIXEL_AREA_MIN 1000
 
-
-
 Viewport::Viewport()
 {
 	windowX = -300;

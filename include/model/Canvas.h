@@ -11,6 +11,7 @@
 #include "Line.h"
 #include "Point.h"
 #include "Polygon.h"
+#include "Surface.h"
 #include "Curve2.h"
 #include "Transformation.h"
 #include "Windowport.h"

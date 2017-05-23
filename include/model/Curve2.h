@@ -8,10 +8,11 @@
 class Curve2 : public Polygon {
 public:
 	Curve2(const gchar *nome, std::vector<Vector*> points, Windowport *window, bool type);
+        Curve2(const gchar *nome, Windowport *window);
 	virtual ~Curve2();  
 	virtual void draw(cairo_t *_cr, Viewport *viewport);
 
-
+        static const float _mbs[16];
 private:
 	void calcBezierCurve();
 	void calcBSplineCurve();
@@ -21,7 +22,6 @@ private:
 	float _rate;
 
 	static const float _mb[4][4];
-	static const float _mbs[16];
 	static float _e[16];
 
 };

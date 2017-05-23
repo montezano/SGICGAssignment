@@ -11,16 +11,18 @@ class Object3D : public Drawable
 
   public:
 	Object3D(const gchar *nome, std::vector<Line*> object, Windowport *window);
+	Object3D(const gchar *nome, Windowport *window);
 	virtual ~Object3D();
 	virtual void draw(cairo_t *cr, Viewport *viewport);
 	virtual Vector getCenter();
 	virtual void transform(Transformation &transformation);
 	virtual void updateWindow();
-	
+  protected:
+       	std::vector<Line*> _object; //each pair represent a line
+
   private:
 	virtual void clip();
 
-	std::vector<Line*> _object; //each pair represent a line
 	std::vector<Line*> _coords_window;
 	std::vector<Line*> _clipped_coords;
 };

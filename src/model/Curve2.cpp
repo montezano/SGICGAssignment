@@ -16,6 +16,13 @@
 
 	_position = new Vector(*points[0]);
  }
+ 
+ Curve2::Curve2(const gchar* nome, Windowport* window) : Polygon (nome,window){
+     
+     	  _tipo = "curva";
+
+	 updateWindow();
+ }
 
  Curve2::~Curve2()
  {

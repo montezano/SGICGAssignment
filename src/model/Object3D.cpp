@@ -8,6 +8,11 @@ Object3D::Object3D(const gchar *nome, std::vector<Line*> object, Windowport *win
 	updateWindow();
 }
 
+Object3D::Object3D(const gchar *nome, Windowport *window) :
+  Drawable(nome, window)
+{
+	updateWindow();
+}
 Object3D::~Object3D()
 {
 	for (auto line : _object)

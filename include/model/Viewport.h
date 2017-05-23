@@ -32,6 +32,8 @@ public:
 
 	float transformX(float xw);
 	float transformY(float yw);
+        float transformX2(float xw);
+	float transformY2(float yw);
 	Vector transform(Vector &vector);
  // 
 	//void zoom(float factor);

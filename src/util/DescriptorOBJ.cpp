@@ -8,6 +8,12 @@ DescriptorOBJ::DescriptorOBJ(const char* fileName, Windowport* window){
 std::vector<Drawable*> *DescriptorOBJ::load() {
   std::vector<Drawable*> *objects = new std::vector<Drawable*>;
   std::vector<Line*> *lines = new std::vector<Line*>;
+  
+  std::vector<std::vector<Vector*>> matrix;
+  std::vector<Vector*> vector;
+  Vector *point;
+  matrix = std::vector<std::vector<Vector*>>();
+  vector = std::vector<Vector*>();
   if (_fileName == NULL) {
     return objects;
   }
@@ -73,12 +79,30 @@ std::vector<Drawable*> *DescriptorOBJ::load() {
        lines->push_back(l2);
 
     }
-  }
-  if (lines != NULL) {
+    
+    if (tmpLine[0] == 's' && tmpLine[1] == ' '){
+        int a,b,c,d;
+        sscanf(tmpLine, "s %d %d %d %d", &a, &b, &c, &d);
+        vector = std::vector<Vector*>();
+        for(int i = a; i < a+4; i++) {
+            point = pointsList.at(i-1);
+            g_print("vector: %f, %f, %f\n",point->x, point->y, point->z);
+            vector.push_back(point);
+        }
+        matrix.push_back(vector);
+        }
+    }
+  
+  if (lines->size() > 0) {
     tmpObj = new Object3D(name, *lines, _window);
     g_print(tmpObj->getNome());
     objects->push_back(tmpObj);
     tmpObj = NULL;
+  }
+  if (matrix.size() > 0){
+      tmpObj = new Surface(name,matrix,_window);
+      objects->push_back(tmpObj);
+      tmpObj = NULL;
   }
   return objects;
 }
