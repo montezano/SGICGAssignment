@@ -15,6 +15,7 @@ class Controller;
 #include "WindowCoordinates.h"
 #include "Controller.h"
 #include "Drawable.h"
+#include "Surface.h"
 #include "Canvas.h"
 #include "Viewport.h"
 #include "Line.h"
@@ -76,6 +77,7 @@ private:
 	static GtkRadioButton *_radio_button_ponto;
 	static GtkRadioButton *_radio_button_curve;
 	static GtkRadioButton *_radio_button_object3d;
+	static GtkRadioButton *_radio_button_surface;
 
 
 	static GtkRadioButton *_radio_button_rotation_world;

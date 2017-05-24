@@ -77,40 +77,40 @@ void Canvas::addLine(const gchar* nome, Vector *inicial, Vector *fim)
         
 //         float mX[4][4] = {
 //{-100, 0, 100, 200},
-//                  {-100, 0, 100, 200},
-//                  {-100, 0, 100, 200},
-//                  {-100, 0, 100, 200}
-//  };
-//  float mY[4][4] = {
+  //                {-100, 0, 100, 200},
+    //              {-100, 0, 100, 200},
+      //            {-100, 0, 100, 200}
+  //};
+  //float mY[4][4] = {
 //{300, 300, 300, 300},
-//                  {300, -200, -200, 300},
-//                  {300, -200, -200, 300},
-//                  {300, 300, 300, 300}
-//  };
-//  float mZ[4][4] = {
+ //                 {300, -200, -200, 300},
+ //                 {300, -200, -200, 300},
+ //                 {300, 300, 300, 300}
+ // };
+ // float mZ[4][4] = {
 //{100, 100, 100, 100},
-//                  {200, 200, 200, 200},
-//                  {300, 300, 300, 300},
-//                  {400, 400, 400, 400} 
-//  };
-//  std::vector<std::vector<Vector*>> matrix;
-//  std::vector<Vector*> vector;
-//  Vector *point;
-//
-//  matrix = std::vector<std::vector<Vector*>>();
-//  for (int i = 0; i < 4; i++) {
-//    vector = std::vector<Vector*>();
-//    for (int j = 0; j < 4; j++) {
-//      point = new Vector(mX[i][j], mY[i][j], mZ[i][j]);
-//      g_print("vector: %f, %f, %f\n",mX[i][j], mY[i][j], mZ[i][j]);
-//      vector.push_back(point);
-//    }
-//    matrix.push_back(vector);
-//  }
-//  Drawable *s = new Surface("kkk", matrix,_window);
+ //                 {200, 200, 200, 200},
+  //                {300, 300, 300, 300},
+   //               {400, 400, 400, 400} 
+  //};
+  //std::vector<std::vector<Vector*>> matrix;
+  //std::vector<Vector*> vector;
+  //Vector *point;
+
+ // matrix = std::vector<std::vector<Vector*>>();
+  //for (int i = 0; i < 4; i++) {
+  //  vector = std::vector<Vector*>();
+  //  for (int j = 0; j < 4; j++) {
+  //    point = new Vector(mX[i][j], mY[i][j], mZ[i][j]);
+  //    g_print("vector: %f, %f, %f\n",mX[i][j], mY[i][j], mZ[i][j]);
+  //    vector.push_back(point);
+ //   }
+ //   matrix.push_back(vector);
+ // }
+ // Drawable *s = new Surface("kkk", matrix,_window);
 //  _canvas.push_back(s);
-//  	this->notify(static_cast<void*>(s), Events::ADD_DRAWABLE);
-       
+  	//this->notify(static_cast<void*>(s), Events::ADD_DRAWABLE);
+   
         //FIM TESTE SURFACE
 
 	this->notify(static_cast<void*>(line), Events::ADD_DRAWABLE);
@@ -121,6 +121,23 @@ void Canvas::addPolygon(const gchar *nome, std::vector<Vector*> coords, bool fil
 
 	_canvas.push_back(pol);
 	this->notify(pol, Events::ADD_DRAWABLE);
+}
+
+void Canvas::addSurface(const gchar *nome, std::vector<Vector*> coords, bool bspline){
+	std::vector<std::vector<Vector*>> v;
+	std::vector<Vector*> v1;
+	int j = 0;
+	for (int i = 1; i < 4; i++){
+		v1 = std::vector<Vector*>();
+		for(; j < i*4; j++) {
+			v1.push_back(coords.at(j));
+		}
+		v.push_back(v1);
+	}
+	Drawable* surface = new Surface(nome, v, _window, bspline);
+
+	_canvas.push_back(surface);
+	this->notify(surface, Events::ADD_DRAWABLE);
 }
 
 void Canvas::addObject3D(std::vector<Drawable*> objects){

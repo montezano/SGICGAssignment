@@ -63,6 +63,9 @@ void ControllerMainWindow::configureButtons(GtkBuilder *builder)
 
 	_radio_button_object3d = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_object3d"));
 
+ 	_radio_button_surface = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "radiobutton_add_surface"));
+
+
 	toolButton = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "button_add_object"));
 	g_signal_connect(toolButton, "clicked", G_CALLBACK(add_object_cb), NULL);
 
@@ -544,15 +547,22 @@ void ControllerMainWindow::add_object_cb()
 				if (button_name == "Curva")
 				{
 					_controller->_window_besier_controller->display();
-				}
-				else
+				} else 
 				{
-					_controller->_window_object3d_controller->display();
-				}
+					if (button_name == "Superfície")
+					{
+					g_print("============================\n");
+					_controller->_window_surface_controller->display();
+					}
+					else
+					{
+						_controller->_window_object3d_controller->display();
+					}
 				
 			}
 		}
 	}
+}
 }
 
 gboolean ControllerMainWindow::draw_cb(GtkWidget * widget, cairo_t * cr, gpointer data)
@@ -598,6 +608,8 @@ GtkRadioButton *ControllerMainWindow::_radio_button_poligono = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_ponto = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_curve = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_object3d = NULL;
+GtkRadioButton *ControllerMainWindow::_radio_button_surface = NULL;
+
 
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_world = NULL;
 GtkRadioButton *ControllerMainWindow::_radio_button_rotation_self = NULL;

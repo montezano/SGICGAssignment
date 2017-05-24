@@ -12,6 +12,7 @@ class ControllerPoligono;
 class ControllerPonto;
 class ControllerBesier;
 class ControllerObject3d;
+class ControllerSurface;	
 
 /////////////////////////////////
 /// HEADERS
@@ -26,6 +27,7 @@ class ControllerObject3d;
 #include "ControllerPoligono.h"
 #include "ControllerBesier.h"
 #include "ControllerObject3d.h"
+#include "ControllerSurface.h"
 #include "Canvas.h"
 #include "Observer.h"
 #include "Log.h"
@@ -64,6 +66,7 @@ private:
 	static ControllerPoligono	*_window_poligono_controller;
 	static ControllerBesier		*_window_besier_controller;
 	static ControllerObject3d	*_window_object3d_controller;
+	static ControllerSurface 	*_window_surface_controller;
 	static bool _initialized;
 	static Controller *_instance;
 	static Viewport _viewport;
