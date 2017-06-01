@@ -96,79 +96,138 @@ void Surface::calcSurface(){
     
     float t[4];
     float s[4];
-    float tmpCx[4], tmpCy[4], tmpCz[4];
-    float x, y, z;
-    std::vector<Vector*> tmpVector;
+    float fineStep = 0.01;
+    float croaseStep = 0.1;
     
-    // Calculo do t
-    t[3] = 1.0;
-    s[3] = 1.0;
-    for (float f = 0.0; f <= 1.001; f+=_sStep) {
-      t[2] = f;
-      t[1] = t[2] * t[2];
-      t[0] = t[1] * t[2];
+    for (int a = 0; a < 2; a++) {
+      float tStep, sStep;
+      if (!a) {
+        _tStep = fineStep;
+        _sStep = croaseStep;
+      } else {
+        _tStep = croaseStep;
+        _sStep = fineStep;
+      }
+      
+      t[0] = 1.0;
+      t[1] = t[0] * _tStep;
+      t[2] = t[1] * _tStep;
+      t[3] = t[2] * _tStep;
+      
+      s[0] = 1.0;
+      s[1] = s[0] * _sStep;
+      s[2] = s[1] * _sStep;
+      s[3] = s[2] * _sStep;
+      
+      float mEt[4][4] = {
+        {     0,      0,    0, t[0]},
+        {1*t[3], 1*t[2], t[1],    0},
+        {6*t[3], 2*t[2],    0,    0},
+        {6*t[3],      0,    0,    0}
+      };
+      
+      float mEs[4][4] = {
+        {     0,      0,    0, s[0]},
+        {1*s[3], 1*s[2], s[1],    0},
+        {6*s[3], 2*s[2],    0,    0},
+        {6*s[3],      0,    0,    0}
+      };
+      
+      float mDDx[4][4], mDDy[4][4], mDDz[4][4];
+      for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+          tmpx[i][j] = 0;
+          tmpy[i][j] = 0;
+          tmpz[i][j] = 0;
+          for (int k = 0; k < 4; k++) {
+            tmpx[i][j] += mEs[i][k] * Cx[k][j];
+            tmpy[i][j] += mEs[i][k] * Cy[k][j];
+            tmpz[i][j] += mEs[i][k] * Cz[k][j];
+          }
+        }
+      }
       
       for (int i = 0; i < 4; i++) {
-        tmpCx[i] = 0; tmpCy[i] = 0; tmpCz[i] = 0;
         for (int j = 0; j < 4; j++) {
-          tmpCx[i] += Cx[i][j] * t[j];
-          tmpCy[i] += Cy[i][j] * t[j];
-          tmpCz[i] += Cz[i][j] * t[j];
+          mDDx[i][j] = 0;
+          mDDy[i][j] = 0;
+          mDDz[i][j] = 0;
+          for (int k = 0; k < 4; k++) {
+            mDDx[i][j] += tmpx[i][k] * mEt[j][k];
+            mDDy[i][j] += tmpy[i][k] * mEt[j][k];
+            mDDz[i][j] += tmpz[i][k] * mEt[j][k];
+          }
         }
       }
-      tmpVector = std::vector<Vector*>();
-      for (float g = 0.0; g <= 1.001; g+=_tStep) {
-        s[2] = g;
-        s[1] = s[2] * s[2];
-        s[0] = s[1] * s[2];
-        x = 0; y = 0; z = 0;
+      if (a == 1) {
         for (int i = 0; i < 4; i++) {
-          x += s[i] * tmpCx[i];
-          y += s[i] * tmpCy[i];
-          z += s[i] * tmpCz[i];
+          for (int j = i; j < 4; j++) {
+            float tmp;
+            tmp = mDDx[i][j];
+            mDDx[i][j] = mDDx[j][i];
+            mDDx[j][i] = tmp;
+            tmp = mDDy[i][j];
+            mDDy[i][j] = mDDy[j][i];
+            mDDy[j][i] = tmp;
+            tmp = mDDz[i][j];
+            mDDz[i][j] = mDDz[j][i];
+            mDDz[j][i] = tmp;
+          }
         }
-        Vector *p = new Vector(x, y, z);
-        tmpVector.push_back(p);
       }
-      _points.push_back(tmpVector);
+      std::vector<Vector*> tmpVect;
+      int nt, ns;
+      if (a) {
+        nt = 1/_sStep + 1;
+        ns = 1/_tStep + 1;
+      } else {
+        nt = 1/_tStep + 1;
+        ns = 1/_sStep + 1;
+      }
+      for (int i = 0; i < ns; i++) {
+        tmpVect = drawFwdDiff(nt, mDDx[0], mDDy[0], mDDz[0]);
+        _points.push_back(tmpVect);
+        for (int j = 0; j < 3; j++) {
+          for (int k = 0; k < 3; k++) {
+            mDDx[j][k] = mDDx[j][k] + mDDx[j+1][k];
+            mDDy[j][k] = mDDy[j][k] + mDDy[j+1][k];
+            mDDz[j][k] = mDDz[j][k] + mDDz[j+1][k];
+          }
+        }
+      }
     }
-    
-    // Calculo do s
-    for (float f = 0.0; f <= 1.001; f+=_sStep) {
-      t[2] = f;
-      t[1] = t[2] * t[2];
-      t[0] = t[1] * t[2];
-      
-      for (int i = 0; i < 4; i++) {
-        tmpCx[i] = 0; tmpCy[i] = 0; tmpCz[i] = 0;
-        for (int j = 0; j < 4; j++) {
-          tmpCx[i] += t[j] * Cx[j][i];
-          tmpCy[i] += t[j] * Cy[j][i];
-          tmpCz[i] += t[j] * Cz[j][i];
-        }
-      }
-      tmpVector = std::vector<Vector*>();
-      for (float g = 0.0; g <= 1.001; g+=_tStep) {
-        s[2] = g;
-        s[1] = s[2] * s[2];
-        s[0] = s[1] * s[2];
-        x = 0; y = 0; z = 0;
-        for (int i = 0; i < 4; i++) {
-          x += tmpCx[i] * s[i];
-          y += tmpCy[i] * s[i];
-          z += tmpCz[i] * s[i];
-        }
-        Vector *p = new Vector(x, y, z);
-        tmpVector.push_back(p);
-      }
-      _points.push_back(tmpVector);
-    }
-  }
   //Transforma a matriz de pontos em linhas para tratar como obj 3D
+  }
   this->pointsToLine();
-  
- }
  
+}
+ 
+std::vector<Vector*> Surface::drawFwdDiff(int n, const float c_x[4], const float c_y[4], const float c_z[4]) {
+  std::vector<Vector*> curvePoints = std::vector<Vector*>();
+  float x[4], y[4], z[4];
+  for (int k = 0; k < 4; k++) {
+    x[k] = c_x[k];
+    y[k] = c_y[k];
+    z[k] = c_z[k];
+  }
+  curvePoints.push_back(new Vector(x[0], y[0], z[0]));
+  for (int i = 0; i < n; i++) {
+    x[0] += x[1];
+    x[1] += x[2];
+    x[2] += x[3];
+    
+    y[0] += y[1];
+    y[1] += y[2];
+    y[2] += y[3];
+    
+    z[0] += z[1];
+    z[1] += z[2];
+    z[2] += z[3];
+    curvePoints.push_back(new Vector(x[0], y[0], z[0]));
+  }
+  return curvePoints;
+}
+
  void Surface::pointsToLine(){
   Vector *init, *fim;
   int i = 0;

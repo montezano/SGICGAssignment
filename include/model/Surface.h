@@ -31,6 +31,7 @@ private:
 	void calcSurface();
         void calculateG(int lines, int columns, std::vector<std::vector<float>>* m, Surface::coords coord);
         void pointsToLine();
+        std::vector<Vector*> drawFwdDiff(int n, const float c_x[4], const float c_y[4], const float c_z[4]);
 	std::vector<std::vector<Vector*>> _matrix;
         std::vector<std::vector<Vector*>> _points;
         std::vector<std::vector<Vector*>> _points_window;

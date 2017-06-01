@@ -1,6 +1,7 @@
 #include "Canvas.h"
 
 #include <assert.h>
+#include <cmath>
 
 Canvas::Canvas(Viewport *viewport, Windowport *window)
 {
@@ -127,9 +128,9 @@ void Canvas::addSurface(const gchar *nome, std::vector<Vector*> coords, bool bsp
 	std::vector<std::vector<Vector*>> v;
 	std::vector<Vector*> v1;
 	int j = 0;
-	for (int i = 1; i < 4; i++){
+	for (int i = 1; i < sqrt(coords.size()); i++){
 		v1 = std::vector<Vector*>();
-		for(; j < i*4; j++) {
+		for(; j < i*sqrt(coords.size()); j++) {
 			v1.push_back(coords.at(j));
 		}
 		v.push_back(v1);
